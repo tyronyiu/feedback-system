@@ -13,7 +13,8 @@ import Done from './pages/Done';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
-import ApolloClient from 'apollo-boost';
+//import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { HttpLink } from 'apollo-link-http';
 //import { createHttpLink } from 'apollo-link-http';
@@ -37,7 +38,7 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-export const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
+const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
 
 
 export const client = new ApolloClient({
