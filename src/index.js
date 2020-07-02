@@ -15,9 +15,9 @@ import * as serviceWorker from './serviceWorker';
 /* Apollo dependencies */
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { HttpLink } from 'apollo-link-http';
+//import { HttpLink } from 'apollo-link-http';
+//import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
 
 import '@ionic/react/css/core.css';
 
