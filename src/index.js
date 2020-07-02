@@ -39,16 +39,18 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 //const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
-//const link = createHttpLink({
-//    uri: 'http:164.90.166.95:4000/',
-//  credentials: 'include'
-//});
+const link = createHttpLink({
+    uri: 'http://164.90.166.95:4000/graphql',
+  credentials: 'include'
+});
 
 
 export const client = new ApolloClient({
   //uri: 'http://164.90.166.95:4000',
   cache: new InMemoryCache(),
-    link: createHttpLink({ uri: 'http://164.90.166.95:4000/' }),
+  credentials: 'include',
+   link, 
+    //link: createHttpLink({ uri: 'http://164.90.166.95:4000/' }),
     //opts: {
 	//			mode: "no-cors",
 	//		},
