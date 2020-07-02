@@ -17,7 +17,7 @@ import ApolloClient from 'apollo-boost';
 //import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 //import { HttpLink } from 'apollo-link-http';
-import { createHttpLink } from 'apollo-link-http';
+//import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import '@ionic/react/css/core.css';
@@ -39,12 +39,12 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 //const link = new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' });
-const link = createHttpLink({
-    uri: 'http://164.90.166.95:4000/graphql',
-  credentials: 'include',
-    fetch: fetch,
-
-});
+//const link = createHttpLink({
+//    uri: 'http://164.90.166.95:4000/graphql',
+//  credentials: 'include',
+//    fetch: fetch,
+//
+//});
 
 
 export const client = new ApolloClient({
