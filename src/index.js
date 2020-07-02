@@ -13,8 +13,8 @@ import Done from './pages/Done';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
-//import ApolloClient from 'apollo-boost';
-import { ApolloClient } from 'apollo-client';
+import ApolloClient from 'apollo-boost';
+//import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 //import { HttpLink } from 'apollo-link-http';
 import { createHttpLink } from 'apollo-link-http';
@@ -41,15 +41,17 @@ import '@ionic/react/css/display.css';
 //const link = new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' });
 const link = createHttpLink({
     uri: 'http://164.90.166.95:4000/graphql',
-  credentials: 'include'
+  credentials: 'include',
+    fetch: fetch,
+
 });
 
 
 export const client = new ApolloClient({
-  //uri: 'http://164.90.166.95:4000',
+    uri: 'http://164.90.166.95:4000/graphql',
   cache: new InMemoryCache(),
   credentials: 'include',
-   link, 
+   //link, 
     //link: createHttpLink({ uri: 'http://164.90.166.95:4000/' }),
     //opts: {
 	//			mode: "no-cors",
