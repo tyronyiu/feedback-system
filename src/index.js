@@ -44,6 +44,9 @@ const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
 export const client = new ApolloClient({
   //uri: 'http://164.90.166.95:4000',
     link,
+    opts: {
+				mode: "no-cors",
+			},
   cache: new InMemoryCache(),
     onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
