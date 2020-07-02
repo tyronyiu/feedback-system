@@ -73,17 +73,5 @@ class Chips extends React.Component {
 }
 }
 
-{/*
-            <IonChip outline={this.state.compliments["service"]} color="success" >
-              <IonIcon  icon={ribbon} color="success" />
-              <IonLabel>Amazing service!</IonLabel>
-            </IonChip>
-
-            <IonChip outline={this.state.compliments["products"]} color="primary" >
-              <IonIcon  icon={cart} color="primary" />
-              <IonLabel>Great products!</IonLabel>
-            </IonChip>
-
-*/}
 export default Chips;
 
