@@ -16,6 +16,8 @@ import * as serviceWorker from './serviceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
 
 import '@ionic/react/css/core.css';
 
@@ -35,11 +37,12 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
+//export const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
 
 
 export const client = new ApolloClient({
-    link,
+  uri: 'http://164.90.166.95:4000',
+  cache: new InMemoryCache(),
     onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)
