@@ -15,6 +15,7 @@ import * as serviceWorker from './serviceWorker';
 /* Apollo dependencies */
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { HttpLink } from 'apollo-link-http';
 
 import '@ionic/react/css/core.css';
 
@@ -34,8 +35,11 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
+
+
 export const client = new ApolloClient({
-  uri: 'http://164.90.166.95:4000/',
+    link,
     onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)
