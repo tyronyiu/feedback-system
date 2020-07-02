@@ -38,7 +38,7 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-const link = new HttpLink({ uri: 'http://164.90.166.95:4000/' });
+const link = new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' });
 //const link = createHttpLink({
 //    uri: 'http://164.90.166.95:4000/graphql',
 //  credentials: 'include'
