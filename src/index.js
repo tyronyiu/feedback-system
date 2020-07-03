@@ -49,7 +49,7 @@ import '@ionic/react/css/display.css';
 
 const client = new ApolloClient({
     //link: 'http://164.90.166.95:4000/graphql',
-    link: new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' }),
+    link: new HttpLink({ uri: '//164.90.166.95:4000/graphql' }),
     cache: new InMemoryCache(),
     credentials: 'include',
    //link, 
