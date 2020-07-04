@@ -2,9 +2,11 @@ import React from 'react';
 import {
 IonList,
 IonItem,
+IonIcon,
 IonRange,
 IonLabel,
 } from '@ionic/react';
+import { thumbsUp, thumbsDown, } from 'ionicons/icons';   
 
   
 class List extends React.Component {
@@ -41,11 +43,17 @@ class List extends React.Component {
 	render(){
   return (
       <div>
-<IonList mode="ios">
+<IonList mode="ios" lines="none">
 
-<IonItem>
-<IonLabel position="fixed"><b>Score</b></IonLabel>
-<IonRange pin={true} value={this.state.overallValue} onIonChange={e => this.setValue(e.detail.value)} />
+      <IonItem>
+       <IonLabel><b>Score</b></IonLabel>
+      </IonItem>
+
+<IonItem mode="ios">
+<IonRange style={{width:"125%"}} pin={true} value={this.state.overallValue} onIonChange={e => this.setValue(e.detail.value)}>
+      <IonIcon slot="start" size="small" icon={thumbsDown} color="red" style={{position:"relative",left:"-0.5em"}}/>
+      <IonIcon slot="end" size="small" icon={thumbsUp} color="success" style={{position:"relative", left:"0.5em"}}/>
+      </IonRange>
 </IonItem>
 {/*
 
