@@ -269,7 +269,7 @@ handleSubmit() {
             {ComplimentMutation =>
             <Mutation mutation={AddCommentByClientId} variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
             {CommentMutation => 
-                <Link to="done">
+                <Link to={`${this.props.match.params.client}/done`}>
                 <IonButton expand="block" onClick={() => {
                     EntryMutation();
                     if (this.state.comment !== ""){ CommentMutation()} ;
