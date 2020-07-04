@@ -18,6 +18,7 @@ import { gql } from 'apollo-boost';
         query getClients($clientId: ID!){
         clientById(clientId: $clientId){
         name
+        cardBannerImage
         }
         }
     `
@@ -39,6 +40,18 @@ function CompanyName({clientId}){
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     return data.clientById.name
+}
+
+function CardBannerImage({clientId}){
+    const { loading, error, data } = useQuery(clientById,{
+        variables: {clientId}
+    });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+    return (
+            <img alt="banner" src={data.clientById.cardBannerImage}/>
+    )
+    
 }
   
 
@@ -91,7 +104,7 @@ class Done extends React.Component {
       </IonHeader>
 
       <IonCard>
-      <img alt="Banner" src="https://i.ibb.co/wWrPnkF/APS-Category-Katalog-20.jpg"/>
+      <CardBannerImage clientId={this.props.match.params.client}/>
       <IonCardHeader>
       <IonCardSubtitle>
       <CompanyName clientId={this.props.match.params.client}/>
