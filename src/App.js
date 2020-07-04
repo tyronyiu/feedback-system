@@ -26,6 +26,7 @@ import moment from 'moment';
         query getClients($clientId: ID!){
         clientById(clientId: $clientId){
         name
+        cardBannerImage
         }
         }
     `
@@ -130,6 +131,19 @@ function CompanyName({clientId}){
     return data.clientById.name
     
 }
+
+function CardBannerImage({clientId}){
+    const { loading, error, data } = useQuery(clientById,{
+        variables: {clientId}
+    });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+    return (
+            <img alt="banner" src={data.clientById.cardBannerImage}/>
+    )
+    
+}
+
   
 function Prompt({clientId}){
     const { loading, error, data } = useQuery(promptByClientId,{
@@ -157,7 +171,8 @@ class App extends React.Component {
         entryId: "",
 		comment: "",
         score: 100,
-        compliments: {"love":{active:false},"service":{active:false},"products":{active:false}}    
+        compliments: {"love":{active:false},"service":{active:false},"products":{active:false}},
+        cardBannerImage: ""
         }
 	}
 
@@ -174,7 +189,10 @@ callbackFunctionScore = (childData) => {
 
 
     componentDidMount(){
-        this.setState({entryId: ID()}, function(){
+        this.setState({
+            entryId: ID(),
+
+        }, function(){
         console.log("initial: ", this.state)
         })
     }
@@ -188,6 +206,19 @@ handleSubmit() {
 
 	render(){
 
+        const client = this.props.match.params.client
+        try{
+            const cardBannerImage = useQuery(clientById, {
+                variables: client
+            });
+            console.log(cardBannerImage)
+            if (cardBannerImage.cardBannerImage !== null){
+            this.setState({
+                cardBannerImage: cardBannerImage.cardBannerImage
+            })
+            }
+        }
+        catch(e){console.log(e)}
         return (
             <div className="App">
             <IonPage>
@@ -211,7 +242,7 @@ handleSubmit() {
             </IonHeader>
 
             <IonCard>
-            <img alt="banner" src="https://i.ibb.co/wWrPnkF/APS-Category-Katalog-20.jpg"/>
+            <CardBannerImage clientId={this.props.match.params.client}/>
             <IonCardHeader>
             <IonCardSubtitle>
             <CompanyName clientId={this.props.match.params.client}/>
