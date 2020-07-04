@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media only screen and (min-width: 992px){
+ion-content{
+width: 50vw !important;
+left: 25%;
+}
+}

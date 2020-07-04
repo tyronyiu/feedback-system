@@ -1,4 +1,5 @@
 import React from 'react';
+import './Home.css';
 import {
 IonContent,
 IonHeader,
@@ -10,6 +11,7 @@ IonCardHeader,
 IonCardContent,
 IonCardTitle,
 IonButton,
+    IonText,
 IonCardSubtitle,
 } from '@ionic/react';
 
@@ -72,6 +74,32 @@ class Home extends React.Component {
 
       </IonCardContent>
       </IonCard>
+
+
+      <div style={{padding:"1em"}}>
+<h1>
+      Instant availability & customisation 
+      </h1>
+
+      <IonText color="medium" mode="ios">
+      <p>
+      You let us know a few details and we deliver your feedback campaign in less than 24h.
+      </p>
+
+      <p>
+      We adapt your feedback campaign with to your brand by including a visual stimulation, so that you can make your campaign truly yours!
+      </p>
+
+      {/*<hr style={{height:"0",border:"0.5px solid"}}/>*/}
+      </IonText>
+     
+      <div className="flex">
+      <img className="flex-image" alt="" src="https://i.ibb.co/1XsMnJ8/Screenshot-2020-07-04-at-20-52-18.png"/>
+      <img className="flex-image" alt="" src="https://i.ibb.co/Fxc0bRs/Screenshot-2020-07-04-at-20-52-24.png"/>
+      <img className="flex-image" alt="" src="https://i.ibb.co/Cvyq6qB/Screenshot-2020-07-04-at-20-54-42.png"/>
+      </div>
+
+      </div>
 
       </IonContent>
 
