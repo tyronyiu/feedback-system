@@ -49,8 +49,8 @@ import '@ionic/react/css/display.css';
 
 const client = new ApolloClient({
     //link: 'http://164.90.166.95:4000/graphql',
-    //link: new HttpLink({ uri: '//164.90.166.95:4000/graphql' }),
-    link: new HttpLink({ uri: 'https://apollo.simulacron-3.com:443/graphql' }),
+    link: new HttpLink({ uri: 'https://apollo.simulacron-3.com/graphql' }),
+    //link: new HttpLink({ uri: '//apollo.simulacron-3.com/graphql' }),
     //link: new HttpLink({ uri: 'https://apollo.simulacron-3.com:4000/graphql' }),
     cache: new InMemoryCache(),
     credentials: 'include',
