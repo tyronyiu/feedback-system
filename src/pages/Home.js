@@ -10,7 +10,6 @@ IonCardHeader,
 IonCardContent,
 IonCardTitle,
 IonButton,
-IonText,
 IonCardSubtitle,
 } from '@ionic/react';
 
