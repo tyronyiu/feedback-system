@@ -137,9 +137,9 @@ function CardBannerImage({clientId}){
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    if (error) return ;
     return (
-            <img alt="banner" src={data.clientById.cardBannerImage}/>
+            <img alt="" src={data.clientById.cardBannerImage}/>
     )
     
 }

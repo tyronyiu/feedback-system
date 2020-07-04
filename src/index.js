@@ -10,6 +10,8 @@ import { HashRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Done from './pages/Done';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
@@ -92,8 +94,10 @@ ReactDOM.render(
             <Switch>
 
 	<ApolloProvider client={client}>
+<Route exact path="/" component={Home}/>
 <Route exact path="/:client/" component={App}/>
 <Route exact path="/:client/done" component={Done}/>
+<Route exact path="/:client/dashboard" component={Dashboard}/>
 
 	</ApolloProvider>
     </Switch>
