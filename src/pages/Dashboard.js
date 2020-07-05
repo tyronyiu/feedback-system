@@ -105,7 +105,7 @@ function EntriesCards({clientId}){
 			data.entriesByClientId.map((entry, key) => (
 				<div key={key}>
 				<IonListHeader>
-				{moment(entry.time).format('HH:MM - do MMMM YYYY')}
+				{moment(entry.time).format('HH:MM - Do MMMM YYYY')}
 				</IonListHeader>
 
 				<IonItem>
