@@ -1,0 +1,16 @@
+.padding-top-p{
+padding-top: 1vh;
+
+}
+.circle-underlay{
+	background-color: var(--ion-color-light);
+height: 2.5em;
+width: 2.5em;
+text-align: center;
+	border-radius: 100%;	
+}
+
+.circle-overlay-p{
+	margin: auto;
+line-height: 2.5em;
+}

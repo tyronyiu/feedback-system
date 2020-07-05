@@ -1,15 +1,23 @@
 import React from 'react';
+import moment from 'moment';
+import './Dashboard.css';
 import {
 IonContent,
 IonHeader,
 IonPage,
 IonTitle,
 IonToolbar,
-IonCard,
-IonCardHeader,
-IonCardContent,
-IonCardTitle,
-IonCardSubtitle,
+IonList,
+IonItem,
+IonLabel,
+IonListHeader,
+IonText,
+//IonAvatar,
+//IonCard,
+//IonCardHeader,
+//IonCardContent,
+//IonCardTitle,
+//IonCardSubtitle,
 } from '@ionic/react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
@@ -22,14 +30,32 @@ import { gql } from 'apollo-boost';
         }
         }
     `
-    const thanksByClientId= gql`
-        query getThanks($clientId: ID!){
-        thanksByClientId(clientId: $clientId){
-        thanks
-        }
-        }
-    `
+//    const commentsByClientId = gql`
+//    query getComments($clientId: ID!){
+//        commentsByClientId(clientId: $clientId){
+//        comment
+//        }
+//    }
+//`
 
+    const entriesByClientId = gql`
+    query getEntries($clientId: ID!){
+        entriesByClientId(clientId: $clientId){
+           time
+            score {
+              score
+            }
+            comment {
+              comment
+            }
+            compliments {
+              love
+              service
+              products
+            } 
+        }
+    }
+`
 
 
 
@@ -42,34 +68,107 @@ function CompanyName({clientId}){
     return data.clientById.name
 }
 
-function CardBannerImage({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
-    });
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-    return (
-            <img alt="banner" src={data.clientById.cardBannerImage}/>
-    )
+
+//function CommentCards({clientId}){
+//    const { loading, error, data } = useQuery(commentsByClientId,{
+//        variables: {clientId}
+//    });
+//    if (loading) return <p>Loading...</p>;
+//    if (error) return <p>Error :(</p>;
+//    return (
+//          data.commentsByClientId.map((comment, key) => (
+//
+//              <IonList>
+//              <IonItem key={key}>
+//              <IonLabel>
+//              <IonText color="medium">
+//              #{key}
+//              </IonText>
+//              </IonLabel>
+//              {comment.comment}
+//              </IonItem>
+//              </IonList>
+//          )
+//    )
+//    )
+//    
+//}
+  
+function EntriesCards({clientId}){
+	const { loading, error, data } = useQuery(entriesByClientId,{
+		variables: {clientId}
+	});
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
+		console.log(data)
+		return (
+			data.entriesByClientId.map((entry, key) => (
+				<div key={key}>
+				<IonListHeader>
+				{moment(entry.time).format('HH:MM - do MMMM YYYY')}
+				</IonListHeader>
+
+				<IonItem>
+				<IonText color="gray" slot="start">
+				<div className="circle-underlay">
+				<p className="circle-overlay-p">
+				{entry.score.score}
+				</p>
+				</div>
+				</IonText>
+
+				<IonLabel>
+				<p style={{fontSize: ".75rem"}}>
+				<IonText color="gray">
+				Entry #{key+1}
+				</IonText>
+				</p>
+
+				{ entry.compliments !== null &&
+					<div>
+					<IonText color="gray">
+					<h3 className="padding-top-p">
+					Compliments:
+					</h3>
+					</IonText>
+					<IonText color="dark">
+					{ entry.compliments.love !== false && <p>Loved it!</p>}
+					{ entry.compliments.service !== false && <p>Amazing service!</p>}
+					{ entry.compliments.products !== false && <p>Great products!</p>}
+					</IonText>
+					</div>
+
+				}
+
+
+				{entry.comment !== null &&
+						<div>
+						<IonText color="gray">
+						<h3 className="padding-top-p">
+						Comment:
+						</h3>
+						</IonText>
+						<IonText color="dark">
+						<p>
+						{entry.comment.comment}
+						</p>
+						</IonText>
+						</div>
+				}
+				</IonLabel>
+				</IonItem>
+				</div>
+			)
+			)
+		)
     
 }
-  
-
-function Thanks({clientId}){
-    const { loading, error, data } = useQuery(thanksByClientId,{
-        variables: {clientId}
-    });
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-        console.log(data)
-        console.log(data.thanksByClientId)
-    return data.thanksByClientId.thanks
-}
 
 
 
 
-class Done extends React.Component {
+
+class Dashboard extends React.Component {
 	constructor(){
 		super();
         this.state = {
@@ -82,12 +181,12 @@ class Done extends React.Component {
 	render(){
 
   return (
-      <div className="App">
+      <div className="">
       <IonPage>
       <IonHeader translucent={true}>
       <IonToolbar>
       <IonTitle>
-      <CompanyName clientId={this.props.match.params.client}/>
+		Feedback entries
       </IonTitle>
       </IonToolbar>
       </IonHeader>
@@ -98,27 +197,25 @@ class Done extends React.Component {
       <IonToolbar>
       <IonTitle size="large">
       <CompanyName clientId={this.props.match.params.client}/>
-
       </IonTitle>
       </IonToolbar>
       </IonHeader>
 
-      <IonCard>
-      <CardBannerImage clientId={this.props.match.params.client}/>
-      <IonCardHeader>
-      <IonCardSubtitle>
-      <CompanyName clientId={this.props.match.params.client}/>
-      </IonCardSubtitle>
-      <IonCardTitle>
-      <Thanks clientId={this.props.match.params.client}/>
-      </IonCardTitle>
-      </IonCardHeader>
-
-      <IonCardContent>
-
-
-      </IonCardContent>
-      </IonCard>
+      {/*<CommentCards clientId={this.props.match.params.client}/>*/}
+<IonList mode="ios">
+     <EntriesCards clientId={this.props.match.params.client}/>
+</IonList>
+{/*
+<IonCard>
+<IonCardHeader>
+<IonCardTitle>
+Feedback entries
+</IonCardTitle>
+</IonCardHeader>
+<IonCardContent>
+</IonCardContent>
+</IonCard>
+*/}
 
       </IonContent>
 
@@ -128,4 +225,4 @@ class Done extends React.Component {
 }
 }
 
-export default Done;
+export default Dashboard;

@@ -10,7 +10,21 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-shade: var(--ion-color-red-shade);
   --ion-color-tint: var(--ion-color-red-tint);
 }
+.ion-color-gray {
+      --ion-color-base: var(--ion-color-gray);
+        --ion-color-base-rgb: var(--ion-color-gray-rgb);
+          --ion-color-contrast: var(--ion-color-gray-contrast);
+            --ion-color-contrast-rgb: var(--ion-color-gray-contrast-rgb);
+              --ion-color-shade: var(--ion-color-gray-shade);
+                --ion-color-tint: var(--ion-color-gray-tint);
+                }
 :root {
+--ion-color-gray: #7a7a7a;
+  --ion-color-gray-rgb: 122,122,122;
+    --ion-color-gray-contrast: #ffffff;
+      --ion-color-gray-contrast-rgb: 255,255,255;
+        --ion-color-gray-shade: #6b6b6b;
+          --ion-color-gray-tint: #878787;
 
   /** red **/
   --ion-color-red: #ff6b6d;
