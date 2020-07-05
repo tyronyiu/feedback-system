@@ -11,6 +11,7 @@ import './index.css';
 import App from './App';
 import Done from './pages/Done';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
 import Home from './pages/Home';
 import * as serviceWorker from './serviceWorker';
 
@@ -21,6 +22,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { HttpLink } from 'apollo-link-http';
 //import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context'
+import Cookies from 'js-cookie'
 
 import '@ionic/react/css/core.css';
 
@@ -47,12 +50,24 @@ import '@ionic/react/css/display.css';
 //    fetch: fetch,
 //
 //});
+import { AUTH_TOKEN } from './constants'
 
+const authLink = setContext((_, { headers }) => {
+      //const token = localStorage.getItem(AUTH_TOKEN)
+const token = Cookies.get('token')
+      return {
+              headers: {
+                        ...headers,
+                        authorization: token ? `Bearer ${token}` : ''
+                      }
+            }
+})
 
 const client = new ApolloClient({
     //link: 'https://164.90.166.95:4000/graphql',
     //link: new HttpLink({ uri: 'https://164.99.166.95:443/graphql' }),
-    link: new HttpLink({ uri: 'https://apollo.simulacron-3.com/graphql' }),
+    //link: new HttpLink({ uri: 'https://apollo.simulacron-3.com/graphql' }),
+	link: authLink.concat(new HttpLink({uri: "https://apollo.simulacron-3.com/graphql"}) ),
     //link: new HttpLink({ uri: 'https://apollo.simulacron-3.com:4000/graphql' }),
     cache: new InMemoryCache(),
     credentials: 'include',
@@ -98,6 +113,7 @@ ReactDOM.render(
 <Route exact path="/:client/" component={App}/>
 <Route exact path="/:client/done" component={Done}/>
 <Route exact path="/:client/dashboard" component={Dashboard}/>
+<Route exact path="/:client/login" component={Login}/>
 
 	</ApolloProvider>
     </Switch>

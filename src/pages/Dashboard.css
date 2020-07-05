@@ -14,3 +14,7 @@ text-align: center;
 	margin: auto;
 line-height: 2.5em;
 }
+
+.comment-p{
+white-space: normal;
+}

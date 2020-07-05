@@ -21,6 +21,7 @@ IonText,
 } from '@ionic/react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import Cookies from 'js-cookie'
 
     const clientById = gql`
         query getClients($clientId: ID!){
@@ -95,8 +96,18 @@ function CompanyName({clientId}){
 //}
   
 function EntriesCards({clientId}){
+	const options = {
+			method: 'post',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			body: Cookies.get('token')
+		}
+
+
 	const { loading, error, data } = useQuery(entriesByClientId,{
-		variables: {clientId}
+		variables: {clientId},
+		options: {options}
 	});
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
@@ -149,7 +160,7 @@ function EntriesCards({clientId}){
 						</h3>
 						</IonText>
 						<IonText color="dark">
-						<p>
+						<p className="comment-p">
 						{entry.comment.comment}
 						</p>
 						</IonText>
@@ -179,7 +190,6 @@ class Dashboard extends React.Component {
 
 
 	render(){
-
   return (
       <div className="">
       <IonPage>
