@@ -97,12 +97,35 @@ function CompanyName({clientId}){
   
 function EntriesCards({clientId}){
 	const options = {
-			method: 'post',
+			method: 'get',
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			body: Cookies.get('token')
+			body: `email=Tyiu@me.com&password=1234`
 		}
+
+
+const url = "https://apollo.simulacron-3.com/login"
+
+		fetch(url,options)
+			.then(response => {
+				if (!response.ok) {
+					if (response.status === 404) {
+						alert('Email not found, please retry')
+					}
+					if (response.status === 401) {
+						alert('Email and password do not match, please retry')
+					}
+				}
+				return response
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					document.cookie = 'token=' + data.token
+				}
+			})
+
 
 
 	const { loading, error, data } = useQuery(entriesByClientId,{
