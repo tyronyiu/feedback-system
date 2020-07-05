@@ -50,7 +50,6 @@ import '@ionic/react/css/display.css';
 //    fetch: fetch,
 //
 //});
-import { AUTH_TOKEN } from './constants'
 
 const authLink = setContext((_, { headers }) => {
       //const token = localStorage.getItem(AUTH_TOKEN)

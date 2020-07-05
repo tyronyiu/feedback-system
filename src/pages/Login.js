@@ -11,18 +11,18 @@ IonInput,
 IonTitle,
 IonButton,
 } from '@ionic/react';
-import { Mutation } from 'react-apollo'
-import { gql } from 'apollo-boost';
+//import { Mutation } from 'react-apollo'
+//import { gql } from 'apollo-boost';
 import Cookies from 'js-cookie'
 import { AUTH_TOKEN } from '../constants'
 
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-                    token
-                  }
-        }
-`
+//const LOGIN_MUTATION = gql`
+//  mutation LoginMutation($email: String!, $password: String!) {
+//          login(email: $email, password: $password) {
+//                    token
+//                  }
+//        }
+//`
 
 
 
