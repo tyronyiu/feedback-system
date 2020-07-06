@@ -21,7 +21,7 @@ IonText,
 } from '@ionic/react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
 
     const clientById = gql`
         query getClients($clientId: ID!){

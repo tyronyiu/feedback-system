@@ -17,7 +17,7 @@ import Chips from './components/Chips';
 import List from './components/List';
 import Comments from './components/Comments';
 import { useQuery } from '@apollo/react-hooks';
-import { useMutation } from '@apollo/react-hooks';
+//import { useMutation } from '@apollo/react-hooks';
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-boost';
 import {Link} from "react-router-dom";
@@ -125,27 +125,27 @@ const promptByClientId= gql`
 `
 
 
-const loginMutation = gql`
-  mutation loginMutation($email: String!, $password: String!) {
-    loginMutation(email: $email, password: $password) {
-      token
-    }
-  }
-`
+//const loginMutation = gql`
+//  mutation loginMutation($email: String!, $password: String!) {
+//    loginMutation(email: $email, password: $password) {
+//      token
+//    }
+//  }
+//`
 
-const GetToken = async () =>{
-
-   const { data } = await useMutation(loginMutation,{
-    variables: {email:"public@public.com",password:"1234"}
-    });
-        console.log(data)
-    console.log(data.loginMutation.token)
-            localStorage.setItem('token',data.loginMutation.token)
-
-return(
-<p>lol</p>
-)
-}
+//const GetToken = async () =>{
+//
+//   const { data } = await useMutation(loginMutation,{
+//    variables: {email:"public@public.com",password:"1234"}
+//    });
+//        console.log(data)
+//    console.log(data.loginMutation.token)
+//            localStorage.setItem('token',data.loginMutation.token)
+//
+//return(
+//<p>lol</p>
+//)
+//}
 
 
 

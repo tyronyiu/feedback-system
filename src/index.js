@@ -43,8 +43,8 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-import { gql } from 'apollo-boost';
-import { useMutation } from '@apollo/react-hooks';
+//import { gql } from 'apollo-boost';
+//import { useMutation } from '@apollo/react-hooks';
 //const link = new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' });
 const httpLink = createHttpLink({
     uri: 'https://apollo.simulacron-3.com/graphql',
