@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {
     Switch,
@@ -19,11 +19,11 @@ import * as serviceWorker from './serviceWorker';
 //import { ApolloClient, HttpLink } from 'apollo-boost';
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { HttpLink } from 'apollo-link-http';
-//import { createHttpLink } from 'apollo-link-http';
+//import { HttpLink } from 'apollo-link-http';
+import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context'
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
 
 import '@ionic/react/css/core.css';
 
@@ -43,33 +43,83 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 //const link = new HttpLink({ uri: 'http://164.90.166.95:4000/graphql' });
-//const link = createHttpLink({
-//    uri: 'http://164.90.166.95:4000/graphql',
-//  credentials: 'include',
-//    fetch: fetch,
-//
-//});
+const httpLink = createHttpLink({
+    uri: 'https://apollo.simulacron-3.com/graphql',
+});
 
 const authLink = setContext((_, { headers }) => {
-      //const token = localStorage.getItem(AUTH_TOKEN)
-const token = Cookies.get('token')
-      return {
-              headers: {
-                        ...headers,
-                        authorization: token ? `Bearer ${token}` : ''
-                      }
-            }
+      // get the authentication token from local storage if it exists
+       const token = localStorage.getItem('token');
+    if (!token){
+const url = "https://apollo.simulacron-3.com/login"
+	const options = {
+			method: 'post',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			body: "email=public@public.com&password=1234"
+		}
+
+		fetch(url,options)
+			.then(response => {
+				if (!response.ok) {
+					if (response.status === 404) {
+						alert('Email not found, please retry')
+					}
+					if (response.status === 401) {
+						alert('Email and password do not match, please retry')
+					}
+				}
+				return response
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					localStorage.setItem('token', data.token)
+				}
+			})
+}
+console.log("token at top of index: ", token)
+    
+         // return the headers to the context so httpLink can read them
+           return {
+			   headers: {
+				   ...headers,
+				   authorization: token ? `Bearer ${token}` : '',
+			   }
+                                 }
 })
+
+
+
+
+
+
+
+         
+
+//const authLink = setContext((_, { headers }) => {
+//      //const token = localStorage.getItem(AUTH_TOKEN)
+//const token = Cookies.get('token')
+//      return {
+//              headers: {
+//                        ...headers,
+//                        authorization: token ? `Bearer ${token}` : ''
+//                      }
+//            }
+//})
 
 const client = new ApolloClient({
     //link: 'https://164.90.166.95:4000/graphql',
     //link: new HttpLink({ uri: 'https://164.99.166.95:443/graphql' }),
     //link: new HttpLink({ uri: 'https://apollo.simulacron-3.com/graphql' }),
-	link: authLink.concat(new HttpLink({uri: "https://apollo.simulacron-3.com/graphql"}) ),
+	//link: authLink.concat(new HttpLink({uri: "https://apollo.simulacron-3.com/graphql"}) ),
+link: authLink.concat(httpLink),
     //link: new HttpLink({ uri: 'https://apollo.simulacron-3.com:4000/graphql' }),
     cache: new InMemoryCache(),
-    credentials: 'include',
    //link, 
     //link: createHttpLink({ uri: 'http://164.90.166.95:4000/' }),
     //opts: {

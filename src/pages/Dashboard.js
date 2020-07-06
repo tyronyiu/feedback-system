@@ -21,7 +21,7 @@ IonText,
 } from '@ionic/react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-//import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 
     const clientById = gql`
         query getClients($clientId: ID!){
@@ -184,32 +184,33 @@ class Dashboard extends React.Component {
 
 
 	render(){
-  return (
-      <div className="">
-      <IonPage>
-      <IonHeader translucent={true}>
-      <IonToolbar>
-      <IonTitle>
-		Feedback entries
-      </IonTitle>
-      </IonToolbar>
-      </IonHeader>
+		if (localStorage.getItem('token')) {
+			return (
+				<div className="">
+				<IonPage>
+				<IonHeader translucent={true}>
+				<IonToolbar>
+				<IonTitle>
+				Feedback entries
+				</IonTitle>
+				</IonToolbar>
+				</IonHeader>
 
 
-      <IonContent fullscreen={true}>
-      <IonHeader collapse="condense">
-      <IonToolbar>
-      <IonTitle size="large">
-      <CompanyName clientId={this.props.match.params.client}/>
-      </IonTitle>
-      </IonToolbar>
-      </IonHeader>
+				<IonContent fullscreen={true}>
+				<IonHeader collapse="condense">
+				<IonToolbar>
+				<IonTitle size="large">
+				<CompanyName clientId={this.props.match.params.client}/>
+				</IonTitle>
+				</IonToolbar>
+				</IonHeader>
 
-      {/*<CommentCards clientId={this.props.match.params.client}/>*/}
-<IonList mode="ios">
-     <EntriesCards clientId={this.props.match.params.client}/>
-</IonList>
-{/*
+				{/*<CommentCards clientId={this.props.match.params.client}/>*/}
+				<IonList mode="ios">
+				<EntriesCards clientId={this.props.match.params.client}/>
+				</IonList>
+				{/*
 <IonCard>
 <IonCardHeader>
 <IonCardTitle>
@@ -221,11 +222,17 @@ Feedback entries
 </IonCard>
 */}
 
-      </IonContent>
+				</IonContent>
 
-      </IonPage>
-      </div>
-  );
+				</IonPage>
+				</div>
+			);
+		}
+		else{
+			this.props.history.push(`/${this.props.match.params.client}/login`)
+return null
+
+		}
 }
 }
 

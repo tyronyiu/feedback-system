@@ -17,10 +17,12 @@ import Chips from './components/Chips';
 import List from './components/List';
 import Comments from './components/Comments';
 import { useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-boost';
 import {Link} from "react-router-dom";
 import moment from 'moment';
+//import Cookies from 'js-cookie'
 
     const clientById = gql`
         query getClients($clientId: ID!){
@@ -122,6 +124,31 @@ const promptByClientId= gql`
     }
 `
 
+
+const loginMutation = gql`
+  mutation loginMutation($email: String!, $password: String!) {
+    loginMutation(email: $email, password: $password) {
+      token
+    }
+  }
+`
+
+const GetToken = async () =>{
+
+   const { data } = await useMutation(loginMutation,{
+    variables: {email:"public@public.com",password:"1234"}
+    });
+        console.log(data)
+    console.log(data.loginMutation.token)
+            localStorage.setItem('token',data.loginMutation.token)
+
+return(
+<p>lol</p>
+)
+}
+
+
+
 function CompanyName({clientId}){
     const { loading, error, data } = useQuery(clientById,{
         variables: {clientId}
@@ -137,7 +164,7 @@ function CardBannerImage({clientId}){
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
-    if (error) return ;
+    if (error) return <img alt="" src=""/>;
     return (
             <img alt="" src={data.clientById.cardBannerImage}/>
     )
@@ -164,9 +191,10 @@ var ID = function () {
 };
 
 
+
 class App extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
         this.state = {
         entryId: "",
 		comment: "",
@@ -196,12 +224,14 @@ callbackFunctionScore = (childData) => {
         console.log("initial: ", this.state)
         })
 
+
+if (localStorage.getItem('token')) {
 	const options = {
 			method: 'post',
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			body: "email=Tyiu@me.com&password=1234"
+			body: "email=public@public.com&password=1234"
 		}
 
 
@@ -222,14 +252,20 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(response => response.json())
 			.then(data => {
 				if (data.success) {
-					document.cookie = 'token=' + data.token
+					localStorage.setItem('token', data.token)
+					this.props.history.push(`/${this.props.match.params.client}`)
 				}
 			})
+}
 
 
 
 
-    }
+
+
+} 
+
+
 
 
 
@@ -240,19 +276,34 @@ handleSubmit() {
 
 	render(){
 
-        const client = this.props.match.params.client
-        try{
-            const cardBannerImage = useQuery(clientById, {
-                variables: client
-            });
-            console.log(cardBannerImage)
-            if (cardBannerImage.cardBannerImage !== null){
-            this.setState({
-                cardBannerImage: cardBannerImage.cardBannerImage
-            })
-            }
-        }
-        catch(e){console.log(e)}
+      
+
+    
+
+
+
+
+
+
+
+
+  //const client = this.props.match.params.client
+  //      try{
+  //          const cardBannerImage = useQuery(clientById, {
+  //              variables: client
+  //          });
+  //          console.log(cardBannerImage)
+  //          if (cardBannerImage.cardBannerImage !== null){
+  //          this.setState({
+  //              cardBannerImage: cardBannerImage.cardBannerImage
+  //          })
+  //          }
+  //      }
+  //      catch(e){console.log(e)}
+
+
+
+if (localStorage.getItem('token')) {
         return (
             <div className="App">
             <IonPage>
@@ -331,7 +382,42 @@ handleSubmit() {
             </IonPage>
             </div>
         );
+}else{
+//    
+	const options = {
+			method: 'post',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			body: "email=public@public.com&password=1234"
+		}
+
+
+const url = "https://apollo.simulacron-3.com/login"
+
+		fetch(url,options)
+			.then(response => {
+				if (!response.ok) {
+					if (response.status === 404) {
+						alert('Email not found, please retry')
+					}
+					if (response.status === 401) {
+						alert('Email and password do not match, please retry')
+					}
+				}
+				return response
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					localStorage.setItem('token', data.token)
+					this.props.history.push(`/${this.props.match.params.client}`)
+				}
+			})
+
+    return(<h1>error</h1>)}
 }
+
 }
 
 export default App;

@@ -53,8 +53,8 @@ if (Cookies.get('token')) {
 
     handleSubmit = e => {
 		e.preventDefault()
-		console.log(this.state)
-if (Cookies.get('token')) {
+		console.log("Im submitting JWT: ",this.state)
+if (localStorage.getItem('token')) {
 					this.props.history.push(`/${this.props.match.params.client}/dashboard`)
     }else{
 		const options = {
@@ -82,7 +82,8 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(response => response.json())
 			.then(data => {
 				if (data.success) {
-					document.cookie = 'token=' + data.token
+					//document.cookie = 'token=' + data.token
+                    localStorage.setItem('token', data.token)
 					this.props.history.push(`/${this.props.match.params.client}/dashboard`)
 				}
 			})
