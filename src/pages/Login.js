@@ -45,7 +45,8 @@ const { token } =  data.login
 }
 
 componentDidMount(){
-if (Cookies.get('token')) {
+if (localStorage.getItem('token')) {
+    localStorage.removeItem('token')
     }
 }
 
