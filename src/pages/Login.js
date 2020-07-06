@@ -13,7 +13,7 @@ IonButton,
 } from '@ionic/react';
 //import { Mutation } from 'react-apollo'
 //import { gql } from 'apollo-boost';
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
 import { AUTH_TOKEN } from '../constants'
 
 //const LOGIN_MUTATION = gql`
