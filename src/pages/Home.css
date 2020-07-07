@@ -11,3 +11,7 @@ flex-flow: wrap row;
 
 
 }
+.card-fullWidth-image{
+max-width: 120%;
+margin-left: -10%;
+}
