@@ -1,6 +1,7 @@
 import React from 'react';
 //import moment from 'moment';
 import './Dashboard.css';
+import '../color-hash.svg';
 import {
 IonContent,
 IonHeader,
@@ -76,7 +77,7 @@ function QuickInsightsByClientId({clientId}){
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
         return (
-            <IonCard className="quickInsightsCard fitContentCard">
+            <IonCard className="quickInsightsCard fitContentCard blobCard">
             <IonCardHeader>
             <IonCardTitle>
             Quick Insights
@@ -181,14 +182,13 @@ class Dashboard extends React.Component {
     render(){
         if (localStorage.getItem('token')) {
             return (
-                <div className="">
-                <IonPage>
+                <IonPage className="dashboardPage">
                 <IonContent fullscreen={true} style={{height: "100%"}} className="dashboardContent subPage">
 
                 {/*
 HEADER
 */}
-                <IonHeader collapse="condense" mode="ios">
+                <IonHeader collapse="condense" mode="ios" style={{zIndex: "2"}}>
                 <IonToolbar >
 
                 <IonButtons slot="end">
@@ -300,13 +300,14 @@ LOGOUT ALERT
                 </IonToolbar>
                 </IonHeader>
 
+                <div className="dashboardMainWrapper">
                 <div className="dashboardMainContainer">
 
                 <QuickInsightsByClientId clientId={this.props.match.params.client}/>
 
 
 
-                <IonCard mode="ios" button={true} className="fitContentCard buttonCard">
+                <IonCard mode="ios" button={true} className="fitContentCard buttonCard blobCard">
                 <Link to={`/${this.props.match.params.client}/dashboard/entriesDetail`} style={{width:"fit-content"}}>
                 <IonCardHeader>
                 <IonCardTitle>
@@ -329,7 +330,7 @@ LOGOUT ALERT
                 mode="ios"
                 button={true}
                 onClick={() => {this.setState({showEditCampaignModal: !this.state.showEditCampaignModal})} }
-                className="fitContentCard buttonCard">
+                className="fitContentCard buttonCard blobCard">
                 <IonCardHeader>
                 <IonCardSubtitle>
                 Edit campaign 
@@ -338,6 +339,8 @@ LOGOUT ALERT
                 </IonCardHeader>
 
                 </IonCard>
+                <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob2"></img>
+                </div>
                 </div>
 
                 {/*
@@ -396,10 +399,13 @@ USER ACCOUNT MODAL
 
 
 
+                {/*
+                <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob1"></img>
+                <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob3"></img>
+                */}
                 </IonContent>
 
                 </IonPage>
-                </div>
             );
         }
         else{

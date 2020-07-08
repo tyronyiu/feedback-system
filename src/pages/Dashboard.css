@@ -24,6 +24,10 @@ white-space: normal;
     flex-flow: row wrap;
 }
 
+.dashboardMainWrapper{
+}
+
+
 .quickInsightsList{
 width: fit-content;
 }
@@ -51,8 +55,17 @@ padding: 1em;
     height: fit-content;
 }
 
+.dashboardPage{
+    overflow: hidden;
+}
+
+.dashboardContent{
+    overflow: hidden;
+    /*--background: var(--ion-color-light);*/
+}
 .dashboardContent{
     --background: var(--ion-color-light);
+    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat center/cover;
 }
 
 .buttonCard{
@@ -75,3 +88,56 @@ padding: 1em;
      .editCampaignModal .ion-page{
      padding: 1em;
      }
+
+
+.blobCard{
+    z-index: 5;
+}
+
+.blurred{
+position: absolute;
+z-index: 1;
+filter: blur(3em);
+}
+
+.blob1{
+height: 20em;
+top: 0;
+left: -37vw;
+transform: rotate(-45deg);
+}
+
+.blob2{
+height: 7.5em;
+top: 75%;
+left: 0vw;
+transform: rotate(45deg);
+}
+
+.blob3{
+height: 10em;
+top: 35%;
+right: 5vw;
+transform: rotate(135deg);
+}
+
+@media (prefers-color-scheme: dark) {
+.blurred{
+filter: blur(3em) invert();
+}
+}
+
+
+
+@media only screen and (min-width: 992px){
+ion-content{
+     width: unset !important;
+   left: unset;
+}
+ion-content .dashboardContent{
+  --background: var(--ion-color-light);
+    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat center/cover;
+}
+
+}
+
