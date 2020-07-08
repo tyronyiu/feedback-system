@@ -78,31 +78,6 @@ function CompanyName({clientId}){
     return data.clientById.name
 }
 
-
-//function CommentCards({clientId}){
-//    const { loading, error, data } = useQuery(commentsByClientId,{
-//        variables: {clientId}
-//    });
-//    if (loading) return <p>Loading...</p>;
-//    if (error) return <p>Error :(</p>;
-//    return (
-//          data.commentsByClientId.map((comment, key) => (
-//
-//              <IonList>
-//              <IonItem key={key}>
-//              <IonLabel>
-//              <IonText color="medium">
-//              #{key}
-//              </IonText>
-//              </IonLabel>
-//              {comment.comment}
-//              </IonItem>
-//              </IonList>
-//          )
-//    )
-//    )
-//    
-//}
   
 function EntriesCards({clientId}){
 
@@ -197,7 +172,7 @@ class EntriesDetail extends React.Component {
                 <div className="">
                 <IonPage>
                 <IonHeader translucent={true}>
-                <IonToolbar>
+                <IonToolbar mode="ios">
 <IonButtons slot="start">
                 <Link to={`/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
                 <IonButton slot="start">
@@ -207,7 +182,7 @@ class EntriesDetail extends React.Component {
                 </Link>
                 </IonButtons>
                 <IonTitle>
-                Feedback entries
+                <CompanyName clientId={this.props.match.params.client}/> - Feedback entries
                 </IonTitle>
                 </IonToolbar>
                 </IonHeader>

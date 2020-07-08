@@ -12,11 +12,16 @@ text-align: center;
 
 .circle-overlay-p{
 	margin: auto;
-line-height: 2.5em;
+line-height: 3em !important;
 }
 
 .comment-p{
 white-space: normal;
+}
+
+.dashboardMainContainer{
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .quickInsightsList{
@@ -38,4 +43,7 @@ padding: 1em;
 
 .fitContentCard{
     width: fit-content;
+    height: fit-content;
 }
+
+
