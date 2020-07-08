@@ -171,25 +171,24 @@ class EntriesDetail extends React.Component {
             return (
                 <div className="">
                 <IonPage>
-                <IonHeader translucent={true}>
+                
+
+                <IonContent fullscreen={true} className="">
+              
+<IonHeader translucent={true} mode="ios">
                 <IonToolbar mode="ios">
 <IonButtons slot="start">
                 <Link to={`/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
                 <IonButton slot="start">
                 <IonIcon slot="start" icon={chevronBackOutline}/>
-                back
                 </IonButton>
                 </Link>
                 </IonButtons>
-                <IonTitle>
+                <IonTitle mode="ios">
                 <CompanyName clientId={this.props.match.params.client}/> - Feedback entries
                 </IonTitle>
                 </IonToolbar>
                 </IonHeader>
-
-
-                <IonContent fullscreen={true} className="subPage">
-               
 
 
                 {/*<CommentCards clientId={this.props.match.params.client}/>*/}

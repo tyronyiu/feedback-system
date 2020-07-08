@@ -175,25 +175,20 @@ class Dashboard extends React.Component {
             return (
                 <div className="">
                 <IonPage>
-                <IonHeader translucent={true}>
-                <IonToolbar>
-                <IonTitle>
-                Feedback entries
-                </IonTitle>
-                </IonToolbar>
-                </IonHeader>
+               
 
 
                 <IonContent fullscreen={true} style={{height: "100%"}} className="dashboardContent subPage">
-                <IonHeader collapse="condense">
-                <IonToolbar style={{"--background": "var(--ion-color-light)"}}>
+                <IonHeader collapse="condense" mode="ios">
+                <IonToolbar >
 
-                <IonButtons slot="end">
+<IonButtons slot="end">
   <IonPopover
         isOpen={this.state.showPopover.open}
         cssClass='my-custom-class'
                 event={this.state.showPopover.event}
         onDidDismiss={(e) => this.setState({ showPopover:{open: !this.state.showPopover, event: null} })}
+                mode="ios"
       >
                 <IonList>
                 <IonListHeader>
@@ -211,6 +206,7 @@ class Dashboard extends React.Component {
 
                 </IonButton>
                 </IonButtons>
+                
                 <IonTitle size="large">
                 <CompanyName clientId={this.props.match.params.client}/>
                 </IonTitle>
