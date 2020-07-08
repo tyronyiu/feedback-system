@@ -65,8 +65,10 @@ padding: 1em;
 }
 .dashboardContent{
     --background: var(--ion-color-light);
-    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat center/cover;
+    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat bottom / cover;
 }
+
+
 
 .buttonCard{
 
@@ -121,6 +123,13 @@ right: 5vw;
 transform: rotate(135deg);
 }
 
+ion-toolbar{
+    --background: transparent !important;
+}
+
+
+
+
 @media (prefers-color-scheme: dark) {
 .blurred{
 filter: blur(3em) invert();
@@ -133,11 +142,26 @@ filter: blur(3em) invert();
 ion-content{
      width: unset !important;
    left: unset;
+   -background: transparent !important;
+   padding: 5em;
 }
+ion-toolbar{
+    --background: transparent !important;
+}
+body{
+    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat center / cover;
+}
+
+.dashboardMainWrapper{
+padding: 5em;
+}
+
+/*
 ion-content .dashboardContent{
   --background: var(--ion-color-light);
     --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat center/cover;
 }
+*/
 
 }
 
