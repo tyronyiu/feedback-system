@@ -26,12 +26,17 @@ white-space: normal;
 
 .quickInsightsList{
 width: fit-content;
-
 }
+
+.quickInsightsList > ion-list-header{
+white-space: nowrap;
+}
+
 .quickInsightsCardContent{
     display: flex;
 }
 .quickInsightsCard{
+    box-shadow: unset;
 }
 
 .entriesList{
@@ -46,4 +51,10 @@ padding: 1em;
     height: fit-content;
 }
 
+.dashboardContent{
+    --background: var(--ion-color-light);
+}
 
+.buttonCard{
+
+         }

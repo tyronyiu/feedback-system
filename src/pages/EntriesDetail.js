@@ -188,7 +188,7 @@ class EntriesDetail extends React.Component {
                 </IonHeader>
 
 
-                <IonContent fullscreen={true}>
+                <IonContent fullscreen={true} className="subPage">
                
 
 
