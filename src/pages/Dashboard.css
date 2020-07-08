@@ -18,3 +18,24 @@ line-height: 2.5em;
 .comment-p{
 white-space: normal;
 }
+
+.quickInsightsList{
+width: fit-content;
+
+}
+.quickInsightsCardContent{
+    display: flex;
+}
+.quickInsightsCard{
+}
+
+.entriesList{
+width: fit-content;
+max-height: 75vh;
+overflow-y: scroll;
+padding: 1em;
+}
+
+.fitContentCard{
+    width: fit-content;
+}

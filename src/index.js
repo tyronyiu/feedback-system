@@ -11,6 +11,7 @@ import './index.css';
 import App from './App';
 import Done from './pages/Done';
 import Dashboard from './pages/Dashboard';
+import EntriesDetail from './pages/EntriesDetail';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import * as serviceWorker from './serviceWorker';
@@ -162,6 +163,7 @@ ReactDOM.render(
 <Route exact path="/:client/" component={App}/>
 <Route exact path="/:client/done" component={Done}/>
 <Route exact path="/:client/dashboard" component={Dashboard}/>
+<Route exact path="/:client/dashboard/entriesDetail" component={EntriesDetail}/>
 <Route exact path="/:client/login" component={Login}/>
 
 	</ApolloProvider>

@@ -17,8 +17,14 @@ IonCard,
 IonCardHeader,
 IonCardContent,
 IonCardTitle,
-IonCardSubtitle,
+//IonCardSubtitle,
+IonButtons,
+    IonButton,
+//IonBackButton,
+    IonIcon,
 } from '@ionic/react';
+import { chevronBackOutline, } from 'ionicons/icons';   
+
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
@@ -166,8 +172,7 @@ function EntriesCards({clientId}){
 				</IonLabel>
 				</IonItem>
 				</div>
-			)
-			)
+			))
 		)
     
 }
@@ -176,7 +181,7 @@ function EntriesCards({clientId}){
 
 
 
-class Dashboard extends React.Component {
+class EntriesDetail extends React.Component {
 	constructor(){
 		super();
         this.state = {
@@ -193,6 +198,14 @@ class Dashboard extends React.Component {
                 <IonPage>
                 <IonHeader translucent={true}>
                 <IonToolbar>
+<IonButtons slot="start">
+                <Link to={`/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
+                <IonButton slot="start">
+                <IonIcon slot="start" icon={chevronBackOutline}/>
+                back
+                </IonButton>
+                </Link>
+                </IonButtons>
                 <IonTitle>
                 Feedback entries
                 </IonTitle>
@@ -201,136 +214,23 @@ class Dashboard extends React.Component {
 
 
                 <IonContent fullscreen={true}>
-                <IonHeader collapse="condense">
-                <IonToolbar>
-                <IonTitle size="large">
-                <CompanyName clientId={this.props.match.params.client}/>
-                </IonTitle>
-                </IonToolbar>
-                </IonHeader>
+               
 
 
-                <IonCard className="quickInsightsCard fitContentCard">
-                <IonCardHeader>
-                <IonCardTitle>
-                Quick Insights
-                </IonCardTitle>
-                </IonCardHeader>
+                {/*<CommentCards clientId={this.props.match.params.client}/>*/}
 
-                <IonCardContent className="quickInsightsCardContent">
-
-
-                <IonList lines="none" className="quickInsightsList">
-                <IonListHeader>
-                Entries:                           
-                </IonListHeader>
-
-                <IonItem>
-                <IonLabel>
-                30
-                </IonLabel>
-                </IonItem>
-
-                <IonItem>
-                <IonLabel> 
-                <IonText color="dark">
-                <h3>Comments:</h3>
-                </IonText>
-                <IonText color="gray">
-                <p>25</p>
-                </IonText>
-                </IonLabel>
-                </IonItem>
-
-                <IonItem>
-                <IonLabel> 
-                <IonText color="dark">
-                <h3>Compliments:</h3>
-                </IonText>
-                <IonText color="gray">
-                <p>26</p>
-                </IonText>
-                </IonLabel>
-                </IonItem>
-
-
-
-                </IonList>
-
-
-
-                <IonList lines="none" className="quickInsightsList">
-                <IonListHeader>
-                    Average Score:                           
-                </IonListHeader>
-
-                <IonItem>
-                <IonLabel>
-                95
-                </IonLabel>
-                </IonItem>
-
-                <IonItem>
-                <IonLabel> 
-                <IonText color="dark">
-                <h3>Entries Today:</h3>
-                </IonText>
-                <IonText color="gray">
-                <p>5</p>
-                </IonText>
-                </IonLabel>
-                </IonItem>
-
-                <IonItem>
-                <IonLabel> 
-                <IonText color="dark">
-                <h3>DAU:</h3>
-                </IonText>
-                <IonText color="gray">
-                <p>6</p>
-                </IonText>
-                </IonLabel>
-                </IonItem>
-
-
-
-                </IonList>
-
-                </IonCardContent>
-
-                </IonCard >
-
-                <IonCard button={true} className="fitContentCard">
-                <Link to={`/${this.props.match.params.client}/dashboard/entriesDetail`} style={{width:"fit-content"}}>
+                <IonCard className="">
                 <IonCardHeader>
                 <IonCardTitle>
                 Entries
                 </IonCardTitle>
-                <IonCardSubtitle>
-                see more
-                </IonCardSubtitle>
                 </IonCardHeader>
-                <IonCardContent>
+                <IonCardContent >
+                <IonList mode="ios" className="">
+                <EntriesCards clientId={this.props.match.params.client}/>
+                </IonList>
                 </IonCardContent>
-                </Link>
                 </IonCard>
-
-
-                {/*<CommentCards clientId={this.props.match.params.client}/>                <EntriesCards clientId={this.props.match.params.client}/>
-*/}
-
-
-                {/*
-<IonCard>
-<IonCardHeader>
-<IonCardTitle>
-Feedback entries
-</IonCardTitle>
-</IonCardHeader>
-<IonCardContent>
-</IonCardContent>
-</IonCard>
-*/}
 
                 </IonContent>
 
@@ -346,4 +246,4 @@ return null
 }
 }
 
-export default Dashboard;
+export default EntriesDetail;
