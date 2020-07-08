@@ -58,3 +58,20 @@ padding: 1em;
 .buttonCard{
 
          }
+
+         .alertLogoutButton{
+         color: var(--ion-color-danger) !important;
+     }
+
+     .editCampaignModal{
+     padding-top: 5vh;
+     }
+
+     .editCampaignModal .modal-wrapper {
+     border-radius: 6px !important;
+     border-radius: 6px !important;
+     }
+
+     .editCampaignModal .ion-page{
+     padding: 1em;
+     }

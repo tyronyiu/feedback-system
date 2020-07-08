@@ -63,7 +63,7 @@ if (localStorage.getItem('token')) {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			body: `email=${this.state.email}&password=${this.state.password}`
+			body: `email=${this.state.email.toLowerCase()}&password=${this.state.password}`
 		}
 
 const url = "https://apollo.simulacron-3.com/login"
@@ -95,18 +95,9 @@ const url = "https://apollo.simulacron-3.com/login"
 		const { email, password } = this.state
 		return(
 			<IonPage>
-
-			<IonHeader translucent={true}>
-			<IonToolbar>
-			<IonTitle>
-			Login	
-			</IonTitle>
-			</IonToolbar>
-			</IonHeader>
-
 			<IonContent fullscreen={true}>
 
-			<IonHeader collapse="condense">
+			<IonHeader collapse="condense" mode="ios">
 			<IonToolbar>
 			<IonTitle size="large">
 			Login			
@@ -115,6 +106,9 @@ const url = "https://apollo.simulacron-3.com/login"
 			</IonHeader>
 
 			<IonList>
+            <form onSubmit={(e) =>{
+					this.handleSubmit(e)
+            }} >
 			<IonItem>
 			<IonLabel position="floating">
 			Email:
@@ -124,6 +118,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			type="email"
 			inputmode="email"
 			autocomplete="email"
+            autofocus={true}
 			required={true}
 			clearInput={true}
 			value={email} 
@@ -142,9 +137,14 @@ const url = "https://apollo.simulacron-3.com/login"
 			clearOnEdit={true}
 			required={true}
 			value={password} 
-			onIonChange={e => this.setState({password: e.target.value})} />
+			onIonChange={e => this.setState({password: e.target.value})} 
+            onKeyPress={((e) =>{
+                if (e.key === 'Enter'){
+                    this.handleSubmit(e)
+                }
+            })}
+            />
 			</IonItem>
-
 
 			<IonItem lines="none">
 			</IonItem>
@@ -161,9 +161,7 @@ const url = "https://apollo.simulacron-3.com/login"
 				slot="end"
 				size="medium"
 				type="submit"
-				onClick={(e) => {
-					this.handleSubmit(e)
-				}}
+
 				>
 				Submit
 				</IonButton>
@@ -173,6 +171,7 @@ const url = "https://apollo.simulacron-3.com/login"
 */}
 			</IonItem>
 
+    </form>
 			</IonList>
 
 
