@@ -22,9 +22,12 @@ white-space: normal;
 .dashboardMainContainer{
     display: flex;
     flex-flow: row wrap;
+    height: 100%;
+    align-items: flex-end;
 }
 
 .dashboardMainWrapper{
+    max-height: 100%;
 }
 
 
@@ -40,7 +43,8 @@ white-space: nowrap;
     display: flex;
 }
 .quickInsightsCard{
-    box-shadow: unset;
+    /*box-shadow: unset;*/
+box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .entriesList{
@@ -66,13 +70,28 @@ padding: 1em;
 .dashboardContent{
     --background: var(--ion-color-light);
     --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat bottom / cover;
+    z-index: 0;
 }
 
 
 
 .buttonCard{
-
+    /*
+background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+background-size: 600%;
+*/
          }
+
+.buttonCardShadow{
+background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+background-size: 600%;
+
+z-index: -1;
+filter: blur(30px);
+opacity: 0.8;
+position: absolute;
+margin-top: -35px;
+}
 
          .alertLogoutButton{
          color: var(--ion-color-danger) !important;
@@ -163,5 +182,75 @@ ion-content .dashboardContent{
 }
 */
 
+
+
+
+.button-inner{
+    width: 10%;
+    height: 5%;
 }
 
+
+}
+
+
+
+
+
+.button-wrapper{
+display: flex;
+justify-content: center;
+align-items: center;
+width: fit-content;
+}
+
+.button-main{
+    border-radius: 6px;
+    background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+    background-size: 600%;
+    text-align: center;
+    color: white;
+    height: fit-content;
+    width: fit-content;
+    display: grid;
+}
+.button-main ion-card-subtitle{
+    color: var(--ion-color-light)
+}
+
+.button-main ion-card{
+    box-shadow: unset;
+    margin: 0;
+}
+
+.button-main ion-card-header{
+}
+
+.button-inner{
+    position: absolute;
+    z-index: -1;
+    filter: blur(30px);
+    opacity: 0.8;
+    border-radius: 6px;
+    background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+    background-size: 600%;
+    text-align: center;
+    color: white;
+    width: 25%;
+    height: 10%;
+    margin-top: -10%
+}
+
+
+
+ @keyframes anime {
+   0%{
+     background-position: 0% 50%
+ }
+   50%{
+     background-position: 100% 50%
+ }
+   100%{
+     background-position: 0% 50%
+ }
+ }

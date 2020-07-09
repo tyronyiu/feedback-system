@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import './Dashboard.css';
+import './EntriesDetail.css';
 import {
 IonContent,
 IonHeader,
@@ -24,7 +25,7 @@ IonButtons,
     IonIcon,
 } from '@ionic/react';
 import { chevronBackOutline, } from 'ionicons/icons';   
-
+import {CSSTransition} from 'react-transition-group';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
@@ -155,12 +156,12 @@ function EntriesCards({clientId}){
 
 
 
-
 class EntriesDetail extends React.Component {
 	constructor(){
 		super();
         this.state = {
-		thanks: ""
+		thanks: "",
+            animate: true
         }
 	}
 
@@ -170,6 +171,7 @@ class EntriesDetail extends React.Component {
 		if (localStorage.getItem('token')) {
             return (
                 <div className="">
+                <CSSTransition appear in={this.state.animate} timeout={200} classNames="my-node">
                 <IonPage>
                 
 
@@ -209,6 +211,7 @@ class EntriesDetail extends React.Component {
                 </IonContent>
 
                 </IonPage>
+                </CSSTransition>
                 </div>
             );
 		}
