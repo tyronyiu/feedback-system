@@ -1,0 +1,13 @@
+.title{
+font-family:  -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, sans-serif;
+font-size: 28px;
+font-weight: bold;
+line-height: 33px;
+padding-left: 1em;
+z-index: 5;
+}
+.content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
