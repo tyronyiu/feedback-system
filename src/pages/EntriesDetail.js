@@ -81,10 +81,6 @@ function CompanyName({clientId}){
 
   
 function EntriesCards({clientId}){
-
-
-
-
 	const { loading, error, data } = useQuery(entriesByClientId,{
 		variables: {clientId},
 	});
@@ -157,8 +153,8 @@ function EntriesCards({clientId}){
 
 
 class EntriesDetail extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
         this.state = {
 		thanks: "",
             animate: true

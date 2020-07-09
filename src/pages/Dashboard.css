@@ -22,12 +22,10 @@ white-space: normal;
 .dashboardMainContainer{
     display: flex;
     flex-flow: row wrap;
-    height: 100%;
     align-items: flex-end;
 }
 
 .dashboardMainWrapper{
-    max-height: 100%;
 }
 
 
@@ -60,11 +58,9 @@ padding: 1em;
 }
 
 .dashboardPage{
-    overflow: hidden;
 }
 
 .dashboardContent{
-    overflow: hidden;
     /*--background: var(--ion-color-light);*/
 }
 .dashboardContent{

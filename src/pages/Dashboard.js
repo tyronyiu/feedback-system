@@ -64,7 +64,7 @@ callbackFunction = (childData) => {
         if (localStorage.getItem('token')) {
             return (
                 <IonPage className="dashboardPage">
-                <IonContent fullscreen={true} style={{height: "100%"}} className="dashboardContent subPage">
+                <IonContent fullscreen={true}  className="dashboardContent subPage">
 
                 {/*
 HEADER
@@ -80,6 +80,7 @@ MENU POPOVER
 
                 <MenuButton
                 parentCallback = {this.callbackFunction}
+                showEditCampaignModal={this.state.showEditCampaignModal}
                 />
 
                 </IonButtons>
@@ -118,7 +119,7 @@ EDIT CAMPAIGN CARD
                 <div className="dashboardMainContainer">
                 <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob2"></img>
                 <ButtonCard
-                subtitle="edit campaign"
+                subtitle="my campaign"
                 icon={arrowForwardOutline}
                 button={true}
                 parentCallback = {this.callbackFunction}
@@ -133,6 +134,7 @@ EDIT CAMPAIGN MODAL
                 <EditCampaignModal
                 showEditCampaignModal={this.state.showEditCampaignModal}
                 parentCallback = {this.callbackFunction}
+                clientId={this.props.match.params.client}
                 />
 
 

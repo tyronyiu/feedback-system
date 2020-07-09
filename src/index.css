@@ -1,5 +1,5 @@
 body {
-	background-color: var(--ion-color-light);
+	background-color: var(--ion-color-light) !important;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -14,8 +14,10 @@ code {
 }
 
 @media only screen and (min-width: 992px){
+    /*
 ion-content{
 width: 50vw !important;
 left: 25%;
 }
+*/
 }
