@@ -17,7 +17,7 @@ IonIcon,
 //import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
 import { AUTH_TOKEN } from '../constants'
-import { closeCircleOutline, exitOutline} from 'ionicons/icons';   
+import { exitOutline} from 'ionicons/icons';   
 import {
  Link
 } from "react-router-dom";
