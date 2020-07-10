@@ -30,7 +30,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
 import {
- Link
+Link
 } from "react-router-dom";
 
     const clientById = gql`
@@ -87,6 +87,7 @@ function EntriesCards({clientId}){
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 		console.log(data)
+console.log(clientId)
 		return (
 			data.entriesByClientId.map((entry, key) => (
 				<div key={key}>
@@ -150,8 +151,6 @@ function EntriesCards({clientId}){
 }
 
 
-
-
 class EntriesDetail extends React.Component {
 	constructor(props){
 		super(props);
@@ -160,7 +159,6 @@ class EntriesDetail extends React.Component {
             animate: true
         }
 	}
-
 
 
 	render(){

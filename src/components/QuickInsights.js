@@ -13,7 +13,6 @@ import Card from './Card';
             commentsCount
             complimentsCount
             averageScore
-            entriesToday
         }
         }
     `
@@ -27,7 +26,7 @@ function QuickInsightsByClientId({clientId}){
         return (
             <div className="content">
             <Card color="" title={data.quickInsightsByClientId.entriesCount} subtitle="Entries" />      
-            { data.quickInsightsByClientId.averageScore > 4.5 &&
+            { data.quickInsightsByClientId.averageScore >= 4.5 &&
                 <div>
                 <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"

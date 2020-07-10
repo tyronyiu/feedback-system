@@ -11,10 +11,12 @@ IonIcon,
     IonModal,
     IonContent,
 } from '@ionic/react';
-import { personCircleOutline, exitOutline, ellipsisVerticalCircleOutline, createOutline} from 'ionicons/icons';   
-
- 
-class MenuButton extends React.Component {
+import {enterOutline, ellipsisVerticalCircleOutline} from 'ionicons/icons';   
+import {
+Link
+} from "react-router-dom";
+  
+class MenuButtonHomePage extends React.Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -49,52 +51,24 @@ class MenuButton extends React.Component {
                 </IonListHeader>
 
                 {/*
-USER ACCOUNT (POPOVER)
-*/}
-                <IonItem button={true} onClick={()=>{
-                    this.setState({
-                        showPopover: { open: !this.state.showPopover.open },
-                        showUserAccountModal: !this.state.showUserAccountModal
-                    })
-                }}>
-                <IonIcon icon={personCircleOutline} slot="start"/>
-                <IonLabel>
-                Account
-                </IonLabel>
-
-                </IonItem>
-
-
-                {/*
 EDIT CAMPAIGN (POPOVER)
 */}
+                <Link to={`/${this.props.clientId}/login/`} style={{width:"fit-content"}}>
                 <IonItem button={true} onClick={()=>{
                     this.setState({
                         showPopover: { open: !this.state.showPopover.open },
-                        showEditCampaignModal: !this.state.showEditCampaignModal
-                    }, function(){
-          this.props.parentCallback(this.state.showEditCampaignModal);
+                        
                     })
                 }}>
-                <IonIcon icon={createOutline} slot="start"/>
+                <IonIcon icon={enterOutline} slot="start"/>
                 <IonLabel>
-                Campaign
+                Log In
                 </IonLabel>
 
                 </IonItem>
+      </Link>
 
 
-                {/*
-SHOW LOGOUT ALERT (POPOVER)
-*/}
-                <IonItem button={true} onClick={()=>{
-                    this.setState({showLogOutAlert: !this.state.showLogOutAlert})
-                }}>
-                <IonIcon icon={exitOutline} slot="start"/>
-                <IonLabel>
-                Log Out
-                </IonLabel>
-                </IonItem>
 
                 </IonList>
                 </IonPopover>
@@ -133,7 +107,6 @@ LOGOUT ALERT
                         cssClass: 'alertLogoutButton',
                         handler: () => {
                             localStorage.removeItem('token')
-							window.location.reload();
                         }
                     }
                 ]}
@@ -172,4 +145,4 @@ USER ACCOUNT MODAL
 }
 
 
-export default MenuButton;
+export default MenuButtonHomePage;

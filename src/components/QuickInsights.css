@@ -12,6 +12,14 @@ z-index: 5;
     justify-content: space-between;
 }
 
+.scoreCard:active{
+    opacity: 0.8
+}
+
+.scoreCard:hover{
+    opacity: 0.8
+}
+
 
 @media only screen and (min-width: 992px){
 .content{

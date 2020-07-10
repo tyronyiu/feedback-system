@@ -83,6 +83,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(response => response.json())
 			.then(data => {
 				if (data.success) {
+                    console.log("jwt data: ",data)
 					//document.cookie = 'token=' + data.token
                     localStorage.setItem('token', data.token)
 					this.props.history.push(`/${this.props.match.params.client}/dashboard`)

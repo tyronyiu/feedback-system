@@ -13,7 +13,10 @@ IonCardTitle,
 IonButton,
     IonText,
 IonCardSubtitle,
+    IonButtons,
+    
 } from '@ionic/react';
+import MenuButtonHomePage from '../components/MenuButtonHomePage';
 
 class Home extends React.Component {
 	constructor(){
@@ -35,6 +38,7 @@ class Home extends React.Component {
             <IonTitle>
             Ager Feedback System
             </IonTitle>
+
             </IonToolbar>
             </IonHeader>
 
@@ -45,6 +49,22 @@ class Home extends React.Component {
             <IonTitle size="large">
             Ager 
             </IonTitle>
+
+
+<IonButtons slot="end">
+
+                {/*
+MENU POPOVER
+*/}
+
+                <MenuButtonHomePage
+                parentCallback = {this.callbackFunction}
+                showEditCampaignModal={this.state.showEditCampaignModal}
+            clientId = {this.props.match.params.client}
+                />
+
+                </IonButtons>
+
             </IonToolbar>
             </IonHeader>
 
