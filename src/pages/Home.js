@@ -33,18 +33,8 @@ class Home extends React.Component {
         return (
             <div className="Home">
             <IonPage>
-            <IonHeader translucent={true}>
-            <IonToolbar>
-            <IonTitle>
-            Ager Feedback System
-            </IonTitle>
-
-            </IonToolbar>
-            </IonHeader>
-
-
-            <IonContent fullscreen={true}>
-            <IonHeader collapse="condense">
+           <IonContent className="homepageContentWrapper" fullscreen={true}>
+            <IonHeader mode="ios">
             <IonToolbar>
             <IonTitle size="large">
             Ager 
@@ -68,11 +58,18 @@ MENU POPOVER
             </IonToolbar>
             </IonHeader>
 
+            <div className="homepageContent">
+            <div className="topSection">
+
+
+
+            <img alt="" className="topImage"  src="https://i.ibb.co/VVM89N3/feedback.png"/>
+
+
 {/*
     APPLY NOW CARD
 */}
-            <IonCard>
-            <img alt="" style={{filter: "brightness(0.75)"}} src="https://i.ibb.co/FXmTdzy/Screenshot-2020-07-04-at-19-07-48.png"/>
+            <IonCard className="fitContentCard blobCard applyNowCard">
             <IonCardHeader>
             <IonCardSubtitle>
             Ager Feedback System
@@ -99,21 +96,24 @@ MENU POPOVER
             </IonCard>
 
 
+    </div>
+
 {/*
     FEATURES 
     --------
 */}
 
-            <div style={{padding:"1em", paddingLeft:"1.5em"}}>
+            <div className="sectionHeader">
             <h1 style={{fontWeight:"600"}}>
             Features:  
             </h1>        
             </div>
 
+<div className="featuresSection">
 {/*
     FEATURE #1
 */}
-            <IonCard>
+            <IonCard className="fitContentCard blobCard">
             <IonCardHeader>
             <IonCardSubtitle>
             Natural language processing (NLP), sentiment & emotion analysis
@@ -146,7 +146,7 @@ MENU POPOVER
 {/*
     FEATURE #2
 */}
-<IonCard>
+<IonCard className="fitContentCard blobCard">
             <IonCardHeader>
             <IonCardSubtitle>
                  
@@ -175,14 +175,18 @@ MENU POPOVER
             </IonCardContent>
             </IonCard>
 
+</div>
 
-
-
-            <div style={{padding:"1em"}}>
+{/*
+    INSTANT AVAILABILITY SECTION
+*/}
+            <div className="sectionHeader">
             <h1 style={{fontWeight:"600"}}>
             Instant availability & customisation 
             </h1>
+    </div>
 
+            <div className="instantAvailabilitySection">
             <IonText color="medium" mode="ios">
             <p>
             You let us know a few details and we deliver your feedback campaign in less than 24h.
@@ -195,28 +199,40 @@ MENU POPOVER
             {/*<hr style={{height:"0",border:"0.5px solid"}}/>*/}
             </IonText>
 
+    </div>
 {/*
     SHOWCASE IMAGES
 */}
 
             <div className="flex">
-            <img className="flex-image" alt="" src="https://i.ibb.co/1XsMnJ8/Screenshot-2020-07-04-at-20-52-18.png"/>
-            <img className="flex-image" alt="" src="https://i.ibb.co/Fxc0bRs/Screenshot-2020-07-04-at-20-52-24.png"/>
-            <img className="flex-image" alt="" src="https://i.ibb.co/Cvyq6qB/Screenshot-2020-07-04-at-20-54-42.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/VVM89N3/feedback.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/y0GMn22/dashboard.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/WvNjzkg/dashboard-menu.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/pdPwmg5/edit-Campaign.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/NY6Vm5S/feedback-dark.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/PzSH9nr/dashboard-dark.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/WK0ZXc5/dashboard-menu-dark.png"/>
+            <img className="flex-image" alt="" src="https://i.ibb.co/MhMF0GY/edit-Campaign-dark.png"/>
             </div>
 
-            </div>
+
+
+
+
+
 
 {/*
     USE CASES
 */}
 
-            <div style={{padding:"1em"}}>
-            <h1>
+            <div className="sectionHeader">
+            <h1 style={{fontWeight:"600"}}>
             Use cases:  
             </h1>        
+    </div>
 
-            <IonCard>
+            <div className="useCasesSection">
+            <IonCard className="fitContentCard blobCard">
             <IonCardHeader>
             <IonCardSubtitle>
             Company internal application
@@ -248,6 +264,8 @@ MENU POPOVER
             </IonCardContent>
             </IonCard>
             </div>
+
+    </div>
             </IonContent>
 
             </IonPage>

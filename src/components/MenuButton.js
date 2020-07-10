@@ -11,7 +11,7 @@ IonIcon,
     IonModal,
     IonContent,
 } from '@ionic/react';
-import { personCircleOutline, exitOutline, ellipsisVerticalCircleOutline, createOutline} from 'ionicons/icons';   
+import { helpCircleOutline, personCircleOutline, exitOutline, ellipsisVerticalCircleOutline, createOutline} from 'ionicons/icons';   
 
  
 class MenuButton extends React.Component {
@@ -79,6 +79,18 @@ EDIT CAMPAIGN (POPOVER)
                 <IonIcon icon={createOutline} slot="start"/>
                 <IonLabel>
                 Campaign
+                </IonLabel>
+
+                </IonItem>
+
+                {/*
+TUTORIAL (POPOVER)
+*/}
+                <IonItem button={true} onClick={()=>{
+                   }}>
+                <IonIcon icon={helpCircleOutline} slot="start"/>
+                <IonLabel>
+                Tutorial
                 </IonLabel>
 
                 </IonItem>

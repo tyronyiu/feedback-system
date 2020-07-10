@@ -2,6 +2,7 @@
 display: flex;
 justify-content: space-evenly;
 flex-flow: wrap row;
+width: 100%;
 }
 .flex-image{
     max-width: 50%;
@@ -9,9 +10,91 @@ flex-flow: wrap row;
     height: fit-content;
     border-radius: 6px;
 
-
 }
 .card-fullWidth-image{
 max-width: 120%;
 margin-left: -10%;
+}
+.topSection{
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+width: 100%;
+align-items: flex-end;
+}
+
+.topImage{
+filter: brightness(0.75);
+max-width: 75vw;
+}
+
+.sectionHeader{
+padding-left: 1.5em;
+padding: 1em;
+}
+
+.instantAvailabilitySection{
+    padding: 1em;
+}
+
+@media only screen and (min-width: 992px){
+.fitContentCard{
+    max-width: 30vw;
+}
+
+.topImage{
+    max-width: 20vw;
+}
+
+.flex-image{
+padding: 2em 3em;
+}
+
+.homepageContentWrapper{
+    --background: url(https://tyotyodata.imfast.io/color-bg.png) no-repeat bottom / cover;
+z-index: 0;
+}
+.homepageContent{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10vh;
+}
+
+.topSection{
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+width: 100%;
+align-items: flex-end;
+}
+
+.sectionHeader{
+width: 100%;
+padding: 5em;
+padding-left: 5em;
+}
+
+.applyNowCard{
+max-width: 45%
+}
+
+.featuresSection{
+    flex-flow: row;
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+}
+
+.instantAvailabilitySection{
+    width: 100%;
+  padding: 5em;
+padding-top: 0;
+padding-left: 5em;
+}
+
+.useCasesSection{
+}
+
 }

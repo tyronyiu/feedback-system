@@ -211,7 +211,7 @@ class EntriesDetail extends React.Component {
 		}
 		else{
 			this.props.history.push(`/${this.props.match.params.client}/login`)
-return null
+return (<><h1>An error has occured</h1><h2>Please log out and log in again</h2></>)
 
 		}
 }

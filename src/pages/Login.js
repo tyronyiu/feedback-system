@@ -10,12 +10,17 @@ IonLabel,
 IonInput, 
 IonTitle,
 IonButton,
+IonButtons,
+IonIcon,
 } from '@ionic/react';
 //import { Mutation } from 'react-apollo'
 //import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
 import { AUTH_TOKEN } from '../constants'
-
+import { closeCircleOutline, exitOutline} from 'ionicons/icons';   
+import {
+ Link
+} from "react-router-dom";
 //const LOGIN_MUTATION = gql`
 //  mutation LoginMutation($email: String!, $password: String!) {
 //          login(email: $email, password: $password) {
@@ -101,6 +106,14 @@ const url = "https://apollo.simulacron-3.com/login"
 			<IonTitle size="large">
 			Login			
 			</IonTitle>
+<IonButtons slot="end">
+<Link to="/">
+<IonButton>
+			<IonIcon slot="end" icon={exitOutline}/>
+</IonButton>
+</Link>
+</IonButtons>
+
 			</IonToolbar>
 			</IonHeader>
 

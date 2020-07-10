@@ -13,7 +13,7 @@ import {
 Link
 } from "react-router-dom";
   
-class MenuButtonHomePage extends React.Component {
+class MenuButtonLoginPage extends React.Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -80,4 +80,4 @@ EDIT CAMPAIGN (POPOVER)
 }
 
 
-export default MenuButtonHomePage;
+export default MenuButtonLoginPage;

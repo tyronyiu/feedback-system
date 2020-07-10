@@ -50,7 +50,7 @@ function QuickInsightsByClientId({clientId}){
 
             { data.quickInsightsByClientId.averageScore < 4.5 &&
                 <div className="scoreCard">
-<p>This is a tooltip</p>
+<p>Your score is out of 5</p>
                     <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
                 title={data.quickInsightsByClientId.averageScore} 
