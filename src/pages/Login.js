@@ -55,9 +55,7 @@ if (localStorage.getItem('token')) {
     handleSubmit = e => {
 		e.preventDefault()
 		console.log("Im submitting JWT: ",this.state)
-if (localStorage.getItem('token')) {
-					this.props.history.push(`/${this.props.match.params.client}/dashboard`)
-    }else{
+
 		const options = {
 			method: 'post',
 			headers: {
@@ -86,10 +84,10 @@ const url = "https://apollo.simulacron-3.com/login"
                     console.log("jwt data: ",data)
 					//document.cookie = 'token=' + data.token
                     localStorage.setItem('token', data.token)
-					this.props.history.push(`/${this.props.match.params.client}/dashboard`)
+					this.props.history.push(`/${data.clientId}/dashboard`)
 				}
 			})
-}
+
         }
 
     render(){

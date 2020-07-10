@@ -12,17 +12,46 @@ z-index: 5;
     justify-content: space-between;
 }
 
-.scoreCard:active{
-    opacity: 0.8
+.scoreCard:active ion-card{
 }
 
-.scoreCard:hover{
-    opacity: 0.8
+.scoreCard ion-card{
 }
 
+
+
+.scoreCard p{
+visibility: hidden;
+display: none;
+}
+
+.scoreCard:active p{
+visibility: visible;
+display: block;
+position: absolute;
+margin-top: -1.5em;
+margin-left: 2em;
+color: var(--ion-color-light);
+background: var(--ion-color-dark);
+padding: .5em;
+border-radius: 6px;
+opacity: 1;
+animation-name: fadeInOpacity;
+animation-iteration-count: 1;
+animation-timing-function: ease-in;
+animation-duration: .15s;
+}
 
 @media only screen and (min-width: 992px){
 .content{
     justify-content: space-around;
+}
+}
+@keyframes fadeInOpacity {
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
 }
 }

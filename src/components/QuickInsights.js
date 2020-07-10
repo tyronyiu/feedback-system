@@ -27,9 +27,10 @@ function QuickInsightsByClientId({clientId}){
             <div className="content">
             <Card color="" title={data.quickInsightsByClientId.entriesCount} subtitle="Entries" />      
             { data.quickInsightsByClientId.averageScore >= 4.5 &&
-                <div>
+                <div className="scoreCard">
                 <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
+
                 title={data.quickInsightsByClientId.averageScore} 
                 subtitle="Average Score"
                 />      
@@ -40,7 +41,7 @@ function QuickInsightsByClientId({clientId}){
                         zIndex: "-2",
                         width: "150px",
                         position: "absolute",
-                        filter: "blur(50px) brightness(1.1)",
+                        filter: "blur(50px)",
                         marginTop: "-150px",
                 }}>
                 </div>
@@ -48,11 +49,13 @@ function QuickInsightsByClientId({clientId}){
             }
 
             { data.quickInsightsByClientId.averageScore < 4.5 &&
-                    <div>
+                <div className="scoreCard">
+<p>This is a tooltip</p>
                     <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
                 title={data.quickInsightsByClientId.averageScore} 
                 subtitle="Average Score"
+
                     />      
                     <div style={{
                         background:"linear-gradient(-45deg, rgb(20, 35, 188), rgb(56, 154, 255))",
