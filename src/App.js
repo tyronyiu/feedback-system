@@ -389,7 +389,7 @@ if (localStorage.getItem('token')) {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			body: "email=public@public.com&password=1234"
+			body: `email=public@public.com&password=1234`
 		}
 
 
