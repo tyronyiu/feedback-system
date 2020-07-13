@@ -17,8 +17,8 @@ import Home from './pages/Home';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
-//import { ApolloClient, HttpLink } from 'apollo-boost';
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from 'apollo-boost';
+//import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 //import { HttpLink } from 'apollo-link-http';
 import { createHttpLink } from 'apollo-link-http';

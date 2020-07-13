@@ -11,25 +11,162 @@ IonLabel,
     IonIcon,
 } from '@ionic/react';
 import {  closeCircleOutline } from 'ionicons/icons';   
-import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
-  
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import {Link} from "react-router-dom";
+import { eyeOutline, cloudUploadOutline } from 'ionicons/icons';   
+ 
 
 
-const promptByClientId= gql`
-    query getPrompt($clientId: ID!){
+const PromptByClientId= gql`
+    query promtByClientId($clientId: ID!){
     promptByClientId(clientId: $clientId){
     prompt
+	_id
     }
     }
 `
- const thanksByClientId= gql`
-        query getThanks($clientId: ID!){
+
+ const ThanksByClientId= gql`
+        query thanksByClientId($clientId: ID!){
         thanksByClientId(clientId: $clientId){
         thanks
+		_id
         }
         }
     `
+
+const UpdatePrompt = gql`
+    mutation updatePrompt($clientId: ID!, $updatedPrompt: String!){
+        updatePrompt(clientId: $clientId, updatedPrompt: $updatedPrompt){
+            prompt    
+        }
+    }
+`
+
+const UpdateThanks = gql`
+    mutation updateThanks($clientId: ID!, $updatedThanks: String!){
+        updateThanks(clientId: $clientId, updatedThanks: $updatedThanks){
+            thanks
+        }
+    }
+`
+
+function Prompt({clientId}) {
+  const { loading, error, data, refetch, } = useQuery(PromptByClientId, {
+		variables: {clientId: clientId}
+	});
+const [updatePrompt] = useMutation(UpdatePrompt);
+console.log(data)
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+let input;
+
+return (
+	<div key={data.promptByClientId._id}>
+	<p></p>
+	<form
+	onSubmit={e => {
+		e.preventDefault();
+		updatePrompt({ variables: { clientId: clientId, updatedPrompt: input.value } });
+		refetch()
+
+	}}
+	>
+	<IonItem>
+	<IonLabel position="floating" className="ion-text-wrap">
+	Prompt: {data.promptByClientId.prompt}
+	</IonLabel>
+	<IonInput 
+	name="text"
+	type="text"
+	inputmode="text"
+	autocomplete="text"
+	autofocus={true}
+	required={true}
+	clearInput={true}
+autocorrect={true}
+autocapitalize={true}
+	ref={node => {
+		input = node;
+	}} 
+	/>
+	</IonItem>
+
+	<IonItem lines="none">
+	<IonButton size="default" type="submit" mode="ios">
+	Update prompt
+			<IonIcon slot="end" icon={cloudUploadOutline}/>
+	</IonButton>
+	</IonItem>
+	</form>
+	</div>
+);
+}
+
+function Thanks({clientId}) {
+  const { loading, error, data, refetch, } = useQuery(ThanksByClientId, {
+		variables: {clientId: clientId}
+	});
+const [updateThanks] = useMutation(UpdateThanks);
+console.log(data)
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+let input;
+
+return (
+	<div key={data.thanksByClientId._id}>
+	<p></p>
+	<form
+	onSubmit={e => {
+		e.preventDefault();
+		updateThanks({ variables: { clientId: clientId, updatedThanks: input.value } });
+		refetch()
+
+	}}
+	>
+
+<IonItem>
+            <IonLabel position="floating" className="ion-text-wrap">
+            Thanks Text: {data.thanksByClientId.thanks}
+            </IonLabel>
+            <IonInput 
+            name="text"
+            type="text"
+            inputmode="text"
+            autocomplete="text"
+            required={true}
+            clearInput={true}
+autocorrect={true}
+autocapitalize={true}
+			ref={node => {
+				input = node;
+			}} 
+			 />
+            </IonItem>
+
+	<IonItem lines="none">
+	<IonButton size="default" type="submit" mode="ios">
+	Update thanks
+			<IonIcon slot="end" icon={cloudUploadOutline}/>
+	</IonButton>
+	</IonItem>
+	</form>
+	</div>
+);
+}
+
+
+
+
+
+
+
+
 
 
 class EditCampaignModal extends React.Component {
@@ -43,6 +180,9 @@ class EditCampaignModal extends React.Component {
         }
 	}
 
+    handleSubmit = e => {
+
+    }
 
     componentDidMount(){
            }
@@ -56,10 +196,11 @@ class EditCampaignModal extends React.Component {
             cssClass='editCampaignModal'
             swipeToClose={true}
             >
-            <IonContent >
+            <IonContent fullscreen={true}>
 
+{/*
             <Query 
-            query={promptByClientId}
+            query={PromptByClientId}
             variables={{clientId: this.props.clientId}}
             onCompleted={data =>
                 this.setState({prompt: data.promptByClientId.prompt})}
@@ -67,12 +208,13 @@ class EditCampaignModal extends React.Component {
             </Query>
 
             <Query 
-            query={thanksByClientId}
+            query={ThanksByClientId}
             variables={{clientId: this.props.clientId}}
             onCompleted={data =>
                 this.setState({thanks: data.thanksByClientId.thanks})}
             >
             </Query>
+*/}
 
             <IonButton
             fill="clear"
@@ -87,30 +229,20 @@ class EditCampaignModal extends React.Component {
             <IonIcon slot="icon-only" icon={closeCircleOutline}/> 
             </IonButton>
 
-            <IonList>
+            <IonList scroll="true">
             <IonListHeader>
             My Campaign
 
 
             </IonListHeader>
 
-            <IonItem>
-            <IonLabel position="floating">
-            Prompt:
-            </IonLabel>
-            <IonInput 
-            name="text"
-            type="text"
-            inputmode="text"
-            autocomplete="text"
-            autofocus={true}
-            required={true}
-            clearInput={true}
-            value={this.state.prompt} 
-            onIonChange={e => this.setState({prompt: e.target.value})} />
-            </IonItem>
 
-            <IonItem >
+            
+
+
+<Prompt clientId={this.props.clientId} />
+
+            <IonItem lines="none">
             <IonLabel className="ion-text-wrap">
             <p>
             A prompt is what you present your customers when asking for feedback. 
@@ -123,38 +255,67 @@ class EditCampaignModal extends React.Component {
             </IonLabel>
             </IonItem>
 
-            <IonItem>
-            <IonLabel position="floating">
-            Thanks Text:
-            </IonLabel>
-            <IonInput 
-            name="text"
-            type="text"
-            inputmode="text"
-            autocomplete="text"
-            required={true}
-            clearInput={true}
-            value={this.state.thanks} 
-            onIonChange={e => this.setState({prompt: e.target.value})} />
-            </IonItem>
+<IonItem lines="none">
+</IonItem>
 
-            <IonItem >
+<Thanks clientId={this.props.clientId} />
+            
+            <IonItem lines="none">
             <IonLabel className="ion-text-wrap">
             <p>This is the text your customers will see after they've submitted their feedback</p>
             </IonLabel>
             </IonItem>
+
+<IonItem lines="none">
+</IonItem>
+
+<IonItem>
+<IonLabel className="ion-text-wrap">
+            Preview Campaign: 
+            </IonLabel>
+</IonItem>
+
+<IonItem lines="none">
+<Link to={`/${this.props.clientId}`}>
+<IonButton size="default" mode="ios">
+Preview
+			<IonIcon slot="end" icon={eyeOutline}/>
+</IonButton>
+</Link>
+</IonItem>
+
             </IonList>
             </IonContent>
 
-            {/*
-            <IonButton onClick={() => {
-                this.setState({
-                    showEditCampaignModal: false
-                }, function() {
-                    this.props.parentCallback(this.state.showEditCampaignModal)
-                })}}
-            >Close Modal</IonButton>
-            */}
+
+
+{/*
+            <Mutation
+            mutation={updatePrompt}
+            variables={{clientId: this.props.clientId, updatedPrompt: this.state.prompt}}
+update={(cache, { data: { updatePrompt} }) => {
+        const { prompts } = cache.readQuery({ query: PromptByClientId });
+        cache.writeQuery({
+          query: PromptByClientId,
+            variables: {clientId: this.props.clientId},
+          data: { prompts: prompts.concat([updatePrompt]) },
+        });
+      }}
+            >
+
+            {(updatePromptMutation, {data}) =>(
+                <IonButton type="submit" onClick={() => {
+                    updatePromptMutation();
+                    this.setState({
+                        showEditCampaignModal: false,
+                    }, function() {
+                        this.props.parentCallback(this.state.showEditCampaignModal)
+                    })}}
+                >Save</IonButton>
+            )
+            }
+            </Mutation>
+*/}
 
             </IonModal>
         );
