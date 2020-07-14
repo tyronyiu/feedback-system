@@ -1,9 +1,6 @@
 import React from 'react';
 import {
 	IonList,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
 	IonItem,
 	IonLabel,
 	IonIcon,

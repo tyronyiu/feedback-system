@@ -6,21 +6,11 @@ import {
 	IonPage,
 	IonTitle,
 	IonToolbar,
-	IonCard,
-	IonCardHeader,
-	IonCardContent,
 	IonCardTitle,
 	IonButton,
-	IonText,
-	IonCardSubtitle,
 	IonButtons,
-	IonList,
-	IonItem,
-	IonLabel,
-	IonIcon,
 } from '@ionic/react';
 import MenuButtonHomePage from '../components/MenuButtonHomePage';
-import { leafOutline, colorPaletteOutline, appsOutline, handLeftOutline, qrCodeOutline, hourglassOutline } from 'ionicons/icons';   
 import Card from '../components/Card';
 import AdvantagesList from '../components/AdvantagesList';
 
