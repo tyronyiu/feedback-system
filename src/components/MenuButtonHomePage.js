@@ -9,9 +9,7 @@ IonIcon,
     IonButton,
 } from '@ionic/react';
 import {enterOutline, ellipsisVerticalCircleOutline} from 'ionicons/icons';   
-import {
-Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
   
 class MenuButtonHomePage extends React.Component {
 	constructor(props){

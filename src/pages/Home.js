@@ -12,6 +12,7 @@ import {
 } from '@ionic/react';
 import MenuButtonHomePage from '../components/MenuButtonHomePage';
 import Card from '../components/Card';
+import Footer from '../components/Footer';
 import AdvantagesList from '../components/AdvantagesList';
 
 class Home extends React.Component {
@@ -326,7 +327,7 @@ yourself.
 
 
 	</div>
-
+<Footer/>
 	</div>
 	</IonContent>
 
