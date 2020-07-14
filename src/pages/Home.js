@@ -21,6 +21,8 @@ import {
 } from '@ionic/react';
 import MenuButtonHomePage from '../components/MenuButtonHomePage';
 import { leafOutline, colorPaletteOutline, appsOutline, handLeftOutline, qrCodeOutline, hourglassOutline } from 'ionicons/icons';   
+import Card from '../components/Card';
+import AdvantagesList from '../components/AdvantagesList';
 
 class Home extends React.Component {
 	constructor(){
@@ -73,17 +75,10 @@ MENU POPOVER
 			{/*
 	APPLY NOW CARD
 	*/}
-			<IonCard className="fitContentCard blobCard applyNowCard">
-			<IonCardHeader>
-			<IonCardSubtitle>
-			Ager Feedback System
-			</IonCardSubtitle>
-			<IonCardTitle>
-			Apply now
-			</IonCardTitle>
-			</IonCardHeader>
-
-			<IonCardContent>
+            <Card 
+            title="Apply now"
+            subtitle="Ager Feedback System"
+            content={<>
 			We are officially launching the beta round for our new feedback system.
 			<br/>
 			It provides instant feedback with an incredibly intuitive user interface. 
@@ -91,14 +86,11 @@ MENU POPOVER
 			<br/>
 			<a href="mailto:contactager@gmail.com">
 			<IonButton>
-			Contact us
+			GET BETA ACCESS
 			</IonButton>
 			</a>
-
-
-			</IonCardContent>
-			</IonCard>
-
+            </>}
+            />
 
 			</div>
 
@@ -108,153 +100,72 @@ MENU POPOVER
 	*/}
 
 			<div className="sectionHeader">
-			<h1 style={{fontWeight:"600"}}>
+			<h1 className="sectionHeaderTitle">
 			Features:  
 			</h1>        
 			</div>
 
-			<div className="featuresSection">
-			{/*
+			<div style={{alignItems:"center" }} className="featuresSection">
+
+    {/*
 	FEATURE #1
 	*/}
-			<IonCard className="fitContentCard blobCard">
-			<IonCardHeader>
-			<IonCardSubtitle>
-
-			</IonCardSubtitle>           
-			<IonCardTitle>
-			Advantages
-			</IonCardTitle>
-			<IonCardSubtitle>
-
-			</IonCardSubtitle>
-			</IonCardHeader>
-
-			<IonCardContent>
-
-			{/*
-	ADVANTAGES LIST
-	*/}
-			<IonList>
-			{/*
-			ECO FRIENDLY
-			*/}
-			<IonItem>
-			<IonIcon icon={leafOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Eco-friendly - no paper use
-			</IonLabel>
-			</IonItem>
-
-			{/*
-			MODERN DESIGN
-			*/}
-			<IonItem>
-			<IonIcon icon={colorPaletteOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Modern UI - Innovative User experience
-			</IonLabel>
-			</IonItem>
-
-			{/*
-			STANDALONE MINI APP
-			*/}
-			<IonItem>
-			<IonIcon icon={appsOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Standalone Mini App - No additional install needed, for anyone
-			</IonLabel>
-			</IonItem>
-
-			{/*
-			DISKRETION & PRIVACY
-			*/}
-			<IonItem>
-			<IonIcon icon={handLeftOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Discretion & Privacy - Secure data storage and anonymization
-			</IonLabel>
-			</IonItem>
-
-			{/*
-			OPEN STANDARDS
-			*/}
-			<IonItem>
-			<IonIcon icon={qrCodeOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Open Standards - ISO guidelines for universal integration
-			</IonLabel>
-			</IonItem>
-
-			{/*
-			INSTANTLY DEPLOYED
-			*/}
-			<IonItem>
-			<IonIcon icon={hourglassOutline} slot="start" />
-			<IonLabel className="ion-text-wrap">
-			Instant Deployment - less than 24h setup time
-			</IonLabel>
-			</IonItem>
-
-
-
-			</IonList>
-
-
-
-			</IonCardContent>
-			<IonCardHeader>
-			<IonCardTitle>
-			Retail Experience Transformed
-			</IonCardTitle>
-			</IonCardHeader>
-			<IonCardContent>
-The world’s most successful retailers don’t just sell products. They attract
-and retain loyal customers and deliver personalised experiences,
-recommendations and world-class services across every channel and touchpoint,
-all delivered by engaged, motivated staff who know their customers inside out.
-<br/><br/>
-Collecting and analysing customer experience feedback is key for being able to
-provide such a high-class service.
-<br/><br/>
-Our Feedback XM platform aims with all its features and advantages to aim your
-business in such development.
-			</IonCardContent>
-			</IonCard>
-
-
-			{/*
+        <Card 
+        title="Advantages"
+        content={<AdvantagesList/>}
+            />
+      
+  {/*
 	FEATURE #2
 	*/}
+            <div className="miniCard">
+        <Card 
+        title="Plug-Play Solution"
+        content="CX implementation into existing systems can be tedious, that's why our system can and should be used as a standalone application."
+            />
+            </div>
 
-	<IonCard className="fitContentCard blobCard">
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Natural language processing (NLP), sentiment & emotion analysis
-	</IonCardSubtitle>           
-	<IonCardTitle>
-	AI powered analysis
-	</IonCardTitle>
-	<IonCardSubtitle>
-	(Coming Soon)
-	</IonCardSubtitle>
-	</IonCardHeader>
+            </div>
+			<div style={{alignItems:"center" }} className="featuresSection">
+    {/*
+	FEATURE #3
+	*/}
 
-	<IonCardContent>
+  <Card 
+        title="The new standard of Customer Experience (CE)"
+        content={<>
+Products dont sell themselves, customer attraction, loyalty and experience is
+essential to success.  Engaged, motivated and proactive staff that know their
+customers go a long way in terms of customer retention.
+<br/><br/>
+The aim is to become a company that proactively advances its customer and thus
+retail experiences to become more personal, engaging and inclusive.
+<br/>
+After all, the world’s most successful retailers don’t just sell products.
+<br/><br/>
+Collecting and analysing customer experience feedback is key for being able to
+provide such a high-class experience.
+        </>}/>
+
+			{/*
+	FEATURE #4
+	*/}
+
+        <Card 
+        title={<>AI powered analysis <br/>(coming soon)</>}
+            subtitle="Natural language processing (NLP), sentiment & emotion analysis"
+        content={<>
 	Feedback comments can be analysed with AI technology to gain advanced insights. <br/>
 	Basic general sentiment analysis and emotion categorisation can
 tell how well an event was received or how satisfactory a customer
 experience was, without needing score-values.
-	</IonCardContent>
-	<IonCardHeader>
-	<IonCardTitle>
+	<IonCardTitle style={{padding: "1em 0"}}>
 	Language insights
 	</IonCardTitle>
-	</IonCardHeader>
-	<IonCardContent>
 	Most relevant words can be categorised into a word cloud, giving you clear overview over specifics of most interactions at a glance. "Good", "Bad" and synonyms provide general context categorisation.
-	</IonCardContent>
-	</IonCard>
+</>}/>
+
+
 
 	</div>
 
@@ -262,7 +173,7 @@ experience was, without needing score-values.
 	INSTANT AVAILABILITY SECTION
 	*/}
 	<div className="sectionHeader">
-	<h1 style={{fontWeight:"600"}}>
+			<h1 className="sectionHeaderTitle">
 	Instant availability & customisation 
 	</h1>
 	</div>
@@ -310,7 +221,7 @@ experience was, without needing score-values.
 <h2>
 Experience Management
 </h2>
-	<h1 style={{fontWeight:"600"}}>
+			<h1 className="sectionHeaderTitle">
 	Use cases:  
 	</h1>        
 	</div>
@@ -319,107 +230,100 @@ Experience Management
 
 
 {/*
+	EVENT FEEDBACK
+*/}
+ <Card 
+    subtitle="Gather insights about an event"
+    title="Event Feedback"
+    content={<>
+    Suppose you're having an event, maybe a concert or a party, and want to gather
+        insights about how it is perceived.
+        <br/>
+	<br/>
+        You can start a feedback campaign and have it up an running in just 24h and collect useful ratings from your customers or attendees.
+        <IonCardTitle style={{padding: "1em 0"}}>
+       Thorough adaptability 
+	</IonCardTitle>
+	You can add event specific prompts to comment on, so that no
+matter what the occasion, you can gain intelligence insights into <em>your</em> event.
+        </>
+}
+    />
+
+
+{/*
 	CUSTOMER EXPERIENCE
 */}
-	<IonCard className="fitContentCard blobCard" mode="ios">
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Gather Customer Feedback	
-	</IonCardSubtitle>
-	<IonCardTitle>
-	Customer Experience	(CX)
+ <Card 
+    subtitle="Gather Customer Feedback"
+    title="Customer Experience (CX)"
+    content={<>
+	Customer satisfaction, experience and service are keywords when it comes to grading performance.
+    Our system provides quick insights into the overall satisfaction and can drill down into multiple dimensions to gain deep information about topics of choice.
+    <br/>
+	<br/>
+    Supppose you'd want to analyse the satisfaction with the service of your customer support.
+<IonCardTitle style={{padding: "1em 0"}}>
+    Boosted Customer Relations	
 	</IonCardTitle>
-	</IonCardHeader>
-
-	<IonCardContent>
-	Having an event or wanna know how things are going directly, yet
-discretly from your employees?
-	<br/>
-	<br/>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Advanced insights
-	</IonCardSubtitle>
-	</IonCardHeader>
-	<IonCardContent>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	</IonCard>
+When one asks genuinely for opinion, most response is authentic in return. Additionally, integration of customers, very similar to employees can be well appreciated.
+        Start a campaign with a custom prompt and gather specific customer insights.
+        </>
+}
+    />
 
 
 {/*
 	EMPLOYEE EXPERIENCE
 */}
-	<IonCard className="fitContentCard blobCard">
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Gather Customer Feedback	
-	</IonCardSubtitle>
-	<IonCardTitle>
-	Employee Experience	(EX)
+
+ <Card 
+    subtitle="Gather Employee Feedback"
+    title="Employee Experience (EX)"
+    content={<>
+    Leveraging proactive human capital and increasing employee engagement require involvement and employee experience is majorly driven by valuation. Thus, enabling employees to be part and engage actively in decision making processes and internal operations.
+	<br/>
+	<br/>
+    The experience employees have is valuable information with great insights into the opinions and inner workings behind employee's behaviour.
+	<IonCardTitle style={{padding: "1em 0"}}>
+	Enhanced Employee Experience
 	</IonCardTitle>
-	</IonCardHeader>
-
-	<IonCardContent>
-	Having an event or wanna know how things are going directly, yet
-discretly from your employees?
-	<br/>
-	<br/>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Advanced insights
-	</IonCardSubtitle>
-	</IonCardHeader>
-	<IonCardContent>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	</IonCard>
-
+    The feedback campaigns employers set up can be for various uses, such as
+internal events, opinions about a potential change, or simply to see how
+everybody feels.  The benefits of such campaigns are increasingly better
+employee experiences over time. To maximise the experience, inclusion and
+listenting are the start.
+        </>
+}
+    />
+    
 {/*
 	BRAND EXPERIENCE
 */}
-	<IonCard className="fitContentCard blobCard">
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Gather Brand Insights
-	</IonCardSubtitle>
-	<IonCardTitle>
-	Brand Experience (BX)
+ <Card 
+    subtitle="Gather Brand Appearance Insights"
+    title="Brand Experience (BX)"
+    content={<>
+Brand perception is what comes to your customers' minds when they about your
+product / service - The brand perception is not what the company says the brand
+or product is, but is dictated by customers.
+<br/>
+<br/>
+The perception of customers is thus vital for brand equity as the extra value
+to the product is solely the association with brand perception and not the
+consituent parts' sum. <br/>
+Your brand is what adds value to products and differentiates it enough from the
+competition.
+	<IonCardTitle style={{padding: "1em 0"}}>
+	Brand Perception Leveraging
 	</IonCardTitle>
-	</IonCardHeader>
-
-	<IonCardContent>
-	Having an event or wanna know how things are going directly, yet
-discretly from your employees?
-	<br/>
-	<br/>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	<IonCardHeader>
-	<IonCardSubtitle>
-	Advanced insights
-	</IonCardSubtitle>
-	</IonCardHeader>
-	<IonCardContent>
-	You can add event specific prompts to comment on, so that no
-matter what, you can gain intelligence insights into your
-operations.
-	</IonCardContent>
-	</IonCard>
+Perceived value can be increased by leveraging brand perception through
+enhanced customer experiences. Knowing how your brand / product is perceived by
+your customers thus tells you more about their aspects than you could ever do
+yourself.
+        </>
+}
+    />
 
 
 

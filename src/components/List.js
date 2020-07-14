@@ -18,17 +18,7 @@ class List extends React.Component {
 	}
 
 
-    addCompliment = e => {
-        console.log(this.state.compliments[e].active)
-        const active = this.state.compliments[e].active
-        this.setState( prevState => {
-            let compliments = Object.assign({}, prevState.compliments);
-            compliments[e].active = !active
-            return {compliments}
-        })
-
-    }
-
+    
     componentDidMount(){
     console.log(this.state)
     }

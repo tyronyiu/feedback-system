@@ -13,7 +13,7 @@ IonCardContent,
 IonCardTitle,
 IonCardSubtitle,
 } from '@ionic/react';
-import Chips from './components/Chips';
+import Chips from "./components/Chips";
 import List from './components/List';
 import Comments from './components/Comments';
 import { useQuery } from '@apollo/react-hooks';
@@ -304,84 +304,96 @@ handleSubmit() {
 
 
 if (localStorage.getItem('token')) {
-        return (
-            <div className="App">
-            <IonPage>
-            <IonHeader translucent={true}>
-            <IonToolbar>
-            <IonTitle>
-            <CompanyName clientId={this.props.match.params.client}/>
-            </IonTitle>
-            </IonToolbar>
-            </IonHeader>
+	return (
+		<div className="App">
+		<IonPage>
+		<IonHeader translucent={true}>
+		<IonToolbar>
+		<IonTitle>
+		<CompanyName clientId={this.props.match.params.client}/>
+		</IonTitle>
+		</IonToolbar>
+		</IonHeader>
 
 
-            <IonContent fullscreen={true}>
-            <IonHeader collapse="condense">
-            <IonToolbar>
-            <IonTitle size="large">
-            <CompanyName clientId={this.props.match.params.client}/>
+		<IonContent fullscreen={true}>
+		<IonHeader collapse="condense">
+		<IonToolbar>
+		<IonTitle size="large">
+		<CompanyName clientId={this.props.match.params.client}/>
 
-            </IonTitle>
-            </IonToolbar>
-            </IonHeader>
+		</IonTitle>
+		</IonToolbar>
+		</IonHeader>
 
-            <IonCard>
-            <CardBannerImage clientId={this.props.match.params.client}/>
-            <IonCardHeader>
-            <IonCardSubtitle>
-            <CompanyName clientId={this.props.match.params.client}/>
-            </IonCardSubtitle>
-            <IonCardTitle>
-            <Prompt clientId={this.props.match.params.client}/>
-            </IonCardTitle>
-            </IonCardHeader>
+		<IonCard>
+		<CardBannerImage clientId={this.props.match.params.client}/>
+		<IonCardHeader>
+		<IonCardSubtitle>
+		<CompanyName clientId={this.props.match.params.client}/>
+		</IonCardSubtitle>
+		<IonCardTitle>
+		<Prompt clientId={this.props.match.params.client}/>
+		</IonCardTitle>
+		</IonCardHeader>
 
-            <IonCardContent>
-            <IonCardSubtitle>
-            Compliments
-            </IonCardSubtitle>
+		<IonCardContent>
+		<IonCardSubtitle>
+		Compliments
+		</IonCardSubtitle>
 
-            <Chips value={this.state.compliments} parentCallback = {this.callbackFunctionCompliments} />
-            <List value={this.state.score} parentCallback = {this.callbackFunctionScore} />
-            <Comments value={this.state.comment} parentCallback = {this.callbackFunction}/>
+		<Chips value={this.state.compliments} parentCallback = {this.callbackFunctionCompliments} />
+		<List value={this.state.score} parentCallback = {this.callbackFunctionScore} />
+		<Comments value={this.state.comment} parentCallback = {this.callbackFunction}/>
 
-            <Mutation mutation={addEntry} variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, time: moment().valueOf()}}>
-            {EntryMutation =>
-            <Mutation mutation={addScoreByClientId} variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, score: this.state.score}}>
-            {ScoreMutation =>
-            <Mutation mutation={addComplimentByClientId} variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, love: this.state.compliments.love.active, service: this.state.compliments.service.active, products: this.state.compliments.products.active}}>
-            {ComplimentMutation =>
-            <Mutation mutation={AddCommentByClientId} variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
-            {CommentMutation => 
-                <Link to={`/${this.props.match.params.client}/done`}>
-                <IonButton expand="block" onClick={() => {
-                    EntryMutation();
-                    if (this.state.comment !== ""){ CommentMutation()} ;
-                    if (this.state.compliments.love.active === true || this.state.compliments.service.active === true || this.state.compliments.products.active === true){ ComplimentMutation()} ;
-                    ScoreMutation() ; this.handleSubmit()
-                }}>
-                Submit
-                </IonButton>
-                </Link>
-            }
-            </Mutation>
-            }
-            </Mutation>
-            }
-            </Mutation>
-            }
-            </Mutation>
+		<Mutation
+		mutation={addEntry}
+		variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, time: moment().valueOf()}}>
+		{EntryMutation =>
+
+			<Mutation
+			mutation={addScoreByClientId}
+			variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, score: this.state.score}}>
+			{ScoreMutation =>
+
+				<Mutation
+				mutation={addComplimentByClientId}
+				variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, love: this.state.compliments.love.active, service: this.state.compliments.service.active, products: this.state.compliments.products.active}}>
+				{ComplimentMutation =>
+
+					<Mutation
+					mutation={AddCommentByClientId}
+					variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
+					{CommentMutation => 
+
+						<Link to={`/${this.props.match.params.client}/done`}>
+						<IonButton expand="block" onClick={() => {
+							EntryMutation();
+							if (this.state.comment !== ""){ CommentMutation()} ;
+							if (this.state.compliments.love.active === true || this.state.compliments.service.active === true || this.state.compliments.products.active === true){ ComplimentMutation()} ;
+							ScoreMutation() ; this.handleSubmit()
+						}}>
+						Submit
+						</IonButton>
+						</Link>
+					}
+					</Mutation>
+				}
+		</Mutation>
+}
+	</Mutation>
+}
+	</Mutation>
 
 
-            </IonCardContent>
-            </IonCard>
+	</IonCardContent>
+	</IonCard>
 
-            </IonContent>
+	</IonContent>
 
-            </IonPage>
-            </div>
-        );
+	</IonPage>
+	</div>
+);
 }else{
 //    
 	const options = {
