@@ -79,11 +79,17 @@ MENU POPOVER
             title="Apply now"
             subtitle="Ager Feedback System"
             content={<>
-			We are officially launching the beta round for our new feedback system.
-			<br/>
-			It provides instant feedback with an incredibly intuitive user interface. 
+			Our new system provides instant feedback with an incredibly intuitive user interface. 
 			<br/>
 			<br/>
+<b>What to include in your application: </b>
+<br/>
+Let us know your Campaign name, the question you'd like to pose and we'll send
+you over your access credentials.
+<br/>
+You can also send along an image for us
+to include, as you can see to the left.
+<br/><br/>
 			<a href="mailto:contactager@gmail.com">
 			<IonButton>
 			GET BETA ACCESS
@@ -179,17 +185,19 @@ experience was, without needing score-values.
 	</div>
 
 	<div className="instantAvailabilitySection">
-	<IonText color="medium" mode="ios">
-	<p>
+<div className="miniCard">
+<Card
+subtitle="Ready in less than 24h"
+content={<>
 	You let us know a few details and we deliver your feedback campaign in less than 24h.
-	</p>
-
-	<p>
+<br/>
+<br/>
 	We adapt your feedback campaign with to your brand by including a visual stimulation, so that you can make your campaign truly yours!
-	</p>
+</>}
+/>
+</div>
 
 	{/*<hr style={{height:"0",border:"0.5px solid"}}/>*/}
-	</IonText>
 
 	</div>
 	{/*
