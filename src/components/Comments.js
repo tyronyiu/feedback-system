@@ -41,7 +41,7 @@ class Comments extends React.Component {
       clearOnEdit={true}
       autoGrow={true}
       inputmode="text"
-      placeholder="Best service ever experienced!"
+      placeholder="I really liked it!"
       style={{border: "1px solid rgb(0,0,0,0.3)", borderRadius:"6px", padding:"0.5em"}}
       value={this.state.comment}
       onIonChange={e => this.handleChange(e)}
