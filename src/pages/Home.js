@@ -26,7 +26,9 @@ function getContent() {
 
     function scrollToTop() {
                 const container = getContent();
-                if(container) container.scrollToPoint(0, 0);
+//                if(container) container.scrollToPoint({top:0, left:0, behaviour:'smooth'});
+if(container) container.scrollToTop(300)
+
             }
 
 class Home extends React.Component {
@@ -45,7 +47,11 @@ class Home extends React.Component {
 		return (
 			<div className="Home">
 			<IonPage>
-			<IonContent className="homepageContentWrapper" fullscreen={true}>
+			<IonContent
+ className="homepageContentWrapper"
+ fullscreen={true}
+scrollEvents="true" 
+>
 			<IonHeader mode="ios">
 			<IonToolbar>
 			<IonTitle size="large">
