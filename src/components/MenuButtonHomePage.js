@@ -48,7 +48,7 @@ class MenuButtonHomePage extends React.Component {
                 {/*
 EDIT CAMPAIGN (POPOVER)
 */}
-                <Link to={`/${this.props.clientId}/login/`} style={{width:"fit-content"}}>
+                <Link to="/login" style={{width:"fit-content"}}>
                 <IonItem button={true} onClick={()=>{
                     this.setState({
                         showPopover: { open: !this.state.showPopover.open },

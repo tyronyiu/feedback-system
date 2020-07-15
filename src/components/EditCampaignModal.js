@@ -271,14 +271,14 @@ class EditCampaignModal extends React.Component {
 
 <IonItem>
 <IonLabel className="ion-text-wrap">
-            Preview Campaign: 
+            View Campaign: 
             </IonLabel>
 </IonItem>
 
 <IonItem lines="none">
-<Link to={`/${this.props.clientId}`}>
+<Link to={`/id/${this.props.clientId}`}>
 <IonButton size="default" mode="ios">
-Preview
+View
 			<IonIcon slot="end" icon={eyeOutline}/>
 </IonButton>
 </Link>

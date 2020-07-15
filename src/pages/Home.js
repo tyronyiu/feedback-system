@@ -18,6 +18,8 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import AdvantagesList from '../components/AdvantagesList';
 import { arrowUpCircle } from 'ionicons/icons';   
+import { Link } from "react-router-dom";
+import {CSSTransition} from 'react-transition-group';
 
 
 function getContent() {
@@ -35,7 +37,8 @@ class Home extends React.Component {
 	constructor(){
 		super();
         this.state = {
-		thanks: ""
+		thanks: "",
+        animate:true,
         }
 	}
 
@@ -46,6 +49,7 @@ class Home extends React.Component {
 
 		return (
 			<div className="Home">
+<CSSTransition appear in={this.state.animate} key="home" timeout={200} classNames="my-">
 			<IonPage>
 			<IonContent
  className="homepageContentWrapper"
@@ -88,25 +92,17 @@ MENU POPOVER
 	APPLY NOW CARD
 	*/}
 			<Card 
-			title="Apply now"
+			title="Get beta access"
 			subtitle="Ager Feedback System"
 			content={<>
 				Our new system provides instant feedback with an incredibly intuitive user interface. 
-				<br/>
-				<br/>
-				<b>What to include in your application: </b>
-				<br/>
-				Let us know your Campaign name, the question you'd like to pose and we'll send
-				you over your access credentials.
-				<br/>
-				You can also send along an image for us
-				to include, as you can see to the left.
-				<br/><br/>
-				<a href="mailto:contactager@gmail.com">
-				<IonButton>
-				GET BETA ACCESS
+                <br/>
+                <br/>
+				<Link to="/requestAccess">
+				<IonButton >
+				Sign up
 				</IonButton>
-				</a>
+				</Link>
 				</>}
 			/>
 
@@ -373,6 +369,7 @@ mode="ios"
 	</IonContent>
 
 	</IonPage>
+    </CSSTransition>
 	</div>
 );
 }

@@ -90,7 +90,7 @@ TUTORIAL (POPOVER)
                    }}>
                 <IonIcon icon={helpCircleOutline} slot="start"/>
                 <IonLabel>
-                Tutorial
+                Help
                 </IonLabel>
 
                 </IonItem>

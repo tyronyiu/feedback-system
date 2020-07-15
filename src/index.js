@@ -11,9 +11,12 @@ import './index.css';
 import App from './App';
 import Done from './pages/Done';
 import Dashboard from './pages/Dashboard';
+import DashboardInTransition from './pages/DashboardInTransition';
 import EntriesDetail from './pages/EntriesDetail';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import RequestAccess from './pages/RequestAccess';
+import RequestAccessSuccess from './pages/RequestAccessSuccess';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
@@ -160,11 +163,14 @@ ReactDOM.render(
 
 	<ApolloProvider client={client}>
 <Route exact path="/" component={Home}/>
-<Route exact path="/:client/" component={App}/>
-<Route exact path="/:client/done" component={Done}/>
-<Route exact path="/:client/dashboard" component={Dashboard}/>
-<Route exact path="/:client/dashboard/entriesDetail" component={EntriesDetail}/>
-<Route exact path="/:client/login" component={Login}/>
+<Route exact path="/login/" component={Login}/>
+<Route exact path="/requestAccess/" component={RequestAccess}/>
+<Route exact path="/requestAccess/success" component={RequestAccessSuccess}/>
+<Route exact path="/id/:client/done" component={Done}/>
+<Route exact path="/id/:client/dashboard" component={Dashboard}/>
+<Route exact path="/id/:client/dashboard/in" component={DashboardInTransition}/>
+<Route exact path="/id/:client/dashboard/entriesDetail" component={EntriesDetail}/>
+<Route exact path="/id/:client/" component={App}/>
 
 	</ApolloProvider>
     </Switch>

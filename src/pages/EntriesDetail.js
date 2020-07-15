@@ -32,6 +32,7 @@ import { gql } from 'apollo-boost';
 import {
 Link
 } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 
     const clientById = gql`
         query getClients($clientId: ID!){
@@ -76,6 +77,7 @@ function CompanyName({clientId}){
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
+    if (error) localStorage.removeItem('token')
     return data.clientById.name
 }
 
@@ -86,7 +88,7 @@ function EntriesCards({clientId}){
 	});
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-		console.log(data)
+		console.log("data: ",data)
 console.log(clientId)
 		return (
 			data.entriesByClientId.map((entry, key) => (
@@ -160,6 +162,17 @@ class EntriesDetail extends React.Component {
         }
 	}
 
+    componentDidMount(){
+        if (localStorage.getItem('token')){
+        var decoded = jwt_decode(localStorage.getItem('token'));
+        console.log(decoded);  
+            if (decoded.email === "public@public.com"){
+                localStorage.removeItem('token');
+                this.props.history.push(`/login/`)
+            }
+        }
+    }
+
 
 	render(){
 		if (localStorage.getItem('token')) {
@@ -174,7 +187,7 @@ class EntriesDetail extends React.Component {
 <IonHeader translucent={true} mode="ios">
                 <IonToolbar mode="ios">
 <IonButtons slot="start">
-                <Link to={`/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
+                <Link to={`/id/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
                 <IonButton slot="start">
                 <IonIcon slot="start" icon={chevronBackOutline}/>
                 </IonButton>
@@ -210,7 +223,7 @@ class EntriesDetail extends React.Component {
             );
 		}
 		else{
-			this.props.history.push(`/${this.props.match.params.client}/login`)
+			this.props.history.push(`/login`)
 return (<><h1>An error has occured</h1><h2>Please log out and log in again</h2></>)
 
 		}

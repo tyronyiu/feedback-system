@@ -13,7 +13,7 @@ render(){
 return(<>
     <div className="flex-footer">
   <div>
-<Link to="/public/login">
+<Link to="/login">
    <IonButton size="small" fill="clear">
 Login
    <IonIcon slot="end" icon={enterOutline} />

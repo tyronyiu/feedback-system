@@ -253,7 +253,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(data => {
 				if (data.success) {
 					localStorage.setItem('token', data.token)
-					this.props.history.push(`/${this.props.match.params.client}`)
+					this.props.history.push(`/id/${this.props.match.params.client}`)
 				}
 			})
 }
@@ -366,7 +366,7 @@ if (localStorage.getItem('token')) {
 					variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
 					{CommentMutation => 
 
-						<Link to={`/${this.props.match.params.client}/done`}>
+						<Link to={`/id/${this.props.match.params.client}/done`}>
 						<IonButton expand="block" onClick={() => {
 							EntryMutation();
 							if (this.state.comment !== ""){ CommentMutation()} ;
@@ -423,7 +423,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(data => {
 				if (data.success) {
 					localStorage.setItem('token', data.token)
-					this.props.history.push(`/${this.props.match.params.client}`)
+					this.props.history.push(`/id/${this.props.match.params.client}`)
 				}
 			})
 

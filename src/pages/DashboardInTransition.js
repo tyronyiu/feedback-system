@@ -39,13 +39,12 @@ function CompanyName({clientId}){
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
-    if (error) localStorage.removeItem('token')
     if (error) return <p>Error :(</p>;
     return data.clientById.name
 }
 
 
-class Dashboard extends React.Component {
+class DashboardInTransition extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -60,7 +59,7 @@ class Dashboard extends React.Component {
         }
     }
 
-    componentDidMount(){
+componentDidMount(){
         if (localStorage.getItem('token')){
         var decoded = jwt_decode(localStorage.getItem('token'));
         console.log(decoded);  
@@ -71,7 +70,6 @@ class Dashboard extends React.Component {
         }
     }
 
-
 callbackFunction = (childData) => {
           this.setState({showEditCampaignModal: childData})
 }
@@ -79,7 +77,7 @@ callbackFunction = (childData) => {
     render(){
         if (localStorage.getItem('token')) {
             return (
-<CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node-back">
+<CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node">
                 <IonPage className="dashboardPage">
                 <IonContent fullscreen={true}  className="dashboardContent subPage">
 
@@ -178,4 +176,4 @@ EDIT CAMPAIGN MODAL
     }
 }
 
-export default Dashboard;
+export default DashboardInTransition;

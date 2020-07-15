@@ -22,6 +22,7 @@ function QuickInsightsByClientId({clientId}){
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
+    if (error) localStorage.removeItem('token')
     if (error) return <p>Error :(</p>;
         return (
             <div className="content">

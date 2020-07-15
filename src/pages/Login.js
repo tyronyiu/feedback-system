@@ -13,41 +13,24 @@ IonButton,
 IonButtons,
 IonIcon,
 } from '@ionic/react';
-//import { Mutation } from 'react-apollo'
-//import { gql } from 'apollo-boost';
-//import Cookies from 'js-cookie'
-import { AUTH_TOKEN } from '../constants'
-import { exitOutline} from 'ionicons/icons';   
-import {
- Link
-} from "react-router-dom";
-//const LOGIN_MUTATION = gql`
-//  mutation LoginMutation($email: String!, $password: String!) {
-//          login(email: $email, password: $password) {
-//                    token
-//                  }
-//        }
-//`
-
+import { chevronBackOutline} from 'ionicons/icons';   
+//import {
+// Link
+//} from "react-router-dom";
+import {CSSTransition} from 'react-transition-group';
 
 
 class Login extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             email: "",
             password: "",
+            animate: true,
         }
     }
 
-  _saveUserData = token => {
-          localStorage.setItem(AUTH_TOKEN, token)
-        }
 
-_confirm = async data => {
-const { token } =  data.login 
-      this._saveUserData(token)
-}
 
 componentDidMount(){
 if (localStorage.getItem('token')) {
@@ -89,7 +72,7 @@ const url = "https://apollo.simulacron-3.com/login"
                     console.log("jwt data: ",data)
 					//document.cookie = 'token=' + data.token
                     localStorage.setItem('token', data.token)
-					this.props.history.push(`/${data.clientId}/dashboard`)
+					this.props.history.push(`/id/${data.clientId}/dashboard/in`)
 				}
 			})
 
@@ -98,23 +81,22 @@ const url = "https://apollo.simulacron-3.com/login"
     render(){
 		const { email, password } = this.state
 		return(
+        <CSSTransition appear in={this.state.animate} timeout={200} key="login" classNames="my-node">
 			<IonPage>
 			<IonContent fullscreen={true}>
 
 			<IonHeader collapse="condense" mode="ios">
-			<IonToolbar>
-			<IonTitle size="large">
-			Login			
-			</IonTitle>
-<IonButtons slot="end">
-<Link to="/">
-<IonButton>
-			<IonIcon slot="end" icon={exitOutline}/>
-</IonButton>
-</Link>
-</IonButtons>
+<IonToolbar style={{paddingTop: "1em"}}>
+            <IonButtons slot="start">
+            <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push("/"); }, 100) }} slot="start">
+            <IonIcon slot="start" icon={chevronBackOutline}/>
+            </IonButton>
+            </IonButtons>
 
-			</IonToolbar>
+<IonTitle size="large" style={{marginLeft:"1em"}}>
+            Log In
+            </IonTitle>
+            </IonToolbar>
 			</IonHeader>
 
 			<IonList>
@@ -189,6 +171,7 @@ const url = "https://apollo.simulacron-3.com/login"
 
 			</IonContent>
 			</IonPage>
+    </CSSTransition>
 		)
     }
 
