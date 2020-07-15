@@ -202,6 +202,7 @@ class EntriesDetail extends React.Component {
 
                 {/*<CommentCards clientId={this.props.match.params.client}/>*/}
 
+                <div className="entriesDetailList">
                 <IonCard className="">
                 <IonCardHeader>
                 <IonCardTitle>
@@ -214,6 +215,7 @@ class EntriesDetail extends React.Component {
                 </IonList>
                 </IonCardContent>
                 </IonCard>
+                </div>
 
                 </IonContent>
 

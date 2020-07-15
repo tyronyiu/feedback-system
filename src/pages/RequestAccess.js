@@ -8,6 +8,7 @@ IonList,
 IonItem,
 IonLabel,
 IonInput, 
+IonText,
 IonTitle,
 IonButton,
 IonButtons,
@@ -44,7 +45,7 @@ const AddRegisteredClient = gql`
     email: $email,
     password: $password,
         ){
-            organisationName
+            _id
         }
     }
 `
@@ -97,7 +98,7 @@ function RegisterClient() {
     let password;
 
     return(
-
+        <div className="requestAccessInput">
         <IonList>
         <form onSubmit={(e) =>{
             e.preventDefault();
@@ -122,7 +123,7 @@ function RegisterClient() {
         Business name:
         </IonLabel>
         <IonInput 
-        name="businessName"
+        name="organisationName"
         type="text"
         inputmode="organization-title"
         autocomplete="text"
@@ -284,7 +285,7 @@ function RegisterClient() {
                         password: password.value,
                     } 
                 });
-
+            window.location.href = '/#/requestAccess/success'
             }
         })}
         />
@@ -292,7 +293,20 @@ function RegisterClient() {
 
 
 
-        <IonItem lines="none">
+        <IonItem lines="none" className="text-wrap">
+        <IonText color="medium">
+        <p>
+        These details will be used to create your campaign.
+        <br/>
+        After you've received our approval email, you can customise your campaign on the dashboard.
+        <br/>
+        <br/>
+        We do our best to review your campaign within 24h.
+        </p>
+        </IonText>
+        </IonItem>
+
+   <IonItem lines="none">
         </IonItem>
 
         <IonItem lines="none">
@@ -308,7 +322,7 @@ function RegisterClient() {
 
         </form>
         </IonList>
-
+        </div>
 
     )
 

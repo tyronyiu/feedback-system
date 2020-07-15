@@ -154,6 +154,15 @@ filter: blur(3em) invert();
 
 
 @media only screen and (min-width: 992px){
+.requestAccessInput ion-list{
+    width: 50%;
+margin: auto;
+}
+.entriesDetailList ion-card{
+    width: 50%;
+margin: auto;
+}
+
 ion-content{
      width: unset !important;
    left: unset;

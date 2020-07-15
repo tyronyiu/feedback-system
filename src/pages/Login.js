@@ -1,4 +1,5 @@
 import React from 'react';
+import './Login.css';
 import {
 IonPage,
 IonContent,
@@ -99,6 +100,7 @@ const url = "https://apollo.simulacron-3.com/login"
             </IonToolbar>
 			</IonHeader>
 
+        <div className="loginList">
 			<IonList>
             <form onSubmit={(e) =>{
 					this.handleSubmit(e)
@@ -167,6 +169,7 @@ const url = "https://apollo.simulacron-3.com/login"
 
     </form>
 			</IonList>
+    </div>
 
 
 			</IonContent>

@@ -26,13 +26,13 @@ function QuickInsightsByClientId({clientId}){
     if (error) return <p>Error :(</p>;
         return (
             <div className="content">
-            <Card color="" title={data.quickInsightsByClientId.entriesCount} subtitle="Entries" />      
+            <Card color="" title={data.quickInsightsByClientId.entriesCount ? data.quickInsightsByClientId.entriesCount : "0" } subtitle="Entries" />      
             { data.quickInsightsByClientId.averageScore >= 4.5 &&
                 <div className="scoreCard">
                 <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
 
-                title={data.quickInsightsByClientId.averageScore} 
+                title={data.quickInsightsByClientId.averageScore ? data.quickInsightsByClientId.averageScore : "0"} 
                 subtitle="Average Score"
                 />      
                 <div style={{
@@ -54,7 +54,7 @@ function QuickInsightsByClientId({clientId}){
 <p>Your score is out of 5</p>
                     <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
-                title={data.quickInsightsByClientId.averageScore} 
+                title={data.quickInsightsByClientId.averageScore ? data.quickInsightsByClientId.averageScore : "0"} 
                 subtitle="Average Score"
 
                     />      
@@ -72,7 +72,7 @@ function QuickInsightsByClientId({clientId}){
                     </div>
             }
             <div>
-            <Card color="" title={data.quickInsightsByClientId.commentsCount} subtitle="Comments" />      
+            <Card color="" title={data.quickInsightsByClientId.commentsCount ? data.quickInsightsByClientId.commentsCount : "0" } subtitle="Comments" />      
             <div style={{
                 background:"linear-gradient(135deg, #12B2FC, #FF3D77)",
                     backgroundSize:"150px",
@@ -85,7 +85,7 @@ function QuickInsightsByClientId({clientId}){
             }}>
             </div>
             </div>
-            <Card color="" title={data.quickInsightsByClientId.complimentsCount} subtitle="Compliments" />      
+            <Card color="" title={data.quickInsightsByClientId.complimentsCount ? data.quickInsightsByClientId.complimentsCount : "0"} subtitle="Compliments" />      
 
             </div>
         )

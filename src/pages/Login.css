@@ -1,0 +1,6 @@
+@media only screen and (min-width: 992px){
+.loginList ion-list{
+    width: 50%;
+margin: auto;
+}
+}

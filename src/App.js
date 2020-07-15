@@ -33,6 +33,14 @@ import moment from 'moment';
         }
     `
 
+const promptByClientId= gql`
+    query getPrompt($clientId: ID!){
+    promptByClientId(clientId: $clientId){
+    prompt
+    }
+    }
+`
+
 const addEntry= gql`
 mutation addEntry(
     $entryId: ID!,
@@ -116,36 +124,7 @@ mutation addComplimentByClientId(
 }
 `
 
-const promptByClientId= gql`
-    query getPrompt($clientId: ID!){
-    promptByClientId(clientId: $clientId){
-    prompt
-    }
-    }
-`
 
-
-//const loginMutation = gql`
-//  mutation loginMutation($email: String!, $password: String!) {
-//    loginMutation(email: $email, password: $password) {
-//      token
-//    }
-//  }
-//`
-
-//const GetToken = async () =>{
-//
-//   const { data } = await useMutation(loginMutation,{
-//    variables: {email:"public@public.com",password:"1234"}
-//    });
-//        console.log(data)
-//    console.log(data.loginMutation.token)
-//            localStorage.setItem('token',data.loginMutation.token)
-//
-//return(
-//<p>lol</p>
-//)
-//}
 
 
 
@@ -155,7 +134,8 @@ function CompanyName({clientId}){
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-    return data.clientById.name
+        console.log(data)
+    return (<>{data.clientById.name}</>)
     
 }
 
@@ -165,6 +145,7 @@ function CardBannerImage({clientId}){
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <img alt="" src=""/>;
+        console.log(data)
     return (
             <img alt="" src={data.clientById.cardBannerImage}/>
     )
@@ -287,19 +268,6 @@ handleSubmit() {
 
 
 
-  //const client = this.props.match.params.client
-  //      try{
-  //          const cardBannerImage = useQuery(clientById, {
-  //              variables: client
-  //          });
-  //          console.log(cardBannerImage)
-  //          if (cardBannerImage.cardBannerImage !== null){
-  //          this.setState({
-  //              cardBannerImage: cardBannerImage.cardBannerImage
-  //          })
-  //          }
-  //      }
-  //      catch(e){console.log(e)}
 
 
 

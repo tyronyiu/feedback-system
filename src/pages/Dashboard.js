@@ -61,6 +61,7 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount(){
+        console.log("clientId: ", this.props.match.params.client)
         if (localStorage.getItem('token')){
         var decoded = jwt_decode(localStorage.getItem('token'));
         console.log(decoded);  

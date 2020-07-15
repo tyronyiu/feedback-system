@@ -8,12 +8,14 @@ IonTitle,
 IonButton,
 IonButtons,
 IonIcon,
+IonText,
 } from '@ionic/react';
 import Card from '../components/Card';
-import { exitOutline} from 'ionicons/icons';   
+import { chevronBackOutline, enterOutline} from 'ionicons/icons';   
 import {
  Link
 } from "react-router-dom";
+import {CSSTransition} from 'react-transition-group';
 
 class RequestAccess extends React.Component {
     constructor(props){
@@ -46,22 +48,21 @@ if (localStorage.getItem('token')) {
 
     render(){
         return(
+<CSSTransition appear in={this.state.animate} timeout={200} key="requestAccess" classNames="my-node">
             <IonPage>
             <IonContent fullscreen={true}>
 
             <IonHeader collapse="condense" mode="ios">
-            <IonToolbar style={{paddingTop: "1em"}}>
-            <IonTitle size="large">
-            Sign up - Success
-            </IonTitle>
-            <IonButtons slot="end">
-            <Link to="/">
-            <IonButton>
-            <IonIcon slot="end" icon={exitOutline}/>
+<IonToolbar style={{paddingTop: "1em"}}>
+            <IonButtons slot="start">
+            <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push("/"); }, 100) }} slot="start">
+            <IonIcon slot="start" icon={chevronBackOutline}/>
             </IonButton>
-            </Link>
             </IonButtons>
 
+<IonTitle size="large" style={{marginLeft:"1em"}}>
+            Sign up - <IonText color="success">success</IonText>
+            </IonTitle>
             </IonToolbar>
             </IonHeader>
             
@@ -69,15 +70,18 @@ if (localStorage.getItem('token')) {
             title="Thank your for registering!"
             subtitle="Successfully registered"
             content={<>
-                Your campaign is being set up.
+                Your campaign is ready to use!
                 <br/>
-                We will contact you shortly.
+                We will contact you shortly regarding usage and billing.
                 <br/>
                 <br/>
-            <Link to="/">
+                This is a completely free trial version.
+                <br/>
+                <br/>
+            <Link to="/login">
             <IonButton fill="outline">
-                Done
-            <IonIcon slot="end" icon={exitOutline}/>
+                Login
+            <IonIcon slot="end" icon={enterOutline}/>
             </IonButton>
             </Link>
                 </>}
@@ -85,6 +89,7 @@ if (localStorage.getItem('token')) {
 
             </IonContent>
             </IonPage>
+            </CSSTransition>
         )
     }
 

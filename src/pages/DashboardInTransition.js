@@ -30,7 +30,6 @@ import jwt_decode from 'jwt-decode';
         query getClients($clientId: ID!){
         clientById(clientId: $clientId){
         name
-        cardBannerImage
         }
         }
     `
@@ -45,8 +44,8 @@ function CompanyName({clientId}){
 
 
 class DashboardInTransition extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             showPopover: {
                 open: false,
@@ -60,6 +59,8 @@ class DashboardInTransition extends React.Component {
     }
 
 componentDidMount(){
+    console.log( <CompanyName clientId={this.props.match.params.client}/>)
+        console.log("clientId: ", this.props.match.params.client)
         if (localStorage.getItem('token')){
         var decoded = jwt_decode(localStorage.getItem('token'));
         console.log(decoded);  
