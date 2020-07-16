@@ -89,12 +89,12 @@ function EntriesCards({clientId}){
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 		console.log("data: ",data)
-console.log(clientId)
+console.log(data)
 		return (
 			data.entriesByClientId.map((entry, key) => (
 				<div key={key}>
 				<IonListHeader style={{paddingLeft: "0"}}>
-				{moment(entry.time).format('HH:MM - Do MMMM YYYY')}
+				{moment(entry.time).format('HH:mm - D MMMM YYYY')}
 				</IonListHeader>
 
 				<IonItem>
