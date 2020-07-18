@@ -1,7 +1,7 @@
 .flex{
 display: flex;
 justify-content: space-evenly;
-flex-flow: wrap row;
+flex-flow: row wrap;
 width: 100%;
 }
 .flex-image{
@@ -29,14 +29,20 @@ max-width: 75vw;
 }
 
 .sectionHeader{
-padding-left: 1.5em;
-padding: 2rem;
 text-align: center;
-
 }
 .sectionHeaderTitle{
+padding-left: 1.5em;
+padding: 2rem;
 font-size: 2.5rem;
 font-weight: 700;
+}
+
+.sectionHeaderSubtitle{
+padding-left: 1.5em;
+padding: 2rem;
+font-size: 2.5rem;
+font-weight: 600;
 }
 
 .instantAvailabilitySection{
@@ -46,6 +52,10 @@ font-weight: 700;
 @media only screen and (min-width: 992px) and (max-width: 1999px){
 .fitContentCard{
     max-width: 35vw;
+}
+
+ion-fab{
+margin: 5em;
 }
 
 .topImage{
@@ -85,8 +95,19 @@ padding-left: 5em;
 }
 
 .sectionHeaderTitle{
+padding-left: 5em;
+padding: 5rem;
 font-size: 3rem;
+font-weight: 700;
 }
+
+.sectionHeaderSubtitle{
+padding-left: 5em;
+padding: 5rem;
+font-size: 2.5rem;
+font-weight: 600;
+}
+
 
 .applyNowCard{
 max-width: 45%
@@ -131,13 +152,17 @@ padding: 2em 8em;
 .sectionHeader{
 width: 100%;
 padding: 2em;
-padding-left: 10em;
 margin: 2em 0;
 }
 
 .sectionHeaderTitle{
 font-size: 4rem;
 }
+
+ion-fab{
+margin: 5em;
+}
+
 
    .miniCard{
 max-width: 15vw;

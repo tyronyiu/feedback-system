@@ -13,6 +13,7 @@ IonTitle,
 IonButton,
 IonButtons,
 IonIcon,
+IonTextarea,
 } from '@ionic/react';
 import { gql } from 'apollo-boost';
 import { chevronBackOutline } from 'ionicons/icons';   
@@ -22,28 +23,22 @@ import { chevronBackOutline } from 'ionicons/icons';
 import { useMutation } from '@apollo/react-hooks';
 import {CSSTransition} from 'react-transition-group';
 
-const AddRegisteredClient = gql`
-    mutation addRegisteredClient(
+const AddContactMessage= gql`
+    mutation addContactMessage(
     $organisationName: String!,
     $firstname: String!,
     $lastname: String!,
-    $streetAddress: String!,
-    $postcode: String!,
-    $city: String!,
     $phone: String!,
     $email: String!,
-    $password: String!,
+    $message: String!,
     ){
-        addRegisteredClient(
+        addContactMessage(
     organisationName: $organisationName,
     firstname: $firstname,
     lastname: $lastname,
-    streetAddress: $streetAddress,
-    postcode: $postcode,
-    city: $city,
     phone: $phone,
     email: $email,
-    password: $password,
+    message: $message,
         ){
             _id
         }
@@ -51,7 +46,7 @@ const AddRegisteredClient = gql`
 `
 
 
-function RegisterClient() {
+function ContactForm() {
     const options = {
         method: 'post',
         headers: {
@@ -85,42 +80,36 @@ function RegisterClient() {
 
 
 
-    const [addRegisteredClient] = useMutation(AddRegisteredClient);
+    const [addContactMessage] = useMutation(AddContactMessage);
 
     let organisationName;
     let firstname;
     let lastname;
-    let streetAddress;
-    let postcode;
-    let city;
     let phone;
     let email;
-    let password;
+    let message;
 
     return(
         <div className="requestAccessInput">
         <IonList>
         <form onSubmit={(e) =>{
             e.preventDefault();
-            addRegisteredClient({ 
+            addContactMessage({ 
                 variables: { 
                     organisationName: organisationName.value,
                     firstname: firstname.value,
                     lastname: lastname.value,
-                    streetAddress: streetAddress.value,
-                    postcode: postcode.value,
-                    city: city.value,
                     phone: phone.value,
                     email: email.value,
-                    password: password.value,
+                    message: message.value,
                 } 
             });
-            window.location.href = '/#/requestAccess/success'
+            window.location.href = '/#/contact/success'
         }} >
 
         <IonItem>
         <IonLabel position="floating">
-        Business name:
+        Your business name:
         </IonLabel>
         <IonInput 
         name="organisationName"
@@ -169,58 +158,7 @@ function RegisterClient() {
         }}
         />
         </IonItem>
-
-        <IonItem>
-        <IonLabel position="floating">
-        Street & no:
-        </IonLabel>
-        <IonInput 
-        name="street-address"
-        type="text"
-        inputmode="text"
-        autocomplete="street-address"
-        required={true}
-        clearInput={true}
-        ref={node => {
-            streetAddress = node;
-        }}
-        />
-        </IonItem>
-
-        <IonItem>
-        <IonLabel position="floating">
-        Postcode:
-        </IonLabel>
-        <IonInput 
-        name="postcode"
-        type="text"
-        inputmode="text"
-        autocomplete="postal-code"
-        required={true}
-        clearInput={true}
-        ref={node => {
-            postcode = node;
-        }}
-        />
-        </IonItem>
-
-        <IonItem>
-        <IonLabel position="floating">
-        City:
-        </IonLabel>
-        <IonInput 
-        name="city"
-        type="text"
-        inputmode="text"
-        autocomplete="country-name"
-        required={true}
-        clearInput={true}
-        ref={node => {
-            city = node;
-        }}
-        />
-        </IonItem>
-
+      
         <IonItem>
         <IonLabel position="floating">
         Phone:
@@ -255,53 +193,35 @@ function RegisterClient() {
         />
         </IonItem>
 
-        <IonItem>
-        <IonLabel position="floating">
-        Password:
+        <IonItem lines="none">
+        <IonLabel>
+        Message:
         </IonLabel>
-        <IonInput 
-        name="password"
-        type="password"
-        clearInput={true}
-        clearOnEdit={true}
-        required={true}
-        autocomplete="new-password"
-        ref={node => {
-            password = node;
-        }}
-        onKeyPress={((e) =>{
-            if (e.key === 'Enter'){
-                e.preventDefault();
-                addRegisteredClient({ 
-                    variables: { 
-                        organisationName: organisationName.value,
-                        firstname: firstname.value,
-                        lastname: lastname.value,
-                        streetAddress: streetAddress.value,
-                        postcode: postcode.value,
-                        city: city.value,
-                        phone: phone.value,
-                        email: email.value,
-                        password: password.value,
-                    } 
-                });
-            window.location.href = '/#/requestAccess/success'
-            }
-        })}
-        />
         </IonItem>
 
-
+        <IonItem lines="none">
+        <IonTextarea 
+      clearOnEdit={true}
+      autoGrow={true}
+      inputmode="text"
+        placeholder="Your message.."
+      style={{border: "1px solid rgb(0,0,0,0.3)", borderRadius:"6px", padding:"0.5em"}}
+        ref={node => {
+            message = node;
+        }}
+        >
+      </IonTextarea>
+        </IonItem>
 
         <IonItem lines="none" className="text-wrap">
         <IonText color="medium">
         <p>
-        These details will be used to create your campaign.
+        We appreciate your interest, thank your for contacting us. 
         <br/>
         After you've received our approval email, you can customise your campaign on the dashboard.
         <br/>
         <br/>
-        We do our best to review your campaign within 24h.
+        We do our best to come back to you within 24h.
         </p>
         </IonText>
         </IonItem>
@@ -320,6 +240,8 @@ function RegisterClient() {
         </IonButton>
         </IonItem>
 
+<IonItem lines="none">
+        </IonItem>
         </form>
         </IonList>
         </div>
@@ -331,19 +253,15 @@ function RegisterClient() {
 }
 
 
-class RequestAccess extends React.Component {
+class Contact extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             businessName: "",
             firstname: "",
             lastname: "",
-            streetAddress: "",
-            postcode: "",
-            city: "",
             phone: "",
             email: "",
-            password: "",
             animate: true
         }
     }
@@ -355,15 +273,9 @@ if (localStorage.getItem('token')) {
     }
 }
 
-
-    handleSubmit = e => {
-		e.preventDefault()
-		console.log("Im submitting JWT: ",this.state)
-        }
-
     render(){
         return(
-<CSSTransition appear in={this.state.animate} timeout={200} key="requestAccess" classNames="my-node">
+<CSSTransition appear in={this.state.animate} timeout={200} key="contact" classNames="my-node">
             <IonPage>
 
             <IonContent fullscreen={true}>
@@ -377,12 +289,12 @@ if (localStorage.getItem('token')) {
             </IonButtons>
 
 <IonTitle size="large" style={{marginLeft:"1em"}}>
-            Sign up
+            Contact us
             </IonTitle>
             </IonToolbar>
             </IonHeader>
 
-            <RegisterClient />
+            <ContactForm/>
 
             </IonContent>
             </IonPage>
@@ -391,4 +303,4 @@ if (localStorage.getItem('token')) {
     }
 
 }
-export default RequestAccess;
+export default Contact;

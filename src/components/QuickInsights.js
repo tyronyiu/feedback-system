@@ -6,9 +6,9 @@ import {
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Card from './Card';
-   const quickInsightsByClientId= gql`
-        query quickInsightsByClientId($clientId: ID!){
-        quickInsightsByClientId(clientId: $clientId){
+   const QuickInsightsByCampaignId= gql`
+        query quickInsightsByCampaignId($campaignId: ID!){
+        quickInsightsByCampaignId(campaignId: $campaignId){
             entriesCount
             commentsCount
             complimentsCount
@@ -17,22 +17,22 @@ import Card from './Card';
         }
     `
 // linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5)
-function QuickInsightsByClientId({clientId}){
-    const { loading, error, data } = useQuery(quickInsightsByClientId,{
-        variables: {clientId}
+function QuickInsightsCards({campaignId}){
+    const { loading, error, data } = useQuery(QuickInsightsByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) localStorage.removeItem('token')
     if (error) return <p>Error :(</p>;
         return (
             <div className="content">
-            <Card color="" title={data.quickInsightsByClientId.entriesCount ? data.quickInsightsByClientId.entriesCount : "0" } subtitle="Entries" />      
-            { data.quickInsightsByClientId.averageScore >= 4.5 &&
+            <Card color="" title={data.quickInsightsByCampaignId.entriesCount ? data.quickInsightsByCampaignId.entriesCount : "0" } subtitle="Entries" />      
+            { data.quickInsightsByCampaignId.averageScore >= 4.5 &&
                 <div className="scoreCard">
                 <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
 
-                title={data.quickInsightsByClientId.averageScore ? data.quickInsightsByClientId.averageScore : "0"} 
+                title={data.quickInsightsByCampaignId.averageScore ? data.quickInsightsByCampaignId.averageScore : "0"} 
                 subtitle="Average Score"
                 />      
                 <div style={{
@@ -49,12 +49,12 @@ function QuickInsightsByClientId({clientId}){
                 </div>
             }
 
-            { data.quickInsightsByClientId.averageScore < 4.5 &&
+            { data.quickInsightsByCampaignId.averageScore < 4.5 &&
                 <div className="scoreCard">
 <p>Your score is out of 5</p>
                     <Card 
                 //background="linear-gradient(-45deg, #8ef090, #3CF0C5)"
-                title={data.quickInsightsByClientId.averageScore ? data.quickInsightsByClientId.averageScore : "0"} 
+                title={data.quickInsightsByCampaignId.averageScore ? data.quickInsightsByCampaignId.averageScore : "0"} 
                 subtitle="Average Score"
 
                     />      
@@ -72,7 +72,7 @@ function QuickInsightsByClientId({clientId}){
                     </div>
             }
             <div>
-            <Card color="" title={data.quickInsightsByClientId.commentsCount ? data.quickInsightsByClientId.commentsCount : "0" } subtitle="Comments" />      
+            <Card color="" title={data.quickInsightsByCampaignId.commentsCount ? data.quickInsightsByCampaignId.commentsCount : "0" } subtitle="Comments" />      
             <div style={{
                 background:"linear-gradient(135deg, #12B2FC, #FF3D77)",
                     backgroundSize:"150px",
@@ -85,7 +85,7 @@ function QuickInsightsByClientId({clientId}){
             }}>
             </div>
             </div>
-            <Card color="" title={data.quickInsightsByClientId.complimentsCount ? data.quickInsightsByClientId.complimentsCount : "0"} subtitle="Compliments" />      
+            <Card color="" title={data.quickInsightsByCampaignId.complimentsCount ? data.quickInsightsByCampaignId.complimentsCount : "0"} subtitle="Compliments" />      
 
             </div>
         )
@@ -109,7 +109,7 @@ class QuickInsights extends React.Component {
             <IonText color="dark" >
       <h1 className="title">Quick Insights</h1>
       </IonText>
-    <QuickInsightsByClientId clientId={this.props.clientId}/>
+    <QuickInsightsCards campaignId={this.props.campaignId}/>
       </div>
   );
 }

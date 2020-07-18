@@ -11,8 +11,10 @@ IonIcon,
     IonModal,
     IonContent,
 } from '@ionic/react';
-import { helpCircleOutline, personCircleOutline, exitOutline, ellipsisVerticalCircleOutline, createOutline} from 'ionicons/icons';   
-
+import { albumsOutline, helpCircleOutline, personCircleOutline, exitOutline, ellipsisVerticalCircleOutline, createOutline} from 'ionicons/icons';   
+import {
+ Link
+} from "react-router-dom";
  
 class MenuButton extends React.Component {
 	constructor(props){
@@ -64,6 +66,20 @@ USER ACCOUNT (POPOVER)
 
                 </IonItem>
 
+                {/*
+MY CAMPAIGNS
+*/}
+      <Link to={`/id/${this.props.clientId}/dashboard/${this.props.campaignId}/campaigns/`}>
+                <IonItem button={true} onClick={()=>{
+                }}>
+                <IonIcon icon={albumsOutline} slot="start"/>
+                <IonLabel>
+                My Campaigns
+                </IonLabel>
+
+                </IonItem>
+      </Link>
+
 
                 {/*
 EDIT CAMPAIGN (POPOVER)
@@ -78,7 +94,7 @@ EDIT CAMPAIGN (POPOVER)
                 }}>
                 <IonIcon icon={createOutline} slot="start"/>
                 <IonLabel>
-                Campaign
+                Edit
                 </IonLabel>
 
                 </IonItem>

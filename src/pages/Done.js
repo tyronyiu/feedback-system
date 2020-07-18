@@ -14,56 +14,49 @@ IonCardSubtitle,
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-    const clientById = gql`
-        query getClients($clientId: ID!){
-        clientById(clientId: $clientId){
+    const campaignByCampaignId = gql`
+        query getCampaign($campaignId: ID!){
+        campaignByCampaignId(campaignId: $campaignId){
         name
-        cardBannerImage
-        }
-        }
-    `
-    const thanksByClientId= gql`
-        query getThanks($clientId: ID!){
-        thanksByClientId(clientId: $clientId){
+        prompt
         thanks
+        coverImage
         }
         }
     `
 
-
-
-
-function CompanyName({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+function CampaignName({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-    return data.clientById.name
+        console.log(data)
+    return (<>{data.campaignByCampaignId.name}</>)
 }
 
-function CardBannerImage({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+
+function CardBannerImage({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     return (
-            <img alt="banner" src={data.clientById.cardBannerImage}/>
+            <img alt="banner" src={data.campaignByCampaignId.coverImage}/>
     )
     
 }
   
 
-function Thanks({clientId}){
-    const { loading, error, data } = useQuery(thanksByClientId,{
-        variables: {clientId}
+function Thanks({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
         console.log(data)
-        console.log(data.thanksByClientId)
-    return data.thanksByClientId.thanks
+    return data.campaignByCampaignId.thanks
 }
 
 
@@ -87,7 +80,7 @@ class Done extends React.Component {
       <IonHeader translucent={true}>
       <IonToolbar>
       <IonTitle>
-      <CompanyName clientId={this.props.match.params.client}/>
+      <CampaignName campaignId={this.props.match.params.client}/>
       </IonTitle>
       </IonToolbar>
       </IonHeader>
@@ -97,20 +90,20 @@ class Done extends React.Component {
       <IonHeader collapse="condense">
       <IonToolbar>
       <IonTitle size="large">
-      <CompanyName clientId={this.props.match.params.client}/>
+      <CampaignName campaignId={this.props.match.params.client}/>
 
       </IonTitle>
       </IonToolbar>
       </IonHeader>
 
       <IonCard>
-      <CardBannerImage clientId={this.props.match.params.client}/>
+      <CardBannerImage campaignId={this.props.match.params.client}/>
       <IonCardHeader>
       <IonCardSubtitle>
-      <CompanyName clientId={this.props.match.params.client}/>
+      <CampaignName campaignId={this.props.match.params.client}/>
       </IonCardSubtitle>
       <IonCardTitle>
-      <Thanks clientId={this.props.match.params.client}/>
+      <Thanks campaignId={this.props.match.params.client}/>
       </IonCardTitle>
       </IonCardHeader>
 

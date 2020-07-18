@@ -14,9 +14,13 @@ import Dashboard from './pages/Dashboard';
 import DashboardInTransition from './pages/DashboardInTransition';
 import EntriesDetail from './pages/EntriesDetail';
 import Login from './pages/Login';
+import Contact from './pages/Contact';
+import ContactSuccess from './pages/ContactSuccess';
 import Home from './pages/Home';
-import RequestAccess from './pages/RequestAccess';
-import RequestAccessSuccess from './pages/RequestAccessSuccess';
+import Campaigns from './pages/Campaigns';
+import CampaignsSingle from './pages/CampaignsSingle';
+import Signup from './pages/Signup';
+import SignupSuccess from './pages/SignupSuccess';
 import * as serviceWorker from './serviceWorker';
 
 /* Apollo dependencies */
@@ -164,13 +168,17 @@ ReactDOM.render(
 	<ApolloProvider client={client}>
 <Route exact path="/" component={Home}/>
 <Route exact path="/login/" component={Login}/>
-<Route exact path="/requestAccess/" component={RequestAccess}/>
-<Route exact path="/requestAccess/success" component={RequestAccessSuccess}/>
+<Route exact path="/contact/" component={Contact}/>
+<Route exact path="/contact/success" component={ContactSuccess}/>
+<Route exact path="/signup/" component={Signup}/>
+<Route exact path="/signup/success" component={SignupSuccess}/>
 <Route exact path="/id/:client/done" component={Done}/>
-<Route exact path="/id/:client/dashboard" component={Dashboard}/>
-<Route exact path="/id/:client/dashboard/in" component={DashboardInTransition}/>
-<Route exact path="/id/:client/dashboard/entriesDetail" component={EntriesDetail}/>
-<Route exact path="/id/:client/" component={App}/>
+<Route exact path="/id/:client/dashboard/:campaign" component={Dashboard}/>
+<Route exact path="/id/:client/dashboard/:campaign/in" component={DashboardInTransition}/>
+<Route exact path="/id/:client/dashboard/:campaign/entriesDetail" component={EntriesDetail}/>
+<Route exact path="/id/:client/campaigns/" component={Campaigns}/>
+<Route exact path="/id/:client/dashboard/:campaign/campaigns/" component={CampaignsSingle}/>
+<Route exact path="/id/:campaign/" component={App}/>
 
 	</ApolloProvider>
     </Switch>

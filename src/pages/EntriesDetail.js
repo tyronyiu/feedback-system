@@ -34,11 +34,10 @@ Link
 } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
-    const clientById = gql`
-        query getClients($clientId: ID!){
-        clientById(clientId: $clientId){
+    const CampaignByCampaignId= gql`
+        query campaignByCampaignId($campaignId: ID!){
+        campaignByCampaignId(campaignId: $campaignId){
         name
-        cardBannerImage
         }
         }
     `
@@ -50,48 +49,39 @@ import jwt_decode from 'jwt-decode';
 //    }
 //`
 
-    const entriesByClientId = gql`
-    query getEntries($clientId: ID!){
-        entriesByClientId(clientId: $clientId){
-           time
-            score {
-              score
-            }
-            comment {
-              comment
-            }
-            compliments {
-              love
-              service
-              products
-            } 
+    const EntriesByCampaignId= gql`
+    query getEntries($campaignId: ID!){
+        entriesByCampaignId(campaignId: $campaignId){
+            time
+            score
+            comment
         }
     }
 `
 
 
 
-function CompanyName({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+function CampaignName({campaignId}){
+    const { loading, error, data } = useQuery(CampaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     if (error) localStorage.removeItem('token')
-    return data.clientById.name
+    return data.campaignByCampaignId.name
 }
 
   
-function EntriesCards({clientId}){
-	const { loading, error, data } = useQuery(entriesByClientId,{
-		variables: {clientId},
+function EntriesCards({campaignId}){
+	const { loading, error, data } = useQuery(EntriesByCampaignId,{
+		variables: {campaignId},
 	});
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 		console.log("data: ",data)
 console.log(data)
 		return (
-			data.entriesByClientId.map((entry, key) => (
+			data.entriesByCampaignId.map((entry, key) => (
 				<div key={key}>
 				<IonListHeader style={{paddingLeft: "0"}}>
 				{moment(entry.time).format('HH:mm - D MMMM YYYY')}
@@ -101,7 +91,7 @@ console.log(data)
 				<IonText color="gray" slot="start">
 				<div className="circle-underlay">
 				<p className="circle-overlay-p">
-				{entry.score.score}
+				{entry.score}
 				</p>
 				</div>
 				</IonText>
@@ -113,21 +103,7 @@ console.log(data)
 				</IonText>
 				</p>
 
-				{ entry.compliments !== null &&
-					<div>
-					<IonText color="gray">
-					<h3 className="padding-top-p">
-					Compliments:
-					</h3>
-					</IonText>
-					<IonText color="dark">
-					{ entry.compliments.love !== false && <p>Loved it!</p>}
-					{ entry.compliments.service !== false && <p>Amazing service!</p>}
-					{ entry.compliments.products !== false && <p>Great products!</p>}
-					</IonText>
-					</div>
-
-				}
+			
 
 
 				{entry.comment !== null &&
@@ -139,7 +115,7 @@ console.log(data)
 						</IonText>
 						<IonText color="dark">
 						<p className="comment-p">
-						{entry.comment.comment}
+						{entry.comment}
 						</p>
 						</IonText>
 						</div>
@@ -187,14 +163,14 @@ class EntriesDetail extends React.Component {
 <IonHeader translucent={true} mode="ios">
                 <IonToolbar mode="ios">
 <IonButtons slot="start">
-                <Link to={`/id/${this.props.match.params.client}/dashboard/`} style={{width:"fit-content"}}>
+                <Link to={`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}`} style={{width:"fit-content"}}>
                 <IonButton slot="start">
                 <IonIcon slot="start" icon={chevronBackOutline}/>
                 </IonButton>
                 </Link>
                 </IonButtons>
                 <IonTitle mode="ios">
-                <CompanyName clientId={this.props.match.params.client}/> - Feedback entries
+                <CampaignName campaignId={this.props.match.params.campaign}/> - Feedback entries
                 </IonTitle>
                 </IonToolbar>
                 </IonHeader>
@@ -211,7 +187,7 @@ class EntriesDetail extends React.Component {
                 </IonCardHeader>
                 <IonCardContent >
                 <IonList mode="ios" className="">
-                <EntriesCards clientId={this.props.match.params.client}/>
+                <EntriesCards campaignId={this.props.match.params.campaign}/>
                 </IonList>
                 </IonCardContent>
                 </IonCard>
@@ -233,3 +209,20 @@ return (<><h1>An error has occured</h1><h2>Please log out and log in again</h2><
 }
 
 export default EntriesDetail;
+
+
+	//{ entry.compliments !== null &&
+				//	<div>
+				//	<IonText color="gray">
+				//	<h3 className="padding-top-p">
+				//	Compliments:
+				//	</h3>
+				//	</IonText>
+				//	<IonText color="dark">
+				//	{ entry.compliments.love !== false && <p>Loved it!</p>}
+				//	{ entry.compliments.service !== false && <p>Amazing service!</p>}
+				//	{ entry.compliments.products !== false && <p>Great products!</p>}
+				//	</IonText>
+				//	</div>
+
+				//}

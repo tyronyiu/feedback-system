@@ -12,114 +12,59 @@ IonCardHeader,
 IonCardContent,
 IonCardTitle,
 IonCardSubtitle,
-} from '@ionic/react';
-import Chips from "./components/Chips";
-import List from './components/List';
-import Comments from './components/Comments';
-import { useQuery } from '@apollo/react-hooks';
-//import { useMutation } from '@apollo/react-hooks';
-import { Mutation } from 'react-apollo'
-import { gql } from 'apollo-boost';
-import {Link} from "react-router-dom";
-import moment from 'moment';
-//import Cookies from 'js-cookie'
+IonTextarea,
+IonList,
+IonItem,
+IonLabel,
+IonRange,
+IonIcon,
 
-    const clientById = gql`
-        query getClients($clientId: ID!){
-        clientById(clientId: $clientId){
+} from '@ionic/react';
+
+import { useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+//import Cookies from 'js-cookie'
+import { thumbsUp, thumbsDown, } from 'ionicons/icons';   
+
+    const campaignByCampaignId = gql`
+        query getCampaign($campaignId: ID!){
+        campaignByCampaignId(campaignId: $campaignId){
         name
-        cardBannerImage
+        prompt
+        thanks
+        coverImage
         }
         }
     `
 
-const promptByClientId= gql`
-    query getPrompt($clientId: ID!){
-    promptByClientId(clientId: $clientId){
-    prompt
-    }
-    }
-`
 
-const addEntry= gql`
-mutation addEntry(
-    $entryId: ID!,
-    $clientId: ID!
-    $time: Float!
-    ){
-        addEntry(
-            entryId: $entryId,
-            clientId: $clientId,
-            time: $time
-        ){
-            _id
-    }
-}
-`
-
-
-const AddCommentByClientId= gql`
-mutation addCommentByClientId(
-    $entryId: ID!,
-    $clientId: ID!,
-    $comment: String!
-    ){
-        addCommentByClientId(
-        entryId: $entryId,
-        clientId: $clientId,
-        comment: $comment
-        ){
-            comment 
-            _id
-            client{
-                _id
-                name
-        }
-    }
-}
-`
-
-const addScoreByClientId= gql`
-mutation addScoreByClientId(
-    $entryId: ID!,
-    $clientId: ID!,
+const AddEntryWithCommentByCampaignId= gql`
+mutation addEntryWithCommentByCampaignId(
+    $campaignId: ID!
+    $comment: String!,
     $score: Int!
     ){
-        addScoreByClientId(
-        entryId: $entryId,
-        clientId: $clientId,
-        score: $score
+        addEntryWithCommentByCampaignId(
+            campaignId: $campaignId,
+            comment: $comment,
+            score: $score
         ){
-           score 
             _id
-            client{
-                _id
-                name
-        }
     }
 }
 `
 
-const addComplimentByClientId= gql`
-mutation addComplimentByClientId(
-    $entryId: ID!,
-    $clientId: ID!,
-    $love: Boolean!
-    $service: Boolean!
-    $products: Boolean!
+const AddEntryByCampaignId= gql`
+mutation addEntryByCampaignId(
+    $campaignId: ID!
+    $score: Int!
     ){
-        addComplimentByClientId(
-        entryId: $entryId,
-        clientId: $clientId,
-        love: $love
-        service: $service
-        products: $products
+        addEntryByCampaignId(
+            campaignId: $campaignId,
+            score: $score
         ){
             _id
-            client{
-                _id
-                name
-        }
     }
 }
 `
@@ -128,49 +73,170 @@ mutation addComplimentByClientId(
 
 
 
-function CompanyName({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+
+function CampaignName({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
         console.log(data)
-    return (<>{data.clientById.name}</>)
+    return (<>{data.campaignByCampaignId.name}</>)
     
 }
 
-function CardBannerImage({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+function Prompt({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
+    });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+        console.log(data)
+    return (<>{data.campaignByCampaignId.prompt}</>)
+    
+}
+
+
+
+function CardBannerImage({campaignId}){
+    const { loading, error, data } = useQuery(campaignByCampaignId,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <img alt="" src=""/>;
         console.log(data)
     return (
-            <img alt="" src={data.clientById.cardBannerImage}/>
+            <img alt="" src={data.campaignByCampaignId.coverImage}/>
     )
     
 }
 
   
-function Prompt({clientId}){
-    const { loading, error, data } = useQuery(promptByClientId,{
-        variables: {clientId}
-    });
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-        console.log(data)
-    return data.promptByClientId.prompt
+function Entry({campaignId}) {
+    const options = {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: `email=public@public.com&password=1234`
+    }
+
+    const url = "https://apollo.simulacron-3.com/login"
+
+    fetch(url,options)
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 404) {
+                    alert('Email not found, please retry')
+                }
+                if (response.status === 401) {
+                    alert('Email and password do not match, please retry')
+                }
+            }
+            return response
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("jwt data: ",data)
+                //document.cookie = 'token=' + data.token
+                localStorage.setItem('token', data.token)
+            }
+        })
+
+
+
+    const [addEntryByCampaignId] = useMutation(AddEntryByCampaignId);
+    const [addEntryWithCommentByCampaignId] = useMutation(AddEntryWithCommentByCampaignId);
+
+    let comment;
+    let score;
+
+    return(
+        <div className="requestAccessInput">
+        
+ <IonList lines="none">
+<form onSubmit={(e) =>{
+    console.log("comment: ", comment.value)
+    console.log("score: ", score.value)
+            e.preventDefault();
+    if (comment.value !== ""){
+            addEntryWithCommentByCampaignId({ 
+                variables: { 
+                    comment: comment.value,
+                    score: score.value,
+                    campaignId: campaignId
+                } 
+            });
+    }else if (comment.value === ""){
+            addEntryByCampaignId({ 
+                variables: { 
+                    score: score.value,
+                    campaignId: campaignId
+                } 
+            });
+    }
+            window.location.href = `/#/id/${campaignId}/done`
+        }} >
+
+<IonItem>
+       <IonLabel><b>Score</b></IonLabel>
+      </IonItem>
+
+<IonItem mode="ios">
+<IonRange style={{width:"125%"}} pin={true} value={100} ref={node => {
+            score= node;
+        }}>
+      <IonIcon slot="start" size="small" icon={thumbsDown} color="red" style={{position:"relative",left:"-0.5em"}}/>
+      <IonIcon slot="end" size="small" icon={thumbsUp} color="success" style={{position:"relative", left:"0.5em"}}/>
+      </IonRange>
+</IonItem>
+
+      <IonItem>
+      <IonLabel>
+      Comments: 
+      </IonLabel>
+      </IonItem>
+
+      <IonItem>
+      <IonTextarea 
+      clearOnEdit={true}
+      autoGrow={true}
+      inputmode="text"
+      placeholder="I really liked it!"
+      style={{border: "1px solid rgb(0,0,0,0.3)", borderRadius:"6px", padding:"0.5em"}}
+         ref={node => {
+            comment= node;
+        }}>    
+      </IonTextarea>
+      </IonItem>
+      <IonItem/>
+
+    <IonItem lines="none">
+        </IonItem>
+
+        <IonItem lines="none">
+
+        <IonButton
+        size="default"
+        type="submit"
+        expand="block"
+        mode="ios"
+        style={{width:"100%"}}
+        >
+        Submit
+        </IonButton>
+        </IonItem>
+
+        </form>
+      </IonList>
+        </div>
+
+    )
+
+
+
 }
-
-
-var ID = function () {
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return '_' + Math.random().toString(36).substr(2, 9);
-};
-
 
 
 class App extends React.Component {
@@ -199,7 +265,6 @@ callbackFunctionScore = (childData) => {
 
     componentDidMount(){
         this.setState({
-            entryId: ID(),
 
         }, function(){
         console.log("initial: ", this.state)
@@ -234,7 +299,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(data => {
 				if (data.success) {
 					localStorage.setItem('token', data.token)
-					this.props.history.push(`/id/${this.props.match.params.client}`)
+					this.props.history.push(`/id/${this.props.match.params.campaign}`)
 				}
 			})
 }
@@ -246,39 +311,16 @@ const url = "https://apollo.simulacron-3.com/login"
 
 } 
 
-
-
-
-
-handleSubmit() {
-    console.log("just submitted: ",this.state)
-}
-
-
 	render(){
 
-      
-
-    
-
-
-
-
-
-
-
-
-
-
-
-if (localStorage.getItem('token')) {
+  if (localStorage.getItem('token')) {
 	return (
 		<div className="App">
 		<IonPage>
 		<IonHeader translucent={true}>
 		<IonToolbar>
 		<IonTitle>
-		<CompanyName clientId={this.props.match.params.client}/>
+		<CampaignName campaignId={this.props.match.params.campaign}/>
 		</IonTitle>
 		</IonToolbar>
 		</IonHeader>
@@ -288,20 +330,20 @@ if (localStorage.getItem('token')) {
 		<IonHeader collapse="condense">
 		<IonToolbar>
 		<IonTitle size="large">
-		<CompanyName clientId={this.props.match.params.client}/>
+		<CampaignName campaignId={this.props.match.params.campaign}/>
 
 		</IonTitle>
 		</IonToolbar>
 		</IonHeader>
 
 		<IonCard>
-		<CardBannerImage clientId={this.props.match.params.client}/>
+      <CardBannerImage campaignId={this.props.match.params.campaign}/>
 		<IonCardHeader>
 		<IonCardSubtitle>
-		<CompanyName clientId={this.props.match.params.client}/>
+		<CampaignName campaignId={this.props.match.params.campaign}/>
 		</IonCardSubtitle>
 		<IonCardTitle>
-		<Prompt clientId={this.props.match.params.client}/>
+		<Prompt campaignId={this.props.match.params.campaign}/>
 		</IonCardTitle>
 		</IonCardHeader>
 
@@ -310,48 +352,9 @@ if (localStorage.getItem('token')) {
 		Compliments
 		</IonCardSubtitle>
 
-		<Chips value={this.state.compliments} parentCallback = {this.callbackFunctionCompliments} />
-		<List value={this.state.score} parentCallback = {this.callbackFunctionScore} />
-		<Comments value={this.state.comment} parentCallback = {this.callbackFunction}/>
+<Entry campaignId={this.props.match.params.campaign}/>
 
-		<Mutation
-		mutation={addEntry}
-		variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, time: moment().valueOf()}}>
-		{EntryMutation =>
 
-			<Mutation
-			mutation={addScoreByClientId}
-			variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, score: this.state.score}}>
-			{ScoreMutation =>
-
-				<Mutation
-				mutation={addComplimentByClientId}
-				variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, love: this.state.compliments.love.active, service: this.state.compliments.service.active, products: this.state.compliments.products.active}}>
-				{ComplimentMutation =>
-
-					<Mutation
-					mutation={AddCommentByClientId}
-					variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
-					{CommentMutation => 
-
-						<Link to={`/id/${this.props.match.params.client}/done`}>
-						<IonButton expand="block" onClick={() => {
-							EntryMutation();
-							if (this.state.comment !== ""){ CommentMutation()} ;
-							if (this.state.compliments.love.active === true || this.state.compliments.service.active === true || this.state.compliments.products.active === true){ ComplimentMutation()} ;
-							ScoreMutation() ; this.handleSubmit()
-						}}>
-						Submit
-						</IonButton>
-						</Link>
-					}
-					</Mutation>
-				}
-		</Mutation>
-}
-	</Mutation>
-}
-	</Mutation>
 
 
 	</IonCardContent>
@@ -391,7 +394,7 @@ const url = "https://apollo.simulacron-3.com/login"
 			.then(data => {
 				if (data.success) {
 					localStorage.setItem('token', data.token)
-					this.props.history.push(`/id/${this.props.match.params.client}`)
+					this.props.history.push(`/id/${this.props.match.params.campaign}`)
 				}
 			})
 

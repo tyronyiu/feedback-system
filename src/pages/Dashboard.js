@@ -3,46 +3,52 @@ import React from 'react';
 import './Dashboard.css';
 import '../color-hash.svg';
 import {
-IonContent,
-IonHeader,
-IonPage,
-IonTitle,
-IonToolbar,
-IonButtons,
-    
+    IonContent,
+    IonHeader,
+    IonPage,
+    IonTitle,
+    IonToolbar,
+    IonButtons,
+    IonIcon,
+    IonFab,
+    IonFabList,
+    IonFabButton,
+    IonAlert
 } from '@ionic/react';
 import {  arrowForwardOutline } from 'ionicons/icons';   
 import ButtonCard from '../components/ButtonCard';
+import Card from '../components/Card';
 import QuickInsights from '../components/QuickInsights';
 import MenuButton from '../components/MenuButton';
 import EditCampaignModal from '../components/EditCampaignModal';
-
+import { albumsOutline, appsOutline, exitOutline, createOutline } from 'ionicons/icons';   
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
 import {
- Link
+    Link
 } from "react-router-dom";
 import {CSSTransition} from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
 
-    const clientById = gql`
-        query getClients($clientId: ID!){
-        clientById(clientId: $clientId){
+const CampaignById= gql`
+        query campaignById($campaignId: ID!){
+        campaignByCampaignId(campaignId: $campaignId){
         name
-        cardBannerImage
+        coverImage
         }
         }
     `
-function CompanyName({clientId}){
-    const { loading, error, data } = useQuery(clientById,{
-        variables: {clientId}
+function CampaignName({campaignId}){
+    const { loading, error, data } = useQuery(CampaignById,{
+        variables: {campaignId}
     });
     if (loading) return <p>Loading...</p>;
     if (error) localStorage.removeItem('token')
     if (error) return <p>Error :(</p>;
-    return data.clientById.name
-}
+        console.log(data)
+        return data.campaignByCampaignId.name
+    }
 
 
 class Dashboard extends React.Component {
@@ -61,10 +67,11 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount(){
+        console.log("campaign: ",this.props.match.params.campaign)
         console.log("clientId: ", this.props.match.params.client)
         if (localStorage.getItem('token')){
-        var decoded = jwt_decode(localStorage.getItem('token'));
-        console.log(decoded);  
+            var decoded = jwt_decode(localStorage.getItem('token'));
+            console.log(decoded);  
             if (decoded.email === "public@public.com"){
                 localStorage.removeItem('token');
                 this.props.history.push(`/login/`)
@@ -73,14 +80,14 @@ class Dashboard extends React.Component {
     }
 
 
-callbackFunction = (childData) => {
-          this.setState({showEditCampaignModal: childData})
-}
+    callbackFunction = (childData) => {
+        this.setState({showEditCampaignModal: childData})
+    }
 
     render(){
         if (localStorage.getItem('token')) {
             return (
-<CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node-back">
+                <CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node-back">
                 <IonPage className="dashboardPage">
                 <IonContent fullscreen={true}  className="dashboardContent subPage">
 
@@ -99,12 +106,14 @@ MENU POPOVER
                 <MenuButton
                 parentCallback = {this.callbackFunction}
                 showEditCampaignModal={this.state.showEditCampaignModal}
+                clientId={this.props.match.params.client}
+                campaignId={this.props.match.params.campaign}
                 />
 
                 </IonButtons>
 
                 <IonTitle size="large">
-                <CompanyName clientId={this.props.match.params.client}/>
+                <CampaignName campaignId={this.props.match.params.campaign}/>
                 </IonTitle>
                 </IonToolbar>
                 </IonHeader>
@@ -116,13 +125,13 @@ MENU POPOVER
 QUICK INSIGHTS
 */}
 
-                <QuickInsights clientId={this.props.match.params.client}/>
+                <QuickInsights campaignId={this.props.match.params.campaign}/>
 
                 {/*
 ENTRIES CARD
 */}
-                <Link to={`/id/${this.props.match.params.client}/dashboard/entriesDetail`} style={{width:"fit-content"}}>
-                <ButtonCard
+                <Link to={`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}/entriesDetail`} style={{width:"fit-content"}}>
+                <Card
                 title="Entries"
                 subtitle="view all"
                 icon={arrowForwardOutline}
@@ -153,7 +162,74 @@ EDIT CAMPAIGN MODAL
                 showEditCampaignModal={this.state.showEditCampaignModal}
                 parentCallback = {this.callbackFunction}
                 clientId={this.props.match.params.client}
+                campaignId={this.props.match.params.campaign}
+                history={this.props.history}
                 />
+
+
+
+
+
+
+
+                <IonFab horizontal="end" vertical="bottom" slot="fixed" mode="ios">
+                <IonFabButton color="dark">
+                <IonIcon icon={appsOutline}></IonIcon>
+                </IonFabButton>
+
+                <IonFabList side="top">
+
+                <IonFabButton color="primary"
+                onClick={() => { this.setState({showLogOutAlert: !this.state.showLogOutAlert})
+                }}>
+                <IonIcon icon={exitOutline}></IonIcon>
+                </IonFabButton>
+
+                <IonFabButton size="small" color="primary"
+                onClick={() => {this.setState({showEditCampaignModal: !this.state.showEditCampaignModal})}} >
+                <IonIcon icon={createOutline}></IonIcon>
+                </IonFabButton>
+
+                <IonFabButton color="primary"
+                onClick={() => {this.props.history.push(`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}/campaigns`)}} >
+                <IonIcon icon={albumsOutline}></IonIcon>
+                </IonFabButton>
+
+                </IonFabList>
+                </IonFab>
+
+                {/*
+LOGOUT ALERT 
+*/}
+                <IonAlert
+                isOpen={this.state.showLogOutAlert}
+                onDidDismiss={() => this.setState({
+                    showLogOutAlert: !this.state.showLogOutAlert,
+                }) }
+                cssClass='my-custom-class'
+                header={'Log out'}
+                message={'Are you sure you want to log out?'}
+                buttons={[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: blah => {
+
+                        }
+                    },
+                    {
+                        text: 'Logout',
+                        cssClass: 'alertLogoutButton',
+                        handler: () => {
+                            localStorage.removeItem('token')
+							window.location.reload();
+                        }
+                    }
+                ]}
+                />
+
+
+
 
 
                 {/*
@@ -161,6 +237,8 @@ EDIT CAMPAIGN MODAL
                 <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob3"></img>
                 */}
                 </IonContent>
+
+
 
                 </IonPage>
                 </CSSTransition>

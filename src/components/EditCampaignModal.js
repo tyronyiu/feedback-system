@@ -13,64 +13,47 @@ IonLabel,
 import {  closeCircleOutline } from 'ionicons/icons';   
 import { gql } from 'apollo-boost';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import {Link} from "react-router-dom";
-import { eyeOutline, cloudUploadOutline, checkmarkOutline } from 'ionicons/icons';   
+import { eyeOutline, checkmarkOutline } from 'ionicons/icons';   
  
-
-
-const PromptByClientId= gql`
-    query promtByClientId($clientId: ID!){
-    promptByClientId(clientId: $clientId){
-    prompt
-	_id
-    }
-    }
-`
-
- const ThanksByClientId= gql`
-        query thanksByClientId($clientId: ID!){
-        thanksByClientId(clientId: $clientId){
-        thanks
-		_id
-        }
-        }
-    `
-
- const CampaignNameByClientId= gql`
-        query campaignNameByClientId($clientId: ID!){
-        campaignNameByClientId(clientId: $clientId){
+const CampaignByCampaignId= gql`
+        query campaignById($campaignId: ID!){
+        campaignByCampaignId(campaignId: $campaignId){
         name
+        coverImage
+        thanks
+        prompt
         }
         }
     `
+
 
 const UpdatePrompt = gql`
-    mutation updatePrompt($clientId: ID!, $updatedPrompt: String!){
-        updatePrompt(clientId: $clientId, updatedPrompt: $updatedPrompt){
+    mutation updatePrompt($campaignId: ID!, $updatedPrompt: String!){
+        updatePrompt(campaignId: $campaignId, updatedPrompt: $updatedPrompt){
             prompt    
         }
     }
 `
 
 const UpdateThanks = gql`
-    mutation updateThanks($clientId: ID!, $updatedThanks: String!){
-        updateThanks(clientId: $clientId, updatedThanks: $updatedThanks){
+    mutation updateThanks($campaignId: ID!, $updatedThanks: String!){
+        updateThanks(campaignId: $campaignId, updatedThanks: $updatedThanks){
             thanks
         }
     }
 `
 
 const UpdateCampaignName= gql`
-    mutation updateCampaignName($clientId: ID!, $updatedCampaignName: String!){
-        updateCampaignName(clientId: $clientId, updatedCampaignName: $updatedCampaignName){
+    mutation updateCampaignName($campaignId: ID!, $updatedCampaignName: String!){
+        updateCampaignName(campaignId: $campaignId, updatedCampaignName: $updatedCampaignName){
             name
         }
     }
 `
 
-function Prompt({clientId}) {
-  const { loading, error, data, refetch, } = useQuery(PromptByClientId, {
-		variables: {clientId: clientId}
+function Prompt({campaignId}) {
+  const { loading, error, data, refetch, } = useQuery(CampaignByCampaignId, {
+		variables: {campaignId: campaignId}
 	});
 const [updatePrompt] = useMutation(UpdatePrompt);
 console.log(data)
@@ -81,19 +64,19 @@ console.log(data)
 let input;
 
 return (
-	<div key={data.promptByClientId._id}>
+	<div key={data.campaignByCampaignId._id}>
 	<p></p>
 	<form
 	onSubmit={e => {
 		e.preventDefault();
-		updatePrompt({ variables: { clientId: clientId, updatedPrompt: input.value } });
+		updatePrompt({ variables: { campaignId: campaignId, updatedPrompt: input.value } });
 		refetch()
 
 	}}
 	>
 	<IonItem>
 	<IonLabel position="floating" className="ion-text-wrap">
-	Prompt: {data.promptByClientId.prompt}
+	Prompt: {data.campaignByCampaignId.prompt}
 	</IonLabel>
 	<IonInput 
 	name="text"
@@ -122,9 +105,9 @@ autocapitalize={true}
 );
 }
 
-function Thanks({clientId}) {
-  const { loading, error, data, refetch, } = useQuery(ThanksByClientId, {
-		variables: {clientId: clientId}
+function Thanks({campaignId}) {
+  const { loading, error, data, refetch, } = useQuery(CampaignByCampaignId, {
+		variables: {campaignId: campaignId}
 	});
 const [updateThanks] = useMutation(UpdateThanks);
 console.log(data)
@@ -140,7 +123,7 @@ return (
 	<form
 	onSubmit={e => {
 		e.preventDefault();
-		updateThanks({ variables: { clientId: clientId, updatedThanks: input.value } });
+		updateThanks({ variables: { campaignId: campaignId, updatedThanks: input.value } });
 		refetch()
 
 	}}
@@ -148,7 +131,7 @@ return (
 
 <IonItem>
             <IonLabel position="floating" className="ion-text-wrap">
-            Thanks Text: {data.thanksByClientId.thanks}
+            Thanks Text: {data.campaignByCampaignId.thanks}
             </IonLabel>
             <IonInput 
             name="text"
@@ -177,9 +160,9 @@ autocapitalize={true}
 }
 
 
-function CampaignName({clientId}) {
-  const { loading, error, data, refetch, } = useQuery(CampaignNameByClientId, {
-		variables: {clientId: clientId}
+function CampaignName({campaignId}) {
+  const { loading, error, data, refetch, } = useQuery(CampaignByCampaignId, {
+		variables: {campaignId: campaignId}
 	});
 const [updateCampaignName] = useMutation(UpdateCampaignName);
 console.log(data)
@@ -194,7 +177,7 @@ return (
 	<form
 	onSubmit={e => {
 		e.preventDefault();
-		updateCampaignName({ variables: { clientId: clientId, updatedCampaignName: input.value } });
+		updateCampaignName({ variables: { campaignId: campaignId, updatedCampaignName: input.value } });
 		refetch()
 
 	}}
@@ -202,7 +185,7 @@ return (
 
 <IonItem>
             <IonLabel position="floating" className="ion-text-wrap">
-            Campaign Name: {data.campaignNameByClientId.name}
+            Campaign Name: {data.campaignByCampaignId.name}
             </IonLabel>
             <IonInput 
             name="text"
@@ -308,7 +291,7 @@ class EditCampaignModal extends React.Component {
             
 
 
-<Prompt clientId={this.props.clientId} />
+<Prompt campaignId={this.props.campaignId} />
 
             <IonItem lines="none">
             <IonLabel className="ion-text-wrap">
@@ -326,7 +309,7 @@ class EditCampaignModal extends React.Component {
 <IonItem lines="none">
 </IonItem>
 
-<Thanks clientId={this.props.clientId} />
+<Thanks campaignId={this.props.campaignId} />
             
             <IonItem lines="none">
             <IonLabel className="ion-text-wrap">
@@ -337,7 +320,7 @@ class EditCampaignModal extends React.Component {
 <IonItem lines="none">
 </IonItem>
 
-<CampaignName clientId={this.props.clientId} />
+<CampaignName campaignId={this.props.campaignId} />
 
 <IonItem lines="none">
 </IonItem>
@@ -349,7 +332,7 @@ class EditCampaignModal extends React.Component {
 </IonItem>
 
 <IonItem lines="none">
-<IonButton onClick={() => {window.open(`https:feedback.agerspace.com/#/id/${this.props.clientId}`,'_blank');}} size="default" mode="ios">
+<IonButton onClick={() => {this.props.history.push(`/id/${this.props.campaignId}`)}} size="default" mode="ios">
 View
 			<IonIcon slot="end" icon={eyeOutline}/>
 </IonButton>

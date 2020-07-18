@@ -73,7 +73,7 @@ const url = "https://apollo.simulacron-3.com/login"
                     console.log("jwt data: ",data)
 					//document.cookie = 'token=' + data.token
                     localStorage.setItem('token', data.token)
-					this.props.history.push(`/id/${data.clientId}/dashboard/in`)
+					this.props.history.push(`/id/${data.clientId}/campaigns/`)
 				}
 			})
 

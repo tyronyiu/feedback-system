@@ -1,0 +1,42 @@
+		<Chips value={this.state.compliments} parentCallback = {this.callbackFunctionCompliments} />
+		<List value={this.state.score} parentCallback = {this.callbackFunctionScore} />
+		<Comments value={this.state.comment} parentCallback = {this.callbackFunction}/>
+
+		<Mutation
+		mutation={AddEntryByCampaignId}
+		variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, time: moment().valueOf()}}>
+		{EntryMutation =>
+
+			<Mutation
+			mutation={AddScoreByCampaignId}
+			variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, score: this.state.score}}>
+			{ScoreMutation =>
+
+				<Mutation
+				mutation={AddComplimentByCampaignId}
+				variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, love: this.state.compliments.love.active, service: this.state.compliments.service.active, products: this.state.compliments.products.active}}>
+				{ComplimentMutation =>
+
+					<Mutation
+					mutation={AddCommentByCampaignId}
+					variables={{ entryId: this.state.entryId, clientId: this.props.match.params.client, comment: this.state.comment}}>
+					{CommentMutation => 
+
+						<Link to={`/id/${this.props.match.params.client}/done`}>
+						<IonButton expand="block" onClick={() => {
+							EntryMutation();
+							if (this.state.comment !== ""){ CommentMutation()} ;
+							if (this.state.compliments.love.active === true || this.state.compliments.service.active === true || this.state.compliments.products.active === true){ ComplimentMutation()} ;
+							ScoreMutation() ; this.handleSubmit()
+						}}>
+						Submit
+						</IonButton>
+						</Link>
+					}
+					</Mutation>
+				}
+		</Mutation>
+}
+	</Mutation>
+}
+	</Mutation>
