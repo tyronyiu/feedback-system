@@ -80,6 +80,7 @@ function CampaignName({campaignId}){
     });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
+        console.log("campaignId: ", campaignId)
         console.log(data)
     return (<>{data.campaignByCampaignId.name}</>)
     

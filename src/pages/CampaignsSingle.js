@@ -10,7 +10,7 @@ IonButton,
 IonButtons,
 IonIcon,
 } from '@ionic/react';
-import { chevronBackOutline} from 'ionicons/icons';   
+import { chevronBackOutline, addCircleOutline } from 'ionicons/icons';   
 import {
  Link
 } from "react-router-dom";
@@ -90,6 +90,12 @@ if (localStorage.getItem('token')){
             <IonButtons slot="start">
             <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push(`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}`); }, 100) }} slot="start">
             <IonIcon slot="start" icon={chevronBackOutline}/>
+            </IonButton>
+            </IonButtons>
+
+<IonButtons slot="end">
+            <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push(`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}`); }, 100) }} slot="end">
+            <IonIcon slot="end" icon={addCircleOutline}/>
             </IonButton>
             </IonButtons>
 
