@@ -106,9 +106,15 @@ margin-top: -35px;
      padding: 1em;
      }
 
+.flatCard{
+box-shadow: none;
+border: 1px solid var(--ion-color-medium);
+background: unset;
+}
 
 .blobCard{
     z-index: 5;
+
 }
 
 .blurred{
@@ -195,6 +201,13 @@ ion-content .dashboardContent{
     height: 5%;
 }
 
+
+     .editCampaignModal .modal-wrapper{
+         max-height: 50vh;
+         max-width: 50vw;
+         height: 100%;
+         width: 100%;
+     }
 
 }
 

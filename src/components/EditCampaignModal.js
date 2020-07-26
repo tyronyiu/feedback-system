@@ -231,13 +231,6 @@ class EditCampaignModal extends React.Component {
         }
 	}
 
-    handleSubmit = e => {
-
-    }
-
-    componentDidMount(){
-           }
-
 	render(){
 
 
@@ -248,24 +241,6 @@ class EditCampaignModal extends React.Component {
             swipeToClose={true}
             >
             <IonContent fullscreen={true}>
-
-{/*
-            <Query 
-            query={PromptByClientId}
-            variables={{clientId: this.props.clientId}}
-            onCompleted={data =>
-                this.setState({prompt: data.promptByClientId.prompt})}
-            >
-            </Query>
-
-            <Query 
-            query={ThanksByClientId}
-            variables={{clientId: this.props.clientId}}
-            onCompleted={data =>
-                this.setState({thanks: data.thanksByClientId.thanks})}
-            >
-            </Query>
-*/}
 
             <IonButton
             fill="clear"
@@ -281,7 +256,7 @@ class EditCampaignModal extends React.Component {
             </IonButton>
 
             <IonList scroll="true">
-            <IonListHeader>
+            <IonListHeader mode="ios" style={{alignItems: "center"}}>
             My Campaign
 
 
@@ -331,8 +306,9 @@ class EditCampaignModal extends React.Component {
             </IonLabel>
 </IonItem>
 
+
 <IonItem lines="none">
-<IonButton onClick={() => {this.props.history.push(`/id/${this.props.campaignId}`)}} size="default" mode="ios">
+<IonButton onClick={() => {this.props.history.push(`/id/${this.props.campaignId}`)}} size="default" mode="ios" style={{margin: "auto"}}>
 View
 			<IonIcon slot="end" icon={eyeOutline}/>
 </IonButton>

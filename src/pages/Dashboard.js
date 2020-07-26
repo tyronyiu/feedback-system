@@ -17,13 +17,15 @@ import {
 } from '@ionic/react';
 import {  arrowForwardOutline } from 'ionicons/icons';   
 import ButtonCard from '../components/ButtonCard';
-import Card from '../components/Card';
+//import Card from '../components/Card';
 import QuickInsights from '../components/QuickInsights';
 import MenuButton from '../components/MenuButton';
 import EditCampaignModal from '../components/EditCampaignModal';
-import { albumsOutline, appsOutline, exitOutline, createOutline } from 'ionicons/icons';   
+import ShowQRModal from '../components/ShowQRModal';
+import { albumsOutline, appsOutline, exitOutline, createOutline, qrCodeOutline } from 'ionicons/icons';   
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+//import QRCode from "qrcode.react";
 //import Cookies from 'js-cookie'
 import {
     Link
@@ -60,6 +62,7 @@ class Dashboard extends React.Component {
                 event: undefined
             },
             showEditCampaignModal: false,
+            showQRModal: false,
             showLogOutAlert: false,
             showUserAccountModal: false,
             animate: true,
@@ -80,8 +83,11 @@ class Dashboard extends React.Component {
     }
 
 
-    callbackFunction = (childData) => {
+    callbackFunctionEditCampaignModal = (childData) => {
         this.setState({showEditCampaignModal: childData})
+    }
+    callbackFunctionQRModal = (childData) => {
+        this.setState({showQRModal: childData})
     }
 
     render(){
@@ -120,6 +126,7 @@ MENU POPOVER
 
                 <div className="dashboardMainWrapper">
 
+               
                 <div className="dashboardMainContainer">
                 {/*
 QUICK INSIGHTS
@@ -127,31 +134,50 @@ QUICK INSIGHTS
 
                 <QuickInsights campaignId={this.props.match.params.campaign}/>
 
+                </div>
+
+                <div className="dashboardMainContainer">
+
                 {/*
 ENTRIES CARD
 */}
                 <Link to={`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}/entriesDetail`} style={{width:"fit-content"}}>
-                <Card
+                <ButtonCard
                 title="Entries"
                 subtitle="view all"
                 icon={arrowForwardOutline}
                 button={true}
                 />
                 </Link>
-                </div>
+
 
                 {/*
 EDIT CAMPAIGN CARD
 */}
-                <div className="dashboardMainContainer">
                 <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob2"></img>
                 <ButtonCard
-                subtitle="my campaign"
+                title="Campaign"
+                subtitle="edit"
                 icon={arrowForwardOutline}
                 button={true}
-                parentCallback = {this.callbackFunction}
+                parentCallback = {this.callbackFunctionEditCampaignModal}
                 />
+                {/*
+SHOW QR CARD
+*/}
+                <ButtonCard
+                subtitle="view QR"
+                icon={arrowForwardOutline}
+                title={<IonIcon icon={qrCodeOutline}/>}
+                button={true}
+                parentCallback = {this.callbackFunctionQRModal}
+                />
+
                 </div>
+
+
+
+
 
                 </div>
 
@@ -160,12 +186,22 @@ EDIT CAMPAIGN MODAL
 */}
                 <EditCampaignModal
                 showEditCampaignModal={this.state.showEditCampaignModal}
-                parentCallback = {this.callbackFunction}
+                parentCallback = {this.callbackFunctionEditCampaignModal}
                 clientId={this.props.match.params.client}
                 campaignId={this.props.match.params.campaign}
                 history={this.props.history}
                 />
 
+                {/*
+SHOW QR MODAL
+*/}
+                <ShowQRModal
+                showQRModal={this.state.showQRModal}
+                parentCallback = {this.callbackFunctionQRModal}
+                clientId={this.props.match.params.client}
+                campaignId={this.props.match.params.campaign}
+                history={this.props.history}
+                />
 
 
 

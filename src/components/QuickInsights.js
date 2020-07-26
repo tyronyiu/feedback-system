@@ -26,7 +26,7 @@ function QuickInsightsCards({campaignId}){
     if (error) return <p>Error :(</p>;
         return (
             <div className="content">
-            <Card color="" title={data.quickInsightsByCampaignId.entriesCount ? data.quickInsightsByCampaignId.entriesCount : "0" } subtitle="Entries" />      
+            <Card title={data.quickInsightsByCampaignId.entriesCount ? data.quickInsightsByCampaignId.entriesCount : "0" } subtitle="Entries" />      
             { data.quickInsightsByCampaignId.averageScore >= 4.5 &&
                 <div className="scoreCard">
                 <Card 

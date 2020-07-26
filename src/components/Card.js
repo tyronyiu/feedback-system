@@ -23,10 +23,10 @@ class Card extends React.Component {
 	render(){
   return (
       <div>
-                <IonCard style={{ "--background": this.props.background}}  mode="ios" className="fitContentCard blobCard">
+                <IonCard style={{ "--background": this.props.background}}  mode="ios" className="fitContentCard blobCard flatCard">
                 <IonCardHeader>
 { this.props.subtitle &&
-                <IonCardSubtitle style={{"color":"rgb(102, 102, 102)"}}>
+                <IonCardSubtitle style={{"color":"var(--ion-color-dark)"}}>
               {this.props.subtitle} 
       { this.props.icon &&
                 <IonIcon icon={this.props.icon} color="primary" style={{marginBottom: "-2px"}}/>
