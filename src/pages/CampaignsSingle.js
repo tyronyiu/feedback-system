@@ -18,7 +18,7 @@ import {CSSTransition} from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import Card from '../components/Card';
+import ButtonCard from '../components/ButtonCard';
 
 
    const campaignsByClientId= gql`
@@ -42,7 +42,7 @@ function CampaignsList({clientId}){
         {data.campaignsByClientId.map((data) =>
         <div key={data._id}>
             <Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
-        <Card title={data.name} 
+        <ButtonCard title={data.name} 
            subtitle={data.prompt}
            />
             </Link>

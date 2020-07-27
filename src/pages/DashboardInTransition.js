@@ -9,20 +9,23 @@ import {
     IonTitle,
     IonToolbar,
     IonButtons,
-    IonFab,
     IonIcon,
+    IonFab,
     IonFabList,
-    IonFabButton
+    IonFabButton,
+    IonAlert
 } from '@ionic/react';
 import {  arrowForwardOutline } from 'ionicons/icons';   
 import ButtonCard from '../components/ButtonCard';
-import Card from '../components/Card';
+//import Card from '../components/Card';
 import QuickInsights from '../components/QuickInsights';
 import MenuButton from '../components/MenuButton';
 import EditCampaignModal from '../components/EditCampaignModal';
-import { albumsOutline, appsOutline, exitOutline, createOutline } from 'ionicons/icons';   
+import ShowQRModal from '../components/ShowQRModal';
+import { albumsOutline, appsOutline, exitOutline, createOutline, qrCodeOutline } from 'ionicons/icons';   
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+//import QRCode from "qrcode.react";
 //import Cookies from 'js-cookie'
 import {
     Link
@@ -59,6 +62,7 @@ class DashboardInTransition extends React.Component {
                 event: undefined
             },
             showEditCampaignModal: false,
+            showQRModal: false,
             showLogOutAlert: false,
             showUserAccountModal: false,
             animate: true,
@@ -79,14 +83,17 @@ class DashboardInTransition extends React.Component {
     }
 
 
-    callbackFunction = (childData) => {
+    callbackFunctionEditCampaignModal = (childData) => {
         this.setState({showEditCampaignModal: childData})
+    }
+    callbackFunctionQRModal = (childData) => {
+        this.setState({showQRModal: childData})
     }
 
     render(){
         if (localStorage.getItem('token')) {
             return (
-                <CSSTransition appear in={this.state.animate} timeout={200} key="dashboardIn" classNames="my-node">
+                <CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node">
                 <IonPage className="dashboardPage">
                 <IonContent fullscreen={true}  className="dashboardContent subPage">
 
@@ -119,6 +126,7 @@ MENU POPOVER
 
                 <div className="dashboardMainWrapper">
 
+               
                 <div className="dashboardMainContainer">
                 {/*
 QUICK INSIGHTS
@@ -126,31 +134,50 @@ QUICK INSIGHTS
 
                 <QuickInsights campaignId={this.props.match.params.campaign}/>
 
+                </div>
+
+                <div className="dashboardMainContainer">
+
                 {/*
 ENTRIES CARD
 */}
                 <Link to={`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}/entriesDetail`} style={{width:"fit-content"}}>
-                <Card
+                <ButtonCard
                 title="Entries"
                 subtitle="view all"
                 icon={arrowForwardOutline}
                 button={true}
                 />
                 </Link>
-                </div>
+
 
                 {/*
 EDIT CAMPAIGN CARD
 */}
-                <div className="dashboardMainContainer">
                 <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob2"></img>
                 <ButtonCard
-                subtitle="my campaign"
+                title="Campaign"
+                subtitle="edit"
                 icon={arrowForwardOutline}
                 button={true}
-                parentCallback = {this.callbackFunction}
+                parentCallback = {this.callbackFunctionEditCampaignModal}
                 />
+                {/*
+SHOW QR CARD
+*/}
+                <ButtonCard
+                subtitle="view QR"
+                icon={arrowForwardOutline}
+                title={<IonIcon icon={qrCodeOutline}/>}
+                button={true}
+                parentCallback = {this.callbackFunctionQRModal}
+                />
+
                 </div>
+
+
+
+
 
                 </div>
 
@@ -159,11 +186,26 @@ EDIT CAMPAIGN MODAL
 */}
                 <EditCampaignModal
                 showEditCampaignModal={this.state.showEditCampaignModal}
-                parentCallback = {this.callbackFunction}
+                parentCallback = {this.callbackFunctionEditCampaignModal}
                 clientId={this.props.match.params.client}
                 campaignId={this.props.match.params.campaign}
                 history={this.props.history}
                 />
+
+                {/*
+SHOW QR MODAL
+*/}
+                <ShowQRModal
+                showQRModal={this.state.showQRModal}
+                parentCallback = {this.callbackFunctionQRModal}
+                clientId={this.props.match.params.client}
+                campaignId={this.props.match.params.campaign}
+                history={this.props.history}
+                />
+
+
+
+
 
 
                 <IonFab horizontal="end" vertical="bottom" slot="fixed" mode="ios">
@@ -174,7 +216,8 @@ EDIT CAMPAIGN MODAL
                 <IonFabList side="top">
 
                 <IonFabButton color="primary"
-                onClick={() => {this.props.history.push('/login')}} >
+                onClick={() => { this.setState({showLogOutAlert: !this.state.showLogOutAlert})
+                }}>
                 <IonIcon icon={exitOutline}></IonIcon>
                 </IonFabButton>
 
@@ -191,6 +234,35 @@ EDIT CAMPAIGN MODAL
                 </IonFabList>
                 </IonFab>
 
+                {/*
+LOGOUT ALERT 
+*/}
+                <IonAlert
+                isOpen={this.state.showLogOutAlert}
+                onDidDismiss={() => this.setState({
+                    showLogOutAlert: !this.state.showLogOutAlert,
+                }) }
+                cssClass='my-custom-class'
+                header={'Log out'}
+                message={'Are you sure you want to log out?'}
+                buttons={[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: blah => {
+
+                        }
+                    },
+                    {
+                        text: 'Logout',
+                        cssClass: 'alertLogoutButton',
+                        handler: () => {
+                            localStorage.removeItem('token')
+							window.location.reload();
+                        }
+                    }
+                ]}
+                />
 
 
 
@@ -201,6 +273,8 @@ EDIT CAMPAIGN MODAL
                 <img src="https://tyotyodata.imfast.io/color-hash.svg" alt="penis" className="blurred blob3"></img>
                 */}
                 </IonContent>
+
+
 
                 </IonPage>
                 </CSSTransition>

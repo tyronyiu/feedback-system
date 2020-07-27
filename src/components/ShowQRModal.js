@@ -31,11 +31,10 @@ class ShowQRModal extends React.Component {
             cssClass='editCampaignModal'
             swipeToClose={true}
             >
-            <IonContent fullscreen={true}>
 
             <IonButton
             fill="clear"
-            style={{float: "right"}}
+            style={{marginLeft: "auto", width: "fit-content"}}
             onClick={ () => {
                 this.setState({
                     showQRModal: false
@@ -50,7 +49,7 @@ class ShowQRModal extends React.Component {
             <IonListHeader mode="ios" style={{alignItems: "center"}}>
             Campaign QR Code
             </IonListHeader>
-            
+            </IonList>
 
 
 
@@ -64,8 +63,6 @@ fgColor="var(--ion-color-dark)"
                 />
     </div>
 
-            </IonList>
-            </IonContent>
             </IonModal>
         );
 }
