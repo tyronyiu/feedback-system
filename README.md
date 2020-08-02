@@ -1,68 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Feedback System - Frontend
 
-## Available Scripts
+This is the front-end code for the soon to be launched *Ager* *"Feedback System"*.
 
-In the project directory, you can run:
+## Getting Started
 
-### `yarn start`
+There isn't really anything general here, but you can check out how we do data
+fetching using react hooks or how the way we interface with Apollo.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can have a look around in the way we structure our front end projects and at
+the mess that our work leaves.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
+### Installing
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before running locally on a machine, hope that our API servers are running.
+If this website [Official Website](https://feedback.agerspace.com) is online,
+our servers are running.
 
-### `yarn build`
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Should install all necessary npm modules, then you can either run locally or
+deploy. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Running tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Due to React strict mode interference, there can be no unused imports in the
+project, make sure that doesn't happen. 
 
-### `yarn eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This front-end is currently deployed via *"netlify"*
+We deploy our front-ends either ourselves or use amazing services like
+*"vercel"* or *"netlify"*, depending on purpose.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Built With
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* [ReactJs](http://www.reactjs.org) - The js framework used
+* [IonicFramework](http://ionicframework.com/) - Native feel and capabilities for
+  mobile devices
+* [Graphql](https://graphql.org) - API Query Language 
+* [Apollo](https://github.com/apollographql/apollo-server) - API Server
+* [Express](https://github.com/expressjs/express) - NodeJs middleware
+* [MongoDB](http://mongodb.com/) - Database Server
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Authors
 
-## Learn More
+* **Ty Yiu** - *Initial work* 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-### Code Splitting
+## Acknowledgments
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Hat tip to anyone whose code was used
