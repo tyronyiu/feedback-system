@@ -4,7 +4,6 @@ import {
     IonListHeader,
     IonButton,
     IonModal,
-    IonContent,
     IonIcon,
 } from '@ionic/react';
 import {  closeCircleOutline } from 'ionicons/icons';   
