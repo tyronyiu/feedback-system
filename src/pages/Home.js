@@ -296,23 +296,23 @@ content={
     Predictive decision making processes rely on historical data, which is why
     monitoring interactions with your firm is an essential part for XM.
     </div>
-    <IonList >
+    <IonList style={{"--ion-background-color":"none"}}>
     <IonItem lines="none">
     </IonItem>
 
-    <IonItem style={{"--background":"unset"}} lines="none">
+    <IonItem lines="none">
     <IonLabel style={{textAlign: "center"}}>
     Customer Experience (CX)
     </IonLabel>
     </IonItem>
 
-    <IonItem style={{"--background":"unset"}} lines="none">
+    <IonItem lines="none">
     <IonLabel style={{textAlign: "center"}}>
     Employee Experience (EX)
     </IonLabel>
     </IonItem>
 
-    <IonItem style={{"--background":"unset"}} lines="none">
+    <IonItem lines="none">
     <IonLabel style={{textAlign: "center"}}>
     Brand Experience (BX)
     </IonLabel>

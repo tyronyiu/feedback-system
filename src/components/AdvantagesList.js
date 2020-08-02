@@ -12,7 +12,7 @@ class AdvantagesList extends React.Component {
   render() { 
     return(
         <>
-			<IonList>
+			<IonList style={{"--ion-background-color":"none"}}>
 			{/*
 			ECO FRIENDLY
 			*/}
