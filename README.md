@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/75d44af8-bab1-4d67-868c-7cfc5fa78013/deploy-status)](https://app.netlify.com/sites/wizardly-mccarthy-81803b/deploys)
+
 # Feedback System - Frontend
 
 This is the front-end code for the soon to be launched *Ager* *"Feedback System"*.
