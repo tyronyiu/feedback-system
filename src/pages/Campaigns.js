@@ -9,8 +9,9 @@ IonTitle,
 IonButton,
 IonButtons,
 IonIcon,
+IonModal,
 } from '@ionic/react';
-import { chevronBackOutline} from 'ionicons/icons';   
+import { chevronBackOutline, addCircleOutline } from 'ionicons/icons';   
 import {
  Link
 } from "react-router-dom";
@@ -19,11 +20,22 @@ import jwt_decode from 'jwt-decode';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import ButtonCard from '../components/ButtonCard';
+import { useMutation } from '@apollo/react-hooks';
 
 
    const campaignsByClientId= gql`
         query getCampaigns($clientId: ID!){
         campaignsByClientId(clientId: $clientId){
+        name
+        prompt
+        _id
+        }
+        }
+    `
+
+   const AddCampaignByClientId= gql`
+        query addCampaignByClientId($clientId: ID!){
+        addCampaignByClientId(clientId: $clientId){
         name
         prompt
         _id
@@ -49,9 +61,12 @@ function CampaignsList({clientId}){
         </div>
     )}
     </>)
-    
 }
 
+function AddCampaign({clientId}){
+    const [addCampaignByClientId] = useMutation(AddCampaignByClientId);
+
+}
 
 
 
@@ -60,6 +75,7 @@ class Campaigns extends React.Component {
         super();
         this.state = {
             animate: true,
+            showAddModal: false,
         }
     }
 
@@ -93,6 +109,12 @@ if (localStorage.getItem('token')){
             </IonButton>
             </IonButtons>
 
+<IonButtons slot="end">
+            <IonButton onClick={() =>{this.setState({showAddModal: !this.state.showAddModal})}} slot="end">
+            <IonIcon slot="end" icon={addCircleOutline}/>
+            </IonButton>
+
+            </IonButtons>
 <IonTitle size="large" style={{marginLeft:"1em"}}>
             My Campaigns
             </IonTitle>
@@ -102,6 +124,13 @@ if (localStorage.getItem('token')){
 
             <CampaignsList clientId={this.props.match.params.client}/>
 
+            <IonModal
+            isOpen={this.state.showAddModal}
+            cssClass='editCampaignModal'
+            swipeToClose={true}
+            >
+
+    </IonModal>
       
 			</IonContent>
 			</IonPage>
