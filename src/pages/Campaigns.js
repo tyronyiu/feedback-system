@@ -33,15 +33,15 @@ import { useMutation } from '@apollo/react-hooks';
         }
     `
 
-   const AddCampaignByClientId= gql`
-        query addCampaignByClientId($clientId: ID!){
-        addCampaignByClientId(clientId: $clientId){
-        name
-        prompt
-        _id
-        }
-        }
-    `
+//   const AddCampaignByClientId= gql`
+//        query addCampaignByClientId($clientId: ID!){
+//        addCampaignByClientId(clientId: $clientId){
+//        name
+//        prompt
+//        _id
+//        }
+//        }
+//    `
 
 function CampaignsList({clientId}){
     const { loading, error, data } = useQuery(campaignsByClientId,{
@@ -63,10 +63,10 @@ function CampaignsList({clientId}){
     </>)
 }
 
-function AddCampaign({clientId}){
-    const [addCampaignByClientId] = useMutation(AddCampaignByClientId);
-
-}
+//function AddCampaign({clientId}){
+//    const [addCampaignByClientId] = useMutation(AddCampaignByClientId);
+//
+//}
 
 
 
