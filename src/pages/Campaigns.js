@@ -38,7 +38,7 @@ const campaignsByClientId= gql`
     `
 
 const AddCampaignByClientId= gql`
-        query addCampaignByClientId($clientId: ID!, campaignName: String!){
+        query addCampaignByClientId($clientId: ID!, $campaignName: String!){
         addCampaignByClientId(clientId: $clientId, campaignName: $campaignName){
         name
         prompt
