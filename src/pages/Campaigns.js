@@ -14,18 +14,26 @@ import {
     IonItem,
     IonLabel,
     IonInput,
+    IonListHeader,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
 } from '@ionic/react';
-import { chevronBackOutline, addCircleOutline } from 'ionicons/icons';   
-import {
-    Link
-} from "react-router-dom";
+import { 
+    chevronBackOutline, 
+    addCircleOutline, 
+   // trashOutline,
+} from 'ionicons/icons';   
+//import {
+//    Link
+//} from "react-router-dom";
 import {CSSTransition} from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import ButtonCard from '../components/ButtonCard';
+//import ButtonCard from '../components/ButtonCard';
 import { useMutation } from '@apollo/react-hooks';
-
+import { useHistory } from 'react-router-dom';
 
 const campaignsByClientId= gql`
         query getCampaigns($clientId: ID!){
@@ -38,7 +46,7 @@ const campaignsByClientId= gql`
     `
 
 const AddCampaignByClientId= gql`
-        query addCampaignByClientId($clientId: ID!, $campaignName: String!){
+        mutation addCampaignByClientId($clientId: ID!, $campaignName: String!){
         addCampaignByClientId(clientId: $clientId, campaignName: $campaignName){
         name
         prompt
@@ -48,6 +56,7 @@ const AddCampaignByClientId= gql`
     `
 
 function CampaignsList({clientId}){
+    const history = useHistory();
     const { loading, error, data } = useQuery(campaignsByClientId,{
         variables: {clientId}
     });
@@ -56,13 +65,29 @@ function CampaignsList({clientId}){
         console.log("data: ",data)
         return (<>
             {data.campaignsByClientId.map((data) =>
-                <div style={{width: "fit-content"}} key={data._id}>
-                <Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
-                <ButtonCard title={data.name} 
-                subtitle={data.prompt}
-                />
-                </Link>
-                </div>
+                //<div style={{width: "fit-content"}} key={data._id}>
+                //<Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
+                <IonItemSliding>
+                <IonItem button onClick={() =>{history.push(`/id/${clientId}/dashboard/${data._id}/in`)}}>
+                <IonLabel>
+                <h2>
+                {data.name}
+                </h2>
+                <p>
+                {data.prompt}
+                </p>
+                </IonLabel>
+                </IonItem>
+
+                <IonItemOptions side="end">
+                <IonItemOption color="danger" expandable>
+                Delete
+                </IonItemOption>
+                </IonItemOptions>
+
+                </IonItemSliding>
+                //</Link>
+                //</div>
             )}
             </>)
 }
@@ -73,6 +98,12 @@ function AddCampaign({clientId}){
     let campaignName;
     return(
         <IonList>
+				<IonListHeader>
+        <IonTitle style={{paddingLeft: "0"}}>
+        New Campaign
+        </IonTitle>
+				</IonListHeader>
+
         <form onSubmit={(e) =>{
             e.preventDefault();
             addCampaignByClientId({ 
@@ -85,12 +116,12 @@ function AddCampaign({clientId}){
 
         <IonItem>
         <IonLabel position="floating">
-        Your business name:
+        name:
         </IonLabel>
         <IonInput 
-        name="organisationName"
+        name="campaignName"
         type="text"
-        inputmode="organization-title"
+        inputmode="text"
         autocomplete="text"
         autofocus={true}
         required={true}
@@ -100,6 +131,13 @@ function AddCampaign({clientId}){
         }}
         />
         </IonItem>
+        <IonItem lines="none">
+        <IonButton size="default" type="submit" mode="ios">
+        Create campaign
+                <IonIcon slot="end" icon={addCircleOutline}/>
+        </IonButton>
+        </IonItem>
+
         </form>
         </IonList>
     )
@@ -147,6 +185,12 @@ class Campaigns extends React.Component {
             </IonButtons>
 
             <IonButtons slot="end">
+            {/*
+            <IonButton onClick={() =>{this.setState({showAddModal: !this.state.showAddModal})}} slot="end">
+            <IonIcon slot="end" icon={trashOutline}/>
+            </IonButton>
+            */}
+
             <IonButton onClick={() =>{this.setState({showAddModal: !this.state.showAddModal})}} slot="end">
             <IonIcon slot="end" icon={addCircleOutline}/>
             </IonButton>
@@ -159,7 +203,9 @@ class Campaigns extends React.Component {
             </IonHeader>
 
 
-            <CampaignsList clientId={this.props.match.params.client}/>
+            <IonList inset={true}>
+            <CampaignsList clientId={this.props.match.params.client} history={this.props.history}/>
+            </IonList>
 
             <IonModal
             isOpen={this.state.showAddModal}

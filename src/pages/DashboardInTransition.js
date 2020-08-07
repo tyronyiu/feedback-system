@@ -93,7 +93,7 @@ class DashboardInTransition extends React.Component {
     render(){
         if (localStorage.getItem('token')) {
             return (
-                <CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node">
+                <CSSTransition appear in={this.state.animate} timeout={200} key="home" classNames="my-node-back">
                 <IonPage className="dashboardPage">
                 <IonContent fullscreen={true}  className="dashboardContent subPage">
 

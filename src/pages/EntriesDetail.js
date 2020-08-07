@@ -79,7 +79,6 @@ function EntriesCards({campaignId}){
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 		console.log("data: ",data)
-console.log(data)
 		return (
 			data.entriesByCampaignId.map((entry, key) => (
 				<div key={key}>
