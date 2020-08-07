@@ -40,7 +40,7 @@ function CampaignsList({clientId}){
         console.log("data: ",data)
     return (<>
         {data.campaignsByClientId.map((data) =>
-        <div key={data._id}>
+        <div style={{width: "fit-content"}} key={data._id}>
             <Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
         <ButtonCard title={data.name} 
            subtitle={data.prompt}
