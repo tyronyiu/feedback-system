@@ -59,6 +59,7 @@ import jwt_decode from 'jwt-decode';
             time
             score
             comment
+            _id
         }
     }
 `
@@ -66,7 +67,7 @@ import jwt_decode from 'jwt-decode';
    const RemoveEntryByCampaignId = gql`
     mutation removeEntry($entryId: ID!, $campaignId: ID!){
         removeEntryByCampaignId(entryId: $entryId, campaignId: $campaignId){
-        String
+        _id
         }
     }
 ` 
@@ -82,24 +83,17 @@ function CampaignName({campaignId}){
     return data.campaignByCampaignId.name
 }
 
-function RemoveEntry({entryId, campaignId}){
+  
+function EntriesCards({campaignId}){
+    var entryId
     const [removeEntryByCampaignId] = useMutation(RemoveEntryByCampaignId, {
         variables: {
             entryId,
             campaignId
         }
     });
-            removeEntryByCampaignId({ 
-                variables: { 
-                    entryId: entryId,
-                    campaignId: campaignId
-                }
-            })
 
-}
-  
-function EntriesCards({campaignId}){
-	const { loading, error, data } = useQuery(EntriesByCampaignId,{
+	const { loading, error, data, refetch } = useQuery(EntriesByCampaignId,{
 		variables: {campaignId},
 	});
 	if (loading) return <p>Loading...</p>;
@@ -108,12 +102,9 @@ function EntriesCards({campaignId}){
 		return (
 			data.entriesByCampaignId.map((entry, key) => (
 				<div key={key}>
-				<IonListHeader style={{paddingLeft: "0"}}>
-				{moment(entry.time).format('HH:mm - D MMMM YYYY')}
-				</IonListHeader>
 
-                <IonItemSliding>
-				<IonItem button onClick={() =>{RemoveEntry(entry._id, campaignId)}}>
+                <IonItemSliding id={entry._id}>
+				<IonItem>
 				<IonText color="gray" slot="start">
 				<div className="circle-underlay">
 				<p className="circle-overlay-p">
@@ -123,6 +114,12 @@ function EntriesCards({campaignId}){
 				</IonText>
 
 				<IonLabel>
+				<p style={{fontSize: ".75rem"}}>
+				<IonText color="gray">
+				{moment(entry.time).format('HH:mm - D MMMM YYYY')}
+				</IonText>
+				</p>
+
 				<p style={{fontSize: ".75rem"}}>
 				<IonText color="gray">
 				Entry #{key+1}
@@ -150,7 +147,19 @@ function EntriesCards({campaignId}){
 				</IonItem>
 
                 <IonItemOptions side="end">
-                <IonItemOption color="danger" expandable>
+                <IonItemOption color="danger" expandable
+                onClick={() => {
+               const slidingitem = document.getElementById(entry._id) 
+                    slidingitem.close()
+
+            removeEntryByCampaignId({ 
+                variables: { 
+                    entryId: entry._id,
+                    campaignId: campaignId
+                }
+            })
+		    refetch()
+                }}>
                 Delete
                 </IonItemOption>
                 </IonItemOptions>
