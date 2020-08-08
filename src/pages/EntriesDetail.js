@@ -9,6 +9,9 @@ IonPage,
 IonTitle,
 IonToolbar,
 IonList,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
 IonItem,
 IonLabel,
 IonListHeader,
@@ -27,6 +30,7 @@ IonButtons,
 import { chevronBackOutline, } from 'ionicons/icons';   
 import {CSSTransition} from 'react-transition-group';
 import { useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 //import Cookies from 'js-cookie'
 import {
@@ -59,6 +63,13 @@ import jwt_decode from 'jwt-decode';
     }
 `
 
+   const RemoveEntryByCampaignId = gql`
+    mutation removeEntry($entryId: ID!, $campaignId: ID!){
+        removeEntryByCampaignId(entryId: $entryId, campaignId: $campaignId){
+        String
+        }
+    }
+` 
 
 
 function CampaignName({campaignId}){
@@ -71,6 +82,21 @@ function CampaignName({campaignId}){
     return data.campaignByCampaignId.name
 }
 
+function RemoveEntry({entryId, campaignId}){
+    const [removeEntryByCampaignId] = useMutation(RemoveEntryByCampaignId, {
+        variables: {
+            entryId,
+            campaignId
+        }
+    });
+            removeEntryByCampaignId({ 
+                variables: { 
+                    entryId: entryId,
+                    campaignId: campaignId
+                }
+            })
+
+}
   
 function EntriesCards({campaignId}){
 	const { loading, error, data } = useQuery(EntriesByCampaignId,{
@@ -86,7 +112,8 @@ function EntriesCards({campaignId}){
 				{moment(entry.time).format('HH:mm - D MMMM YYYY')}
 				</IonListHeader>
 
-				<IonItem>
+                <IonItemSliding>
+				<IonItem button onClick={() =>{RemoveEntry(data.entry._id, campaignId)}}>
 				<IonText color="gray" slot="start">
 				<div className="circle-underlay">
 				<p className="circle-overlay-p">
@@ -121,6 +148,14 @@ function EntriesCards({campaignId}){
 				}
 				</IonLabel>
 				</IonItem>
+
+                <IonItemOptions side="end">
+                <IonItemOption color="danger" expandable>
+                Delete
+                </IonItemOption>
+                </IonItemOptions>
+
+                </IonItemSliding>
 				</div>
 			))
 		)
