@@ -113,7 +113,7 @@ function EntriesCards({campaignId}){
 				</IonListHeader>
 
                 <IonItemSliding>
-				<IonItem button onClick={() =>{RemoveEntry(data.entry._id, campaignId)}}>
+				<IonItem button onClick={() =>{RemoveEntry(entry._id, campaignId)}}>
 				<IonText color="gray" slot="start">
 				<div className="circle-underlay">
 				<p className="circle-overlay-p">
