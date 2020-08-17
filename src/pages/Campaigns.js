@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import './Login.css';
 import {
     IonPage,
@@ -55,9 +55,36 @@ const AddCampaignByClientId= gql`
         }
     `
 
+   const RemoveCampaign= gql`
+    mutation removeCampaign($clientId: ID!, $campaignId: ID!){
+        removeCampaign(clientId: $clientId, campaignId: $campaignId){
+        _id
+        }
+    }
+` 
+
+
 function CampaignsList({clientId}){
     const history = useHistory();
-    const { loading, error, data } = useQuery(campaignsByClientId,{
+    const [showAddModal, toggleShowAddModal] = useState(false);
+
+    var campaignId
+    const [removeCampaign] = useMutation(RemoveCampaign, {
+        variables: {
+            clientId,
+            campaignId
+        }
+    });
+
+    const [addCampaignByClientId] = useMutation(AddCampaignByClientId);
+
+    let campaignName;
+
+                //<div style={{width: "fit-content"}} key={data._id}>
+                //<Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
+                //</Link>
+                //</div>
+    const { loading, error, data, refetch } = useQuery(campaignsByClientId,{
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
@@ -65,9 +92,9 @@ function CampaignsList({clientId}){
         console.log("data: ",data)
         return (<>
             {data.campaignsByClientId.map((data) =>
-                //<div style={{width: "fit-content"}} key={data._id}>
-                //<Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
-                <IonItemSliding>
+                <>
+                
+                <IonItemSliding id={data._id}>
                 <IonItem button onClick={() =>{history.push(`/id/${clientId}/dashboard/${data._id}/in`)}}>
                 <IonLabel>
                 <h2>
@@ -80,15 +107,88 @@ function CampaignsList({clientId}){
                 </IonItem>
 
                 <IonItemOptions side="end">
-                <IonItemOption color="danger" expandable>
+                <IonItemOption color="danger" expandable
+                onClick={(e) => {
+                    e.preventDefault()
+               const slidingitem = document.getElementById(data._id) 
+                    slidingitem.close()
+
+            removeCampaign({ 
+                variables: { 
+                    clientId: clientId,
+                    campaignId: data._id
+                }
+            })
+		    refetch()
+                
+
+                }}
+                >
                 Delete
                 </IonItemOption>
                 </IonItemOptions>
 
                 </IonItemSliding>
-                //</Link>
-                //</div>
+</>
             )}
+
+            <IonItem>
+<IonButton onClick={() =>{toggleShowAddModal(!showAddModal);}}>
+            <IonIcon icon={addCircleOutline}/>
+</IonButton>
+            </IonItem>
+
+            <IonModal
+            isOpen={showAddModal}
+            cssClass='editCampaignModal'
+            swipeToClose={true}
+            onDidDismiss={() => {toggleShowAddModal(!showAddModal)}}
+            >
+        <IonList>
+				<IonListHeader>
+        <IonTitle style={{paddingLeft: "0"}}>
+        New Campaign
+        </IonTitle>
+				</IonListHeader>
+
+        <form onSubmit={(e) =>{
+            //e.preventDefault();
+            addCampaignByClientId({ 
+                variables: { 
+                    clientId: clientId,
+                    campaignName: campaignName.value
+                }
+            })
+            refetch()
+        }}>
+
+        <IonItem>
+        <IonLabel position="floating">
+        name:
+        </IonLabel>
+        <IonInput 
+        name="campaignName"
+        type="text"
+        inputmode="text"
+        autocomplete="text"
+        autofocus={true}
+        required={true}
+        clearInput={true}
+        ref={node => {
+            campaignName = node;
+        }}
+        />
+        </IonItem>
+        <IonItem lines="none">
+        <IonButton size="default" type="submit" mode="ios">
+        Create campaign
+                <IonIcon slot="end" icon={addCircleOutline}/>
+        </IonButton>
+        </IonItem>
+
+        </form>
+        </IonList>
+            </IonModal>
             </>)
 }
 
@@ -105,7 +205,7 @@ function AddCampaign({clientId}){
 				</IonListHeader>
 
         <form onSubmit={(e) =>{
-            e.preventDefault();
+            //e.preventDefault();
             addCampaignByClientId({ 
                 variables: { 
                     clientId: clientId,
@@ -191,9 +291,11 @@ class Campaigns extends React.Component {
             </IonButton>
             */}
 
+            {/*
             <IonButton onClick={() =>{this.setState({showAddModal: !this.state.showAddModal})}} slot="end">
             <IonIcon slot="end" icon={addCircleOutline}/>
             </IonButton>
+            */}
 
             </IonButtons>
             <IonTitle size="large" style={{marginLeft:"1em"}}>
@@ -207,13 +309,6 @@ class Campaigns extends React.Component {
             <CampaignsList clientId={this.props.match.params.client} history={this.props.history}/>
             </IonList>
 
-            <IonModal
-            isOpen={this.state.showAddModal}
-            cssClass='editCampaignModal'
-            swipeToClose={true}
-            >
-            <AddCampaign clientId={this.props.match.params.client}/>
-            </IonModal>
 
             </IonContent>
             </IonPage>

@@ -55,9 +55,25 @@ const AddCampaignByClientId= gql`
         }
     `
 
+   const RemoveCampaign= gql`
+    mutation removeCampaign($clientId: ID!, $campaignId: ID!){
+        removeCampaign(clientId: $clientId, campaignId: $campaignId){
+        _id
+        }
+    }
+` 
+
 function CampaignsList({clientId}){
     const history = useHistory();
-    const { loading, error, data } = useQuery(campaignsByClientId,{
+    var campaignId
+    const [removeCampaign] = useMutation(RemoveCampaign, {
+        variables: {
+            clientId,
+            campaignId
+        }
+    });
+
+    const { loading, error, data, refetch } = useQuery(campaignsByClientId,{
         variables: {clientId}
     });
     if (loading) return <p>Loading...</p>;
@@ -67,7 +83,7 @@ function CampaignsList({clientId}){
             {data.campaignsByClientId.map((data) =>
                 //<div style={{width: "fit-content"}} key={data._id}>
                 //<Link to={`/id/${clientId}/dashboard/${data._id}/in`}>
-                <IonItemSliding>
+                <IonItemSliding id={data._id}>
                 <IonItem button onClick={() =>{history.push(`/id/${clientId}/dashboard/${data._id}/in`)}}>
                 <IonLabel>
                 <h2>
@@ -80,7 +96,22 @@ function CampaignsList({clientId}){
                 </IonItem>
 
                 <IonItemOptions side="end">
-                <IonItemOption color="danger" expandable>
+                <IonItemOption color="danger" expandable
+                onClick={() => {
+               const slidingitem = document.getElementById(data._id) 
+                    slidingitem.close()
+
+            removeCampaign({ 
+                variables: { 
+                    clientId: clientId,
+                    campaignId: data._id
+                }
+            })
+		    refetch()
+                
+
+                }}
+>
                 Delete
                 </IonItemOption>
                 </IonItemOptions>
@@ -179,7 +210,7 @@ class CampaignsSingle extends React.Component {
             <IonHeader collapse="condense" mode="ios">
             <IonToolbar style={{paddingTop: "1em"}}>
             <IonButtons slot="start">
-            <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push("/login"); }, 100) }} slot="start">
+            <IonButton onClick={() =>{this.setState({animate: false});setTimeout(()=>{ this.props.history.push(`/id/${this.props.match.params.client}/dashboard/${this.props.match.params.campaign}`); }, 100) }} slot="start">
             <IonIcon slot="start" icon={chevronBackOutline}/>
             </IonButton>
             </IonButtons>
